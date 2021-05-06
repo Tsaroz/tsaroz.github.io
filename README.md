@@ -1,6 +1,7 @@
 ## Join these microwallets to claim earnings from faucet
 
-FaucetPay ExpressCrypto
+ <form action="https://faucetpay.com/" method="get" target="_blank"><button type="submit">FaucetPay</button></form>
+ FaucetPay ExpressCrypto
 
 ### Markdown
 

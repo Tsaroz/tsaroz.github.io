@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  padding: 0;
+  font: 100%/1.5 "Noto Sans JP", sans-serif;
+  background: lavender;
+}
+/*Navbar*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #731975;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  
+}
+
+li a:hover:not(.active) {
+  background-color: #151515;
+}
+
+.active {
+  background-color: #008080;
+}
+/* Layout Code */
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+   border-radius: 25px;
+
+}
+.header {
+margin: 5% 0 0 0;
+  display: flex;
+  height: 80px;
+  padding: 1px 30% 1px 30%;
+  align-items: center;
+  background: #96DED1;
+ 
+}
+.content {
+  flex: 1;
+  display: flex;
+}
+.main {
+  flex: 1;
+  padding: 0 20px;
+  background: snow;
+}
+.aside {
+  flex: 1;
+  padding: 0 20px;
+  background: #ECFFDC;
+}
+.footer {
+margin: 0 0 5% 0;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  background: lightsteelblue;
+}
+
+/* Content Code */
+.header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+}
+.main h3,
+.main p,
+.aside p
+.aside,
+.footer {
+  font-size: 0.875rem;
+}
+.myButton {
+	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	background-color:#768d87;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}

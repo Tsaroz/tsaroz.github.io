@@ -61,7 +61,7 @@ li a:hover:not(.active) {
 .aside {
   width: 260px;
   padding: 0 20px;
-  background: papayawhip;
+  background: #ECFFDC;
 }
 .footer {
   display: flex;
@@ -76,11 +76,15 @@ li a:hover:not(.active) {
   margin: 0;
   font-size: 1.75rem;
   text-transform: uppercase;
+  align-items: center;
+  background: #96DED1;
+
 }
 .main h2,
 .aside h3 {
   font-size: 1.5rem;
   margin: 1.5rem 0;
+
 }
 .main p,
 .aside p {

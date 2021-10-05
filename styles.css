@@ -4,6 +4,35 @@ body {
   font: 100%/1.5 "Noto Sans JP", sans-serif;
   background: lavender;
 }
+/*Navbar*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #731975;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  
+}
+
+li a:hover:not(.active) {
+  background-color: #151515;
+}
+
+.active {
+  background-color: #008080;
+}
 /* Layout Code */
 .container {
   margin: 0 auto;

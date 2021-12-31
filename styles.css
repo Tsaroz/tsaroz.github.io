@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Arimo:400,700&display=swap');
 body{
-  background:#CDDC39;
+  background-color: #4158D0;
+background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
   font-family: 'Arimo', sans-serif;
 }
 h2{

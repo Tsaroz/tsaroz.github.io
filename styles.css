@@ -23,7 +23,7 @@ h1{
 .tab{
   cursor: pointer;
   width:180px;
-  padding:1px 1px;
+  padding:5px 5px;
   margin:0px 2px;
   background:#000;
   display:inline-block;

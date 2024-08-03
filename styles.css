@@ -25,15 +25,15 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 
 header h2 {
     margin: 10px 0 0;
-    font-size: 24px;
+    font-size: 1.5rem;
     background-color: #f50d79;
-    padding: 12px;
+    padding: 10px;
     border-radius: 8px;
     font-weight: 400;
 }
@@ -61,7 +61,7 @@ nav li {
     color: #ffffff;
     border: none;
     padding: 12px 24px;
-    font-size: 18px;
+    font-size: 1rem;
     cursor: pointer;
     border-radius: 24px;
     transition: background 0.3s, transform 0.2s;
@@ -95,8 +95,8 @@ nav li {
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     overflow: hidden;
-    min-width: 350px; /* Increased minimum width */
-    width: calc(20% - 20px);
+    min-width: 300px; /* Reduced minimum width for better responsiveness */
+    width: calc(25% - 20px);
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -104,13 +104,13 @@ nav li {
     box-sizing: border-box;
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (max-width: 1200px) {
     .card {
         width: calc(33.33% - 20px);
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .card {
         width: calc(50% - 20px);
     }
@@ -148,35 +148,35 @@ nav li {
 
 .card-header h2 {
     margin: 0;
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .card-content {
-    padding: 20px;
-    flex-grow: 1; /* Allow content to grow and push the button down */
+    padding: 15px;
+    flex-grow: 1;
     text-align: justify;
     box-sizing: border-box;
 }
 
-.card-content p {
+.card-content li {
     margin: 0;
-    font-size: 16px;
+    font-size: 0.875rem;
     color: #333;
 }
 
 .card-button {
-    display: block; /* Make the link a block element */
+    display: block;
     background-color: #00796b;
     color: #fff;
     border: none;
     padding: 12px;
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
     cursor: pointer;
     border-radius: 0 0 12px 12px;
     transition: background-color 0.3s, transform 0.2s;
     width: 100%;
-    text-decoration: none; /* Remove underline from link */
+    text-decoration: none;
 }
 
 .card-button:hover {
@@ -196,25 +196,44 @@ nav li {
 
 /* Footer styles */
 footer {
-    background-color: #004d40;
-    color: #fff;
-    text-align: center;
+    background-color: #f8f9fa;
     padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
+    text-align: center;
 }
 
-.footer-items {
+.footer-content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.footer-item {
-    flex: 1 1 calc(25% - 20px); /* 4 items per row on large screens */
-    box-sizing: border-box;
+.ads {
+    margin-bottom: 10px;
 }
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
 
 @media (max-width: 1199px) {
     .footer-item {

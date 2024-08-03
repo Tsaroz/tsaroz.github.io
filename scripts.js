@@ -1,11 +1,20 @@
+// Function to show the specified tab and hide others
 function showTab(tabId) {
     const tabs = document.querySelectorAll('.tab-content');
+
+    // Use a loop to hide all tabs
     tabs.forEach(tab => {
-        tab.classList.remove('active'); // Hide all tabs
+        tab.classList.remove('active');
     });
-    document.getElementById(tabId).classList.add('active'); // Show the selected tab
+
+    // Show the selected tab
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) {
+        activeTab.classList.add('active');
+    }
 }
 
-window.onload = function() {
-    showTab('top-faucets'); // Show default tab
-};
+// Initialize the default tab when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    showTab('top-faucets');
+});

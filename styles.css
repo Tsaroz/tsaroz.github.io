@@ -1,48 +1,38 @@
-/* Global styles */
-html, body {
-    height: 100%;
-    margin: 0;
-    overflow-x: hidden;
-}
-
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #f4f9fd, #e9eff1);
 }
 
-/* Header styles */
 header {
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #00796b, #004d40);
+    background: linear-gradient(to right, #004d40, #00796b);
     color: #fff;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 1rem;
+    text-align: center;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    font-weight: 700;
+    margin: 0.5rem 0;
+    font-size: 1.8rem;
 }
 
-header h2 {
-    margin: 10px 0 0;
+h2 {
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: bolder;
+    color: wheat;
+    background: rgb(226, 86, 86);
+    padding: 0.25rem;
     font-size: 1.5rem;
-    background-color: #f50d79;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 400;
 }
 
-/* Navigation styles */
-nav {
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
+h3 {
+    text-align: center;
+    margin: 0.5rem 0;
+    font-weight: bolder;
+    padding: 0.25rem;
+    font-size: 1.2rem;
 }
 
 nav ul {
@@ -50,199 +40,152 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-}
-
-nav li {
-    margin: 0 8px;
-}
-
-.tab-button {
-    background: #004d40;
-    color: #ffffff;
-    border: none;
-    padding: 12px 24px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 24px;
-    transition: background 0.3s, transform 0.2s;
-    margin: 0 8px;
-}
-
-.tab-button:hover {
-    background: #003d33;
-    transform: scale(1.05);
-}
-
-/* Main content styles */
-.main-content {
-    flex-grow: 1;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Container styles */
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
 }
 
-/* Card styles */
-.card {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    min-width: 300px; /* Reduced minimum width for better responsiveness */
-    width: calc(25% - 20px);
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-sizing: border-box;
+nav ul li {
+    margin: 0 0.5rem; /* Adjusted for better spacing */
 }
 
-@media (max-width: 1200px) {
-    .card {
-        width: calc(33.33% - 20px);
-    }
-}
-
-@media (max-width: 768px) {
-    .card {
-        width: calc(50% - 20px);
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        width: calc(100% - 20px);
-    }
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    background: #004d40;
+nav ul li a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem; /* Increased padding for larger buttons */
     color: #fff;
-    padding: 10px;
-    border-bottom: 2px solid #00796b;
-    box-sizing: border-box;
-}
-
-.card-header img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    margin-right: 10px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-}
-
-.card-header h2 {
-    margin: 0;
-    font-size: 1.25rem;
-}
-
-.card-content {
-    padding: 15px;
-    flex-grow: 1;
-    text-align: justify;
-    box-sizing: border-box;
-}
-
-.card-content li {
-    margin: 0;
-    font-size: 0.875rem;
-    color: #333;
-}
-
-.card-button {
-    display: block;
-    background-color: #00796b;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    font-size: 1rem;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 0 0 12px 12px;
-    transition: background-color 0.3s, transform 0.2s;
-    width: 100%;
     text-decoration: none;
+    border-radius: 5px;
+    background-color: #020807; /* Inactive navigation button color */
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
 }
 
-.card-button:hover {
-    background-color: #004d40;
-    transform: scale(1.05);
+nav ul li a.active {
+    background-color: #f80b3e; /* Active navigation button color */
 }
 
-.tab-content {
-    display: none;
+nav ul li a:hover {
+    background-color: #00796b; /* Hover color for inactive buttons */
 }
 
-.tab-content.active {
+main {
+    padding: 0.5rem; /* Reduced padding for mobile */
+    text-align: center;
+}
+
+.list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    justify-content: center;
+    padding: 0.5rem; /* Reduced padding for mobile */
+    background: linear-gradient(to right, #ffffff, #f5f5f5);
+    border-radius: 8px;
+    margin: 0 auto;
 }
 
-/* Footer styles */
-footer {
-    background-color: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-}
-
-.footer-content {
+.item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0.5rem; /* Margin around items */
+    padding: 0.5rem; /* Padding inside items */
+    border: 2px solid #004d40; /* Darker and solid border for articles */
+    border-radius: 8px;
+    background: linear-gradient(to right, #f0faff, #e0f7fa); /* Light blue gradient background */
+    box-sizing: border-box;
+    flex: 0 1 calc(20% - 1rem); /* Ensure each item is 20% of the container width minus margins */
+    max-width: calc(20% - 1rem); /* Prevent items from growing too large */
+    position: relative; /* Needed for absolute positioning of button */
 }
 
-.ads {
-    margin-bottom: 10px;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px;
-}
-
-.footer-links a {
-    color: #007bff;
+.item .button {
+    margin-top: auto; /* Pushes the button to the bottom of the .item */
+    width: 80%;
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(to right, #159e08, #73e9a4);
+    color: #fff;
     text-decoration: none;
+    border-radius: 5px;
     font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.footer-links a:hover {
-    text-decoration: underline;
+.button:hover {
+    background: linear-gradient(to right, #6d7aeb, #669ae9);
 }
 
-p {
+
+.item-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.1rem; /* Space between image/title and description */
+}
+
+.item img {
+    width: 60px; /* Fixed small width for images */
+    height: auto;
+    max-height: 60px;
+    border-radius: 10%;
+    margin-right: 1rem; /* Space between image and title */
+}
+
+.item h3 {
     margin: 0;
-    font-size: 14px;
-    color: #6c757d;
+    flex: 1;
+    font-size: 1.2rem;
+    color: rgb(224, 3, 95);
+    text-align: left;
+}
+
+.item p {
+    margin: 0.5rem 0;
+    text-align: center;
 }
 
 
-@media (max-width: 1199px) {
-    .footer-item {
-        flex: 1 1 calc(50% - 20px); /* 2 items per row on medium screens */
+/* Navigation Button Styles */
+nav ul li a {
+    padding: 0.75rem 1.5rem; /* Increased padding for larger buttons */
+    font-size: 1.1rem; /* Larger font size */
+}
+
+/* Responsive styles */
+@media (max-width: 599px) {
+    .item {
+        flex: 1 1 calc(100% - 1rem); /* Full width on small screens */
+        margin: 0.5rem; /* Margin around items */
+        padding: 0.25rem; /* Reduced padding for mobile */
+    }
+
+    .list {
+        padding: 0.25rem; /* Reduced padding for mobile */
+    }
+
+    nav ul li {
+        margin: 0 0.25rem; /* Adjusted for mobile */
+    }
+
+    nav ul li a {
+        padding: 0.5rem 1rem; /* Adjusted padding for mobile */
     }
 }
 
-@media (max-width: 767px) {
-    .footer-item {
-        flex: 1 1 calc(100% - 20px); /* 1 item per row on small screens */
+@media (min-width: 600px) {
+    .item {
+        flex: 1 1 calc(50% - 1rem); /* Two items per row on medium screens */
     }
+}
+
+@media (min-width: 900px) {
+    .item {
+        flex: 0 1 calc(20% - 1rem); /* Five items per row on large screens */
+        max-width: calc(20% - 1rem); /* Ensure items fit exactly five per row */
+    }
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #004d40;
+    color: #fff;
 }

@@ -44,30 +44,30 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 0.5rem; /* Adjusted for better spacing */
+    margin: 0 0.5rem;
 }
 
 nav ul li a {
     display: inline-block;
-    padding: 0.75rem 1.5rem; /* Increased padding for larger buttons */
+    padding: 0.75rem 1.5rem;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    background-color: #020807; /* Inactive navigation button color */
+    background-color: #020807;
     font-size: 1.1rem;
     transition: background-color 0.3s ease;
 }
 
 nav ul li a.active {
-    background-color: #f80b3e; /* Active navigation button color */
+    background-color: #f80b3e;
 }
 
 nav ul li a:hover {
-    background-color: #00796b; /* Hover color for inactive buttons */
+    background-color: #00796b;
 }
 
 main {
-    padding: 0.5rem; /* Reduced padding for mobile */
+    padding: 1rem;
     text-align: center;
 }
 
@@ -75,7 +75,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0.5rem; /* Reduced padding for mobile */
+    padding: 1rem;
     background: linear-gradient(to right, #ffffff, #f5f5f5);
     border-radius: 8px;
     margin: 0 auto;
@@ -85,19 +85,17 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0.5rem; /* Margin around items */
-    padding: 0.5rem; /* Padding inside items */
-    border: 2px solid #004d40; /* Darker and solid border for articles */
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border: 2px solid #004d40;
     border-radius: 8px;
-    background: linear-gradient(to right, #f0faff, #e0f7fa); /* Light blue gradient background */
+    background: linear-gradient(to right, #f0faff, #e0f7fa);
     box-sizing: border-box;
-    flex: 0 1 calc(20% - 1rem); /* Ensure each item is 20% of the container width minus margins */
-    max-width: calc(20% - 1rem); /* Prevent items from growing too large */
-    position: relative; /* Needed for absolute positioning of button */
+    position: relative;
 }
 
 .item .button {
-    margin-top: auto; /* Pushes the button to the bottom of the .item */
+    margin-top: auto;
     width: 80%;
     padding: 0.5rem 1.5rem;
     background: linear-gradient(to right, #159e08, #73e9a4);
@@ -112,20 +110,19 @@ main {
     background: linear-gradient(to right, #6d7aeb, #669ae9);
 }
 
-
 .item-content {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 0.1rem; /* Space between image/title and description */
+    margin-bottom: 0.5rem;
 }
 
 .item img {
-    width: 60px; /* Fixed small width for images */
+    width: 60px;
     height: auto;
     max-height: 60px;
     border-radius: 10%;
-    margin-right: 1rem; /* Space between image and title */
+    margin-right: 1rem;
 }
 
 .item h3 {
@@ -141,23 +138,23 @@ main {
     text-align: center;
 }
 
-
-/* Navigation Button Styles */
-nav ul li a {
-    padding: 0.75rem 1.5rem; /* Increased padding for larger buttons */
-    font-size: 1.1rem; /* Larger font size */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #004d40;
+    color: #fff;
 }
 
 /* Responsive styles */
 @media (max-width: 599px) {
     .item {
         flex: 1 1 calc(100% - 1rem); /* Full width on small screens */
-        margin: 0.5rem; /* Margin around items */
-        padding: 0.25rem; /* Reduced padding for mobile */
+        margin: 0.5rem 0; /* Margin around items */
+        padding: 0.5rem; /* Padding inside items */
     }
 
     .list {
-        padding: 0.25rem; /* Reduced padding for mobile */
+        padding: 0.5rem; /* Padding for mobile */
     }
 
     nav ul li {
@@ -169,7 +166,7 @@ nav ul li a {
     }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 600px) and (max-width: 899px) {
     .item {
         flex: 1 1 calc(50% - 1rem); /* Two items per row on medium screens */
     }
@@ -177,15 +174,7 @@ nav ul li a {
 
 @media (min-width: 900px) {
     .item {
-        flex: 0 1 calc(20% - 1rem); /* Five items per row on large screens */
+        flex: 1 1 calc(20% - 1rem); /* Five items per row on large screens */
         max-width: calc(20% - 1rem); /* Ensure items fit exactly five per row */
     }
-}
-
-/* Footer Styles */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #004d40;
-    color: #fff;
 }

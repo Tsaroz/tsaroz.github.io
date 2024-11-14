@@ -1,0 +1,145 @@
+/* General Styling */
+body {
+    background: linear-gradient(to right, #b2f5ea, #00c6ff);
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+}
+
+h1 a {
+    text-decoration: none !important; /* Removes underline */
+    color: whitesmoke; /* Sets the link color */
+}
+
+h1 a:hover {
+    text-decoration: underline;
+}
+
+/* Header and Navbar Styling */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #004c4c;
+    color: #fff;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* Main Container Layout */
+.container {
+    display: flex;
+    max-width: 100%; /* Ensure it fits the viewport */
+    margin: auto;
+    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+/* Article Column */
+.article-column {
+    width: 74%; /* Updated width for article column */
+}
+
+.article-content {
+    background-color: #fff;
+    width: 100%; /* Make sure content fits the column */
+    padding: 20px 30px 20px 60px; /* Top, Right, Bottom, Left */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.article-content h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 0;
+}
+
+.article-content h3 {
+    font-size: 1.4rem;
+    color: #004c4c;
+    margin-bottom: 10px;
+}
+
+.article-content p {
+    font-size: 1.1rem;
+    color: #333;
+    text-align: justify; /* Justified text alignment */
+    line-height: 1.6;
+}
+
+/* Image Styling */
+.article-imagea {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.article-imageb {
+    width: 50%; /* Image width set to 100% */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Rounded corners */
+    display: block; /* Make it a block element for margin to work */
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 24%; /* Updated width for sidebar */
+    box-sizing: border-box;
+}
+
+.ad-placeholder, .new-articles-placeholder, .widget-placeholder {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add gap between placeholders */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px; /* Reduce padding for mobile */
+    }
+
+    .article-column,
+    .sidebar {
+        width: 100%; /* Full width for both columns on mobile */
+    }
+
+    .article-imageb {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .tags {
+        display: none; /* Hide tags on mobile */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Mobile-specific font size for paragraphs */
+    .article-content p {
+        font-size: 1rem; /* Adjust font size to 1rem on mobile */
+    }
+
+    /* Adjust padding for mobile */
+    .article-content {
+        padding: 10px 15px 19px 30px; /* Adjust padding for mobile */
+    }
+}

@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0fdf4, #e0f2fe, #f0fdf4);
+  color: #0f172a;
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Top Banner */
+.top-banner {
+  background: linear-gradient(90deg, #059669, #2563eb);
+  color: white;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.top-banner .cta-btn {
+  display: inline-block;
+  background: white;
+  color: #059669;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 0.75rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.top-banner .cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Main Container */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+header {
+  text-align: center;
+  margin: 1.5rem 0 2rem;
+}
+
+h1 a {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #059669, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+h1 a:hover {
+  transform: scale(1.02);
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: #475569;
+  max-width: 650px;
+  margin: 0.75rem auto 1.25rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Cards Grid */
+.faucet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+/* Card Styles */
+.faucet-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.faucet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.1);
+  border-color: #cbd5e1;
+}
+
+/* Card Header with Icon */
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.faucet-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.faucet-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.faucet-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* Bullet Points */
+.bullet-list {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 0.85rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.bullet-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bullet-list li {
+  color: #334155;
+  margin-bottom: 0.35rem;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.bullet-list li::before {
+  content: "•";
+  color: #059669;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-details {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.btn-details:hover {
+  background: #bfdbfe;
+  transform: translateY(-1px);
+}
+
+.btn-join {
+  background: #059669;
+  color: white;
+  border: 1px solid #059669;
+}
+
+.btn-join:hover {
+  background: #047857;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.2);
+}
+
+/* SEO Section */
+.seo-section {
+  background: linear-gradient(135deg, #f0fdf4, #e0f2fe);
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid #bae6fd;
+  margin: 2.5rem 0;
+}
+
+.seo-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+  color: #0f172a;
+  text-align: center;
+  background: linear-gradient(90deg, #059669, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.seo-section p {
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  color: #0f172a;
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.seo-section ul, .seo-section ol {
+  margin: 1.25rem 0;
+  padding-left: 1.75rem;
+}
+
+.seo-section li {
+  margin-bottom: 0.5rem;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 3rem;
+}
+
+.footer a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 1rem;
+  }
+
+  h1 a {
+    font-size: 1.9rem;
+  }
+
+  .faucet-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .seo-section {
+    padding: 1.75rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-banner .cta-btn {
+    display: block;
+    margin: 0.5rem auto 0;
+    width: fit-content;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.85rem;
+  }
+
+  .faucet-card {
+    padding: 1rem;
+  }
+
+  .faucet-title {
+    font-size: 1.1rem;
+  }
+}

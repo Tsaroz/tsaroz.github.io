@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cryptohama.com/sitemap.xml
+
+# Block sensitive files (optional)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+
+# Prevent crawling of duplicate or low-value URLs
+Disallow: /*?*
+Disallow: /*print=
+Disallow: /*utm_
+
+# Crawl-delay (for heavy sites — optional)
+# Crawl-delay: 2

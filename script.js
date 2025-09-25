@@ -1,130 +1,100 @@
-// ===== MOBILE NAVIGATION TOGGLE =====
 document.addEventListener('DOMContentLoaded', function () {
+    // ===== MOBILE NAVIGATION TOGGLE =====
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
 
-    if (!navToggle || !navMenu) return;
-
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        const isMenuOpen = navMenu.classList.contains('active');
-        navToggle.setAttribute('aria-expanded', isMenuOpen);
-        
-        const bars = navToggle.querySelectorAll('.bar');
-        if (isMenuOpen) {
-            bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            bars[1].style.opacity = '0';
-            bars[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        } else {
-            bars[0].style.transform = 'none';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'none';
-        }
-    });
-
-    // Close menu on link click
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const isMenuOpen = navMenu.classList.contains('active');
+            navToggle.setAttribute('aria-expanded', isMenuOpen);
+            
             const bars = navToggle.querySelectorAll('.bar');
-            bars[0].style.transform = 'none';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'none';
+            if (isMenuOpen) {
+                bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                bars[0].style.transform = 'none';
+                bars[1].style.opacity = '1';
+                bars[2].style.transform = 'none';
+            }
         });
-    });
 
-    // ===== FAUCET FILTERING WITH BUTTONS & DROPDOWNS =====
-    const coinButtons = document.querySelectorAll('#coinFilters .filter-btn');
-    const timerButtons = document.querySelectorAll('#timerFilters .filter-btn');
-    const coinSelect = document.getElementById('coinFilterSelect');
-    const timerSelect = document.getElementById('timerFilterSelect');
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                const bars = navToggle.querySelectorAll('.bar');
+                bars[0].style.transform = 'none';
+                bars[1].style.opacity = '1';
+                bars[2].style.transform = 'none';
+            });
+        });
+    }
+
+    // ===== FAUCET FILTERING (UNIFIED FOR DESKTOP + MOBILE DROPDOWNS) =====
     const allCards = document.querySelectorAll('.faucet-card');
-
     let activeCoin = 'all';
     let activeTimer = 'all';
 
+    // Get all select elements (desktop + mobile)
+    const coinSelects = [
+        document.getElementById('coinFilterSelect'),
+        document.getElementById('coinFilterSelectDesktop')
+    ].filter(el => el);
+
+    const timerSelects = [
+        document.getElementById('timerFilterSelect'),
+        document.getElementById('timerFilterSelectDesktop')
+    ].filter(el => el);
+
+    function syncSelects(selects, value) {
+        selects.forEach(sel => {
+            if (sel.value !== value) sel.value = value;
+        });
+    }
+
     function filterFaucets() {
         allCards.forEach(card => {
-            const cardCoins = card.dataset.coins ? card.dataset.coins.split(',') : [];
-            const cardTimer = card.dataset.timer || '';
+            const cardCoins = card.dataset.coins ? card.dataset.coins.split(',').map(c => c.trim()) : [];
+            const cardTimer = (card.dataset.timer || '').trim();
 
-            const coinMatch = activeCoin === 'all' ||
-                cardCoins.includes(activeCoin) ||
-                (activeCoin !== 'all' && cardCoins.includes('ALL'));
-
+            const coinMatch = activeCoin === 'all' || cardCoins.includes(activeCoin);
             const timerMatch = activeTimer === 'all' || cardTimer === activeTimer;
 
             if (coinMatch && timerMatch) {
-                card.classList.remove('filtered-out');
+                card.style.display = 'block';
             } else {
-                card.classList.add('filtered-out');
+                card.style.display = 'none';
             }
         });
     }
 
-    // Desktop button handlers
-    coinButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            coinButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            activeCoin = this.dataset.filter;
-            if (coinSelect) {
-                coinSelect.value = activeCoin;
-            }
-            filterFaucets();
-        });
-    });
-
-    timerButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            timerButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            activeTimer = this.dataset.filter;
-            if (timerSelect) {
-                timerSelect.value = activeTimer;
-            }
-            filterFaucets();
-        });
-    });
-
-    // Mobile dropdown handlers
-    if (coinSelect) {
-        coinSelect.addEventListener('change', function () {
+    // Attach change listeners to all selects
+    coinSelects.forEach(select => {
+        select.addEventListener('change', function () {
             activeCoin = this.value;
-            // Update desktop buttons if visible
-            coinButtons.forEach(btn => {
-                if (btn.dataset.filter === activeCoin) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+            syncSelects(coinSelects, activeCoin);
             filterFaucets();
         });
-    }
+    });
 
-    if (timerSelect) {
-        timerSelect.addEventListener('change', function () {
+    timerSelects.forEach(select => {
+        select.addEventListener('change', function () {
             activeTimer = this.value;
-            // Update desktop buttons if visible
-            timerButtons.forEach(btn => {
-                if (btn.dataset.filter === activeTimer) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
+            syncSelects(timerSelects, activeTimer);
             filterFaucets();
         });
-    }
+    });
 
-    // Initial filter on load
+    // Initial filter
     filterFaucets();
 
     // ===== SCROLL TO TOP BUTTON =====
-    function createScrollToTop() {
-        const scrollToTopBtn = document.createElement('button');
+    let scrollToTopBtn = document.getElementById('scrollToTop');
+    if (!scrollToTopBtn) {
+        scrollToTopBtn = document.createElement('button');
         scrollToTopBtn.innerHTML = '↑';
         scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
         scrollToTopBtn.id = 'scrollToTop';
@@ -143,27 +113,18 @@ document.addEventListener('DOMContentLoaded', function () {
             display: none;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-lg);
+            align-items: center;
+            justify-content: center;
         `;
         document.body.appendChild(scrollToTopBtn);
-
-        window.addEventListener('scroll', function () {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.style.display = 'flex';
-                scrollToTopBtn.style.alignItems = 'center';
-                scrollToTopBtn.style.justifyContent = 'center';
-            } else {
-                scrollToTopBtn.style.display = 'none';
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', function () {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
     }
 
-    createScrollToTop();
+    window.addEventListener('scroll', () => {
+        scrollToTopBtn.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 });

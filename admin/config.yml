@@ -1,4 +1,3 @@
-cat > admin/config.yml << 'EOF'
 backend:
   name: github
   repo: Tsaroz/tsaroz.github.io
@@ -20,4 +19,3 @@ collections:
       - { label: "Feature 2", name: "feature2", widget: "string" }
       - { label: "Visit URL", name: "url", widget: "string" }
       - { label: "Active", name: "active", widget: "boolean", default: true }
-EOF

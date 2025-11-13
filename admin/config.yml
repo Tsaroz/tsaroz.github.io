@@ -1,23 +1,20 @@
+site_url: "https://cryptohama.com"
 backend:
   name: github
   repo: Tsaroz/tsaroz.github.io
   branch: main
-
-local_backend: false
-
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+  base_url: "https://cryptohama-auth.yourdomain.workers.dev"  # replace after setting up OAuth proxy
+media_folder: "static/uploads"
+public_folder: "/uploads"
+publish_mode: simple
 
 collections:
-  - name: "faucets"
-    label: "Faucet Listings"
-    folder: "data/faucets"
+  - name: "articles"
+    label: "Articles"
+    folder: "article"
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Section", name: "section", widget: "select", options: ["Top 20 Best", "Hourly", "Gaming", "NO Timer Direct"] }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Logo Path (e.g. images/vie.png)", name: "logo", widget: "string", required: false }
-      - { label: "Feature 1", name: "feature1", widget: "string" }
-      - { label: "Feature 2", name: "feature2", widget: "string" }
-      - { label: "Visit URL", name: "url", widget: "string" }
-      - { label: "Active", name: "active", widget: "boolean", default: true }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }

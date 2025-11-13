@@ -2,12 +2,12 @@ backend:
   name: github
   repo: Tsaroz/tsaroz.github.io
   branch: main
-  auth_endpoint: /admin/
+  useWorkflow: false
+
+local_backend: false
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
-
-local_backend: false
 
 collections:
   - name: "faucets"
@@ -17,7 +17,7 @@ collections:
     fields:
       - { label: "Section", name: "section", widget: "select", options: ["Top 20 Best", "Hourly", "Gaming", "NO Timer Direct"] }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Logo Path (e.g. images/vie.png)", name: "logo", widget: "string", required: false }
+      - { label: "Logo Path", name: "logo", widget: "string", required: false }
       - { label: "Feature 1", name: "feature1", widget: "string" }
       - { label: "Feature 2", name: "feature2", widget: "string" }
       - { label: "Visit URL", name: "url", widget: "string" }

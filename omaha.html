@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Omaha Poker Guide – Rules, Hi-Lo Hands & Strategy | Cryptohama</title>
+  <meta name="description" content="Master Omaha poker: learn rules, best high & low hands, starting hands, and strategy for PLO and Hi-Lo variants.">
+  <meta name="keywords" content="Omaha poker, PLO, Omaha Hi-Lo, 8 or better, poker rules, hand rankings, low hand, high hand, starting hands">
+  <meta name="author" content="Cryptohama">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cryptohama.com/omaha.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Omaha Poker Guide – High & Low Hands Explained">
+  <meta property="og:description" content="Complete Omaha poker guide: rules, hand requirements, best high/low hands, and winning strategy for beginners.">
+  <meta property="og:url" content="https://cryptohama.com/omaha.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Omaha Poker Guide | Cryptohama">
+  <meta name="twitter:description" content="Learn Omaha: high/low hands, starting ranges, and strategy for PLO & Hi-Lo.">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🃏</text></svg>">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="poker.css">
+  <style>
+    /* Go to Top Button */
+    #goToTop {
+      position: fixed;
+      bottom: 1.4rem;
+      right: 1.4rem;
+      width: 44px;
+      height: 44px;
+      background: var(--fg-accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease, background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    #goToTop.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #goToTop:hover {
+      background: #1d4ed8;
+    }
+
+    [data-theme='dark'] #goToTop {
+      background: #60a5fa;
+    }
+
+    [data-theme='dark'] #goToTop:hover {
+      background: #3b82f6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hidden H1 for SEO -->
+  <h1 style="font-size:0; opacity:0; height:0;">Omaha Poker Guide – Rules, High/Low Hands & Strategy</h1>
+
+  <div class="container">
+    <header class="brand-header" role="banner">
+      <a href="poker.html" aria-label="Cryptohama Poker Guide Home">
+        🃏
+        <div class="brand-text"></div>
+      </a>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark mode"></button>
+    </header>
+
+    <nav class="main-tabs" role="navigation" aria-label="Main sections">
+      <a href="poker.html" class="main-tab-btn">Home</a>
+      <a href="holdem.html" class="main-tab-btn">Texas Hold'em</a>
+      <button class="main-tab-btn active">Omaha</button>
+    </nav>
+
+    <main>
+      <div class="section-card intro">
+        <div class="section-header">Introduction</div>
+        <div class="section-body">
+          <p>Make the best 5-card hand to win using exactly <strong>2 of your 4 private cards</strong> and <strong>3 of the 5 community cards</strong>.</p>
+        </div>
+      </div>
+
+      <div class="section-card gameflow">
+        <div class="section-header">Game Flow</div>
+        <div class="section-body">
+          <ol>
+            <li>Each player receives <strong>4 hole cards</strong> face down.</li>
+            <li><strong>Pre-flop betting round</strong>.</li>
+            <li><strong>Flop</strong>: 3 community cards revealed.</li>
+            <li><strong>Second betting round</strong>.</li>
+            <li><strong>Turn</strong>: 4th community card.</li>
+            <li><strong>Third betting round</strong>.</li>
+            <li><strong>River</strong>: 5th community card.</li>
+            <li><strong>Final betting round</strong>.</li>
+            <li><strong>Showdown</strong>: Players must use exactly 2 hole + 3 board cards.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section-card variants">
+        <div class="section-header">Variants</div>
+        <div class="section-body">
+          <ul>
+            <li><strong>Pot-Limit Omaha (PLO)</strong> – Most common; max bet = pot size.</li>
+            <li><strong>Omaha Hi-Lo (8 or Better)</strong> – Pot split between best high and best qualifying low hand (5 unpaired cards, all ≤8).</li>
+            <li><strong>5-Card Omaha</strong> – Players get 5 hole cards, must use exactly 2.</li>
+            <li><strong>Big O</strong> – 5-Card Omaha Hi-Lo.</li>
+            <li><strong>No-Limit Omaha</strong> – Rare; allows all-in at any time.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-card rankings">
+        <div class="section-header">Best High Hands</div>
+        <div class="section-body">
+          <p>Same as standard poker rankings. Examples:</p>
+          <div class="hand-item">
+            <span class="hand-name">Royal Flush</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-spade">K♠</span>
+              <span class="card-symbol s-spade">Q♠</span>
+              <span class="card-symbol s-spade">J♠</span>
+              <span class="card-symbol s-spade">10♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Straight Flush</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-heart">9♥</span>
+              <span class="card-symbol s-heart">8♥</span>
+              <span class="card-symbol s-heart">7♥</span>
+              <span class="card-symbol s-heart">6♥</span>
+              <span class="card-symbol s-heart">5♥</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Four of a Kind</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-club">A♣</span>
+              <span class="card-symbol s-diamond">A♦</span>
+              <span class="card-symbol s-heart">A♥</span>
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-spade">K♠</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card rankings">
+        <div class="section-header">Best Low Hands (Hi-Lo)</div>
+        <div class="section-body">
+          <p>Low hand must have 5 unpaired cards, all ranked 8 or lower. Aces are low. Best is <em>the wheel</em>:</p>
+          <div class="hand-item">
+            <span class="hand-name">The Wheel (Best Low)</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-club">2♣</span>
+              <span class="card-symbol s-diamond">3♦</span>
+              <span class="card-symbol s-heart">4♥</span>
+              <span class="card-symbol s-spade">5♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Second Best</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-heart">A♥</span>
+              <span class="card-symbol s-spade">2♠</span>
+              <span class="card-symbol s-club">3♣</span>
+              <span class="card-symbol s-diamond">4♦</span>
+              <span class="card-symbol s-heart">6♥</span>
+            </span>
+          </div>
+          <p><strong>Invalid Low:</strong> 
+            <span class="card-symbol s-spade">A♠</span>
+            <span class="card-symbol s-club">2♣</span>
+            <span class="card-symbol s-diamond">3♦</span>
+            <span class="card-symbol s-heart">4♥</span>
+            <span class="card-symbol s-spade">9♠</span> 
+            → 9 is too high.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-card starting">
+        <div class="section-header">Best Starting Hands</div>
+        <div class="section-body">
+          <ul>
+            <li><strong>Double-Suited Aces:</strong> 
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-diamond">A♦</span>
+              <span class="card-symbol s-spade">K♠</span>
+              <span class="card-symbol s-diamond">Q♦</span>
+            </li>
+            <li><strong>Connected Broadways:</strong> 
+              <span class="card-symbol s-heart">K♥</span>
+              <span class="card-symbol s-heart">Q♥</span>
+              <span class="card-symbol s-club">J♣</span>
+              <span class="card-symbol s-club">T♣</span>
+            </li>
+            <li><strong>Hi-Lo Wheel Draws:</strong> 
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-club">2♣</span>
+              <span class="card-symbol s-diamond">3♦</span>
+              <span class="card-symbol s-heart">4♥</span>
+            </li>
+            <li><strong>Avoid:</strong> Hands with 3+ cards of same suit or disconnected cards like 
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-heart">K♥</span>
+              <span class="card-symbol s-club">7♣</span>
+              <span class="card-symbol s-diamond">2♦</span>.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-card guide">
+        <div class="section-header">Strategy Guide</div>
+        <div class="section-body">
+          <ul>
+            <li><strong>Rule of 2 & 3:</strong> Always use exactly 2 hole + 3 board cards.</li>
+            <li><strong>Play for the Nuts:</strong> Second-best hands lose big pots in Omaha.</li>
+            <li><strong>Hi-Lo Tip:</strong> Aim to <em>scoop</em> (win both high and low).</li>
+            <li><strong>Position Matters:</strong> Play tighter from early position.</li>
+            <li><strong>Stack Deep:</strong> PLO plays best with 100+ big blind stacks.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer" role="contentinfo">
+    &copy; 2025 Cryptohama. All rights reserved.
+  </footer>
+
+  <!-- Go to Top Button -->
+  <button id="goToTop" aria-label="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="poker.js"></script>
+<!-- Go to Top Button -->
+<button id="goToTop" aria-label="Go to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+</body>
+</html>

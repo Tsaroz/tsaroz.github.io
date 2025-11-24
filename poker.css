@@ -1,0 +1,537 @@
+/* 
+   Cryptohama Poker Guide — Professional, Compact, Accessible
+   FULLY RESPONSIVE VERSION (Mobile-First Fixes)
+   Date: 2025-11-25
+*/
+
+:root {
+  /* Background & Surface */
+  --bg: #fafdff;                /* soft blue-white */
+  --card-bg: #ffffff;
+  --header-bg: #ffffff;
+
+  /* Text */
+  --fg: #0f172a;                /* slate-900: deep, readable */
+  --fg-muted: #475569;          /* slate-600 */
+  --fg-accent: #1e40af;         /* professional blue */
+
+  /* Borders & Dividers */
+  --border: #e2e8f0;            /* slate-300 */
+  --border-light: #f1f5f9;      /* slate-100 */
+
+  /* Shadows */
+  --shadow-sm: rgba(0, 20, 60, 0.04);
+  --shadow: rgba(0, 20, 60, 0.06);
+  --shadow-md: rgba(0, 20, 60, 0.08);
+
+  /* Semantic Accents (Subtle, Professional) */
+  --color-intro: #2e66b0;       /* Calm Blue */
+  --color-gameflow: #237865;    /* Forest Teal */
+  --color-variants: #a84a4a;    /* Muted Crimson */
+  --color-rankings: #6d59b0;    /* Royal Dust */
+  --color-starting: #c7732a;    /* Rich Amber */
+  --color-guide: #64748b;       /* Cool Slate */
+  --color-terminology: #a95388; /* Noble Plum */
+
+  /* Font */
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+[data-theme='dark'] {
+  --bg: #0c0c0e;
+  --card-bg: #141418;
+  --header-bg: #141418;
+
+  --fg: #f1f5f9;                /* slate-100 */
+  --fg-muted: #94a3b8;          /* slate-400 */
+  --fg-accent: #60a5fa;         /* sky-300 */
+
+  --border: #22262f;
+  --border-light: #1a1a1f;
+
+  --shadow-sm: rgba(0, 0, 0, 0.15);
+  --shadow: rgba(0, 0, 0, 0.22);
+  --shadow-md: rgba(0, 0, 0, 0.28);
+
+  /* Dark mode accents — slightly brighter for visibility */
+  --color-intro: #3b82f6;
+  --color-gameflow: #2dd4bf;
+  --color-variants: #f87171;
+  --color-rankings: #818cf8;
+  --color-starting: #fbbf24;
+  --color-guide: #94a3b8;
+  --color-terminology: #f472b6;
+}
+
+/* ===== Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  line-height: 1.55;
+  font-size: 16.5px;
+  padding-bottom: 2rem;
+}
+
+/* ===== Branding ===== */
+.brand-header {
+  display: flex;
+  justify-content: center;
+  padding: 0.95rem 1rem; /* Added horizontal padding */
+  position: relative;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-header a {
+  text-decoration: none;
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.62rem;
+  font-weight: 700;
+  /* Ensure it doesn't overflow */
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.brand-text::before {
+  content: 'Cryptohama ';
+  color: var(--fg-accent);
+}
+.brand-text::after {
+  content: 'Poker Guide';
+  color: #059669; /* emerald-600 → professional green */
+  font-weight: 600;
+  font-size: 0.94em;
+  opacity: 0.94;
+}
+
+[data-theme='dark'] .brand-text::after {
+  color: #34d399; /* emerald-400 */
+}
+
+/* ===== Theme Toggle ===== */
+.theme-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--border);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--fg-accent);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* ===== Tabs ===== */
+.main-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Critical for mobile */
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  padding: 0 0.8rem; /* Reduced padding for mobile */
+  margin: 0.85rem auto 1.05rem;
+  /* Remove fixed max-width that caused overflow */
+}
+
+.main-tab-btn {
+  background: none;
+  border: none;
+  padding: 0.7rem 1.1rem; /* Slightly reduced */
+  font-size: 0.92rem; /* Slightly smaller for mobile */
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.15s;
+  /* Allow wrapping */
+  flex: 1 1 140px; /* Grow, shrink, basis */
+  text-align: center;
+  min-width: 0; /* Prevent overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.main-tab-btn:hover,
+.main-tab-btn.active {
+  color: var(--fg-accent);
+  border-bottom-color: var(--fg-accent);
+}
+
+.main-tabs a.main-tab-btn {
+  text-decoration: none;
+  color: var(--fg);
+  transition: color 0.15s;
+  display: block;
+}
+
+/* container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.2rem; /* Increased for better mobile breathing room */
+}
+
+/* ===== Section Cards — Professional Depth ===== */
+.section-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin: 1.05rem 0;
+  box-shadow: 0 4px 14px var(--shadow);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.section-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px var(--shadow-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-card {
+    transition: none;
+  }
+}
+
+.section-header {
+  padding: 0.9rem 1.3rem; /* Slightly reduced horizontal padding */
+  font-weight: 700;
+  font-size: 1.24rem;
+  color: white;
+  letter-spacing: -0.4px;
+  background: linear-gradient(120deg, var(--header-color), var(--header-color-end));
+}
+
+/* Assign semantic header colors */
+.intro .section-header {
+  --header-color: var(--color-intro);
+  --header-color-end: #255695;
+}
+.gameflow .section-header {
+  --header-color: var(--color-gameflow);
+  --header-color-end: #1e6555;
+}
+.variants .section-header {
+  --header-color: var(--color-variants);
+  --header-color-end: #903a3a;
+}
+.rankings .section-header {
+  --header-color: var(--color-rankings);
+  --header-color-end: #5c4bb0;
+}
+.starting .section-header {
+  --header-color: var(--color-starting);
+  --header-color-end: #b0621e;
+}
+.guide .section-header {
+  --header-color: var(--color-guide);
+  --header-color-end: #5a697d;
+}
+.terminology .section-header {
+  --header-color: var(--color-terminology);
+  --header-color-end: #904072;
+}
+
+.section-body {
+  padding: 1.4rem;
+  font-size: 0.98rem;
+  color: var(--fg);
+}
+
+.section-body p,
+.section-body li {
+  margin-bottom: 0.85rem;
+  color: var(--fg-muted);
+}
+
+.section-body a {
+  color: var(--fg-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.section-body ul,
+.section-body ol {
+  padding-left: 1.6rem;
+  margin: 0.95rem 0;
+}
+
+/* ===== Terminology Cards ===== */
+.term-card {
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  margin-bottom: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  transition: border-color 0.2s;
+}
+
+.term-card:hover {
+  border-color: var(--border);
+}
+
+.term-name {
+  font-weight: 700;
+  color: var(--fg-accent);
+  flex: 1 1 120px; /* Reduced min width for mobile */
+  min-width: 100px; /* Critical for small screens */
+  font-size: 1.02rem;
+}
+
+.term-def {
+  color: var(--fg-muted);
+  flex: 2 1 180px; /* Adjusted for mobile */
+  font-size: 0.98rem;
+  line-height: 1.52;
+}
+
+/* ===== Hand Symbols — Poker-Table Inspired ===== */
+.card-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 38px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-weight: bold;
+  margin: 0 2px;
+  box-shadow: 0 1px 2px var(--shadow-sm);
+  font-family: 'Courier New', monospace;
+  /* Prevent overflow */
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .card-symbol {
+  background: #1a1a1f;
+  border-color: #2a2a33;
+}
+
+.s-heart { color: #dc2626; }      /* red-600 */
+.s-diamond { color: #ea580c; }   /* orange-600 */
+.s-spade { color: #1e3a8a; }     /* blue-900 */
+.s-club { color: var(--fg); }    /* adaptive */
+
+/* ===== Hand Rankings ===== */
+.hand-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 1rem;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.hand-item:last-child {
+  border-bottom: none;
+}
+
+.hand-name {
+  font-weight: 700;
+  flex: 1 1 180px; /* Minimum width for name */
+  color: var(--fg-accent);
+  margin-bottom: 0.3rem; /* Space when wrapped */
+}
+
+.hand-cards {
+  display: flex;
+  gap: 4px;
+  flex: 1 1 200px; /* Minimum width for cards */
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  min-width: 0; /* Critical for flex children */
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  margin-top: 2.4rem;
+  padding: 1.1rem 1.2rem; /* Added horizontal padding */
+  font-size: 0.92rem;
+  color: var(--fg-muted);
+}
+
+/* ===== Go to Top Button ===== */
+#goToTop {
+  position: fixed;
+  /* Adjusted for mobile safe areas */
+  bottom: max(1.4rem, env(safe-area-inset-bottom, 1.4rem));
+  right: max(1.4rem, env(safe-area-inset-right, 1.4rem));
+  width: 44px;
+  height: 44px;
+  background: var(--fg-accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease, background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 100;
+  outline: none;
+}
+
+#goToTop.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#goToTop:hover {
+  background: #1d4ed8;
+}
+
+[data-theme='dark'] #goToTop {
+  background: #60a5fa;
+}
+
+[data-theme='dark'] #goToTop:hover {
+  background: #3b82f6;
+}
+
+/* ===== MOBILE-FIRST RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .brand-header {
+    padding: 0.85rem 1rem;
+  }
+  
+  .brand-header a {
+    font-size: 1.5rem;
+  }
+  
+  .main-tabs {
+    padding: 0 0.5rem;
+  }
+  
+  .main-tab-btn {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.9rem;
+    flex: 1 1 120px;
+  }
+  
+  .section-header {
+    font-size: 1.18rem;
+    padding: 0.85rem 1.2rem;
+  }
+  
+  .section-body {
+    padding: 1.2rem;
+  }
+  
+  .term-card {
+    padding: 0.75rem 1rem;
+  }
+  
+  .term-name {
+    font-size: 1rem;
+    min-width: 90px;
+  }
+  
+  .footer {
+    padding: 1rem;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 16px;
+  }
+  
+  .brand-header a {
+    font-size: 1.4rem;
+    gap: 0.6rem;
+  }
+  
+  .main-tab-btn {
+    padding: 0.6rem 0.7rem;
+    font-size: 0.87rem;
+    flex: 1 1 100px;
+  }
+  
+  .section-header {
+    font-size: 1.12rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .hand-name,
+  .hand-cards {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+  
+  .hand-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .card-symbol {
+    width: 28px;
+    height: 34px;
+    font-size: 0.85rem;
+    margin: 0 1.5px;
+  }
+  
+  #goToTop {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    bottom: max(1.2rem, env(safe-area-inset-bottom, 1.2rem));
+    right: max(1.2rem, env(safe-area-inset-right, 1.2rem));
+  }
+}

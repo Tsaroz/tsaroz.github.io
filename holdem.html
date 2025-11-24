@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Texas Hold'em Guide – Rules, Hand Rankings & Strategy | Cryptohama</title>
+  <meta name="description" content="Master Texas Hold'em: learn rules, hand rankings, best starting hands, and beginner strategy with visual card examples.">
+  <meta name="keywords" content="texas holdem, poker rules, hand rankings, starting hands, poker strategy, learn holdem, poker guide">
+  <meta name="author" content="Cryptohama">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cryptohama.com/holdem.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Texas Hold'em Poker Guide – Rules & Strategy">
+  <meta property="og:description" content="Complete Texas Hold'em guide: hand rankings, starting hands, game flow, and winning strategy for beginners.">
+  <meta property="og:url" content="https://cryptohama.com/holdem.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Texas Hold'em Guide | Cryptohama">
+  <meta name="twitter:description" content="Learn Texas Hold'em: rules, hand rankings, starting hands, and strategy with visual examples.">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Favicon -->
+  <link rel="icon" href="image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🃏</text></svg>">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="poker.css">
+</head>
+<body>
+  <!-- Hidden H1 for SEO -->
+  <h1 style="font-size:0; opacity:0; height:0;">Texas Hold'em Poker Guide – Rules, Hand Rankings & Strategy</h1>
+
+  <div class="container">
+    <header class="brand-header" role="banner">
+      <a href="poker.html" aria-label="Cryptohama Poker Guide Home">
+        🃏
+        <div class="brand-text"></div>
+      </a>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark mode"></button>
+    </header>
+
+    <nav class="main-tabs" role="navigation" aria-label="Main sections">
+      <a href="poker.html" class="main-tab-btn">Home</a>
+      <button class="main-tab-btn active">Texas Hold'em</button>
+      <a href="omaha.html" class="main-tab-btn">Omaha</a>
+    </nav>
+
+    <main>
+      <div class="section-card intro">
+        <div class="section-header">Introduction</div>
+        <div class="section-body">
+          <p>Make the best 5-card hand to win from <strong>2 private cards</strong> and <strong>5 community cards</strong>.</p>
+        </div>
+      </div>
+
+      <div class="section-card gameflow">
+        <div class="section-header">Game Flow</div>
+        <div class="section-body">
+          <ol>
+            <li>Each player is dealt <strong>2 hole cards</strong> face down.</li>
+            <li><strong>Pre-flop betting round</strong> (starting left of big blind).</li>
+            <li><strong>Flop</strong>: 3 community cards dealt face up.</li>
+            <li><strong>Second betting round</strong>.</li>
+            <li><strong>Turn</strong>: 4th community card dealt.</li>
+            <li><strong>Third betting round</strong>.</li>
+            <li><strong>River</strong>: 5th and final community card.</li>
+            <li><strong>Final betting round</strong>.</li>
+            <li><strong>Showdown</strong>: Remaining players reveal hands; best 5-card hand wins.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section-card variants">
+        <div class="section-header">Variants</div>
+        <div class="section-body">
+          <ul>
+            <li><strong>No-Limit Hold’em (NLHE)</strong> – Most popular; bet any amount up to your stack.</li>
+            <li><strong>Pot-Limit Hold’em (PLHE)</strong> – Max bet = current pot size.</li>
+            <li><strong>Limit Hold’em</strong> – Fixed bet sizes per round.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-card rankings">
+        <div class="section-header">Hand Rankings (Best to Worst)</div>
+        <div class="section-body">
+          <div class="hand-item">
+            <span class="hand-name">Royal Flush</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-spade">K♠</span>
+              <span class="card-symbol s-spade">Q♠</span>
+              <span class="card-symbol s-spade">J♠</span>
+              <span class="card-symbol s-spade">10♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Straight Flush</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-diamond">9♦</span>
+              <span class="card-symbol s-diamond">8♦</span>
+              <span class="card-symbol s-diamond">7♦</span>
+              <span class="card-symbol s-diamond">6♦</span>
+              <span class="card-symbol s-diamond">5♦</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Four of a Kind</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-club">Q♣</span>
+              <span class="card-symbol s-diamond">Q♦</span>
+              <span class="card-symbol s-heart">Q♥</span>
+              <span class="card-symbol s-spade">Q♠</span>
+              <span class="card-symbol s-spade">3♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Full House</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-diamond">J♦</span>
+              <span class="card-symbol s-club">J♣</span>
+              <span class="card-symbol s-spade">J♠</span>
+              <span class="card-symbol s-heart">4♥</span>
+              <span class="card-symbol s-club">4♣</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Flush</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-heart">A♥</span>
+              <span class="card-symbol s-heart">10♥</span>
+              <span class="card-symbol s-heart">7♥</span>
+              <span class="card-symbol s-heart">6♥</span>
+              <span class="card-symbol s-heart">2♥</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Straight</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-spade">8♠</span>
+              <span class="card-symbol s-diamond">7♦</span>
+              <span class="card-symbol s-club">6♣</span>
+              <span class="card-symbol s-heart">5♥</span>
+              <span class="card-symbol s-spade">4♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Three of a Kind</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-club">9♣</span>
+              <span class="card-symbol s-diamond">9♦</span>
+              <span class="card-symbol s-spade">9♠</span>
+              <span class="card-symbol s-club">K♣</span>
+              <span class="card-symbol s-heart">2♥</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">Two Pair</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-spade">A♠</span>
+              <span class="card-symbol s-club">A♣</span>
+              <span class="card-symbol s-diamond">8♦</span>
+              <span class="card-symbol s-heart">8♥</span>
+              <span class="card-symbol s-spade">3♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">One Pair</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-spade">K♠</span>
+              <span class="card-symbol s-heart">K♥</span>
+              <span class="card-symbol s-diamond">Q♦</span>
+              <span class="card-symbol s-club">7♣</span>
+              <span class="card-symbol s-spade">3♠</span>
+            </span>
+          </div>
+          <div class="hand-item">
+            <span class="hand-name">High Card</span>
+            <span class="hand-cards">
+              <span class="card-symbol s-diamond">A♦</span>
+              <span class="card-symbol s-club">J♣</span>
+              <span class="card-symbol s-spade">9♠</span>
+              <span class="card-symbol s-heart">6♥</span>
+              <span class="card-symbol s-diamond">3♦</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card starting">
+        <div class="section-header">Best Starting Hands</div>
+        <div class="section-body">
+          <ul>
+            <li><strong>Premium Pairs:</strong> 
+              <span class="card-symbol s-spade">A♠</span><span class="card-symbol s-spade">A♠</span>,
+              <span class="card-symbol s-heart">K♥</span><span class="card-symbol s-heart">K♥</span>,
+              <span class="card-symbol s-club">Q♣</span><span class="card-symbol s-club">Q♣</span>
+            </li>
+            <li><strong>Strong Pairs:</strong> 
+              <span class="card-symbol s-diamond">J♦</span><span class="card-symbol s-diamond">J♦</span>,
+              <span class="card-symbol s-spade">T♠</span><span class="card-symbol s-spade">T♠</span>
+            </li>
+            <li><strong>Big Suited Aces:</strong> 
+              <span class="card-symbol s-spade">A♠</span><span class="card-symbol s-spade">K♠</span>,
+              <span class="card-symbol s-heart">A♥</span><span class="card-symbol s-heart">Q♥</span>
+            </li>
+            <li><strong>Suited Connectors:</strong> 
+              <span class="card-symbol s-club">9♣</span><span class="card-symbol s-club">T♣</span>,
+              <span class="card-symbol s-diamond">T♦</span><span class="card-symbol s-diamond">J♦</span>
+            </li>
+          </ul>
+          <p><em>Note: s = suited, o = offsuit. Play tighter from early position.</em></p>
+        </div>
+      </div>
+
+      <div class="section-card guide">
+        <div class="section-header">Strategy Guide</div>
+        <div class="section-body">
+          <ul>
+            <li><strong>Play Tight Early:</strong> Only enter pots with strong hands from early position.</li>
+            <li><strong>Position is Power:</strong> Play more hands in late position (cutoff, button).</li>
+            <li><strong>Don’t Just Call:</strong> Raise to build pots or fold to avoid marginal spots.</li>
+            <li><strong>Bluff Smartly:</strong> Bluff on boards that favor your perceived range (e.g., dry A-high board).</li>
+            <li><strong>Manage Bankroll:</strong> Never risk more than 5% of your bankroll in a single session.</li>
+            <li><strong>Avoid Tilt:</strong> Take breaks after bad beats; emotions destroy profits.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer" role="contentinfo">
+    &copy; 2025 Cryptohama. All rights reserved.
+  </footer>
+
+  <!-- Go to Top Button (uses shared JS/CSS) -->
+  <button id="goToTop" aria-label="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="poker.js"></script>
+</body>
+</html>

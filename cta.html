@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Free BTC Every Hour – Claim Now!</title>
+  <title>Free Crypto Faucets – Claim BTC, SUI, TON & More!</title>
   <style>
     * {
       margin: 0;
@@ -13,163 +13,184 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0d1b2a, #1b263b, #0d1b2a);
+      background: linear-gradient(135deg, #0a0f1a, #121a2f, #0a0f1a);
       background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
+      animation: bgAnim 18s ease infinite;
       color: white;
       min-height: 100vh;
-      padding: 20px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
     }
 
-    @keyframes gradientBG {
+    @keyframes bgAnim {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    .container {
-      max-width: 900px;
-      width: 100%;
-      padding: 30px;
-      background: rgba(10, 15, 30, 0.75);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      border: 2px solid rgba(255, 153, 0, 0.5);
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.4);
+    .header {
+      margin: 24px 0 30px;
+      max-width: 860px;
     }
 
-    h1 {
-      font-size: 2.8rem;
-      margin: 20px 0;
-      background: linear-gradient(to right, #FFD700, #FF9900, #00BFFF);
+    .header h1 {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+      background: linear-gradient(to right, #FFD700, #FF9900, #00BFFF, #7DF9FF);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
 
-    .subtitle {
-      font-size: 1.3rem;
-      margin-bottom: 25px;
-      color: #e0e0ff;
-      line-height: 1.5;
+    .header p {
+      font-size: 1.15rem;
+      color: #d0d0ff;
+      line-height: 1.45;
     }
 
     .highlight {
       color: #FFD700;
       font-weight: bold;
-      font-size: 1.4rem;
+    }
+
+    .main-cta {
+      margin: 20px 0 28px;
     }
 
     .cta-large {
       display: inline-block;
       background: linear-gradient(to right, #FF9900, #FFD700);
-      color: #0d1b2a;
-      font-size: 1.6rem;
+      color: #0a0f1a;
+      font-size: 1.5rem;
       font-weight: bold;
-      padding: 20px 60px;
+      padding: 20px 64px;
       border-radius: 60px;
       text-decoration: none;
-      box-shadow: 0 8px 25px rgba(255, 153, 0, 0.6);
+      box-shadow: 0 6px 24px rgba(255, 153, 0, 0.7);
       transition: all 0.3s ease;
-      margin: 25px 0;
       border: 2px solid #FFD700;
     }
 
     .cta-large:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 12px 30px rgba(255, 153, 0, 0.8);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 153, 0, 0.85);
     }
 
-    .features {
+    .section-title {
+      font-size: 1.3rem;
+      margin: 24px 0 16px;
+      color: #7DF9FF;
+      font-weight: 600;
+    }
+
+    .faucet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 18px;
+    }
+
+    .faucet-btn {
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: center;
-      gap: 16px;
-      margin: 35px 0;
-    }
-
-    .feature {
-      background: rgba(30, 30, 50, 0.6);
-      border: 1px solid rgba(0, 187, 255, 0.4);
-      color: #aaaaff;
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-size: 0.95rem;
-      min-width: 130px;
-    }
-
-    .footer-ctas {
-      margin-top: 25px;
-    }
-
-    .cta-small {
-      display: inline-block;
-      background: rgba(255, 153, 0, 0.15);
-      color: #FFD700;
-      padding: 10px 22px;
-      margin: 8px;
-      border-radius: 30px;
+      padding: 14px 10px;
+      background: rgba(20, 30, 50, 0.7);
+      border: 1px solid rgba(125, 249, 255, 0.3);
+      color: #7DF9FF;
       text-decoration: none;
-      font-weight: 700;
-      border: 1px solid rgba(255, 153, 0, 0.4);
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.22s;
+      min-height: 60px;
+    }
+
+    .faucet-btn:hover {
+      background: rgba(125, 249, 255, 0.15);
+      transform: scale(1.03);
+    }
+
+    .directory-btn {
+      display: inline-block;
+      background: rgba(100, 200, 255, 0.1);
+      color: #4fc3f7;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 16px 0 22px;
+      border: 1px solid rgba(100, 200, 255, 0.4);
       transition: all 0.25s;
     }
 
-    .cta-small:hover {
-      background: rgba(255, 153, 0, 0.3);
-      transform: scale(1.05);
+    .directory-btn:hover {
+      background: rgba(100, 200, 255, 0.2);
+      transform: scale(1.04);
     }
 
     .note {
-      margin-top: 20px;
-      font-size: 0.9rem;
-      color: #aaa;
+      font-size: 0.88rem;
+      color: #777;
+      margin-top: 8px;
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
+      .header h1 {
+        font-size: 2.0rem;
+      }
+      .header p {
+        font-size: 1.05rem;
       }
       .cta-large {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         padding: 18px 40px;
+      }
+      .faucet-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 12px;
+      }
+      .faucet-btn {
+        font-size: 0.9rem;
+        padding: 12px 8px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 FREE BTC EVERY HOUR!</h1>
-    <p class="subtitle">
-      Operated by a Reputed Faucet Network • <span class="highlight">Earn up to 0.0002016000 BTC every hour</span> • Level Up & Multiply Rewards!
-    </p>
-
-    <a href="https://freebtcco.in?ref=50ktSJCFSV" target="_blank" rel="noopener noreferrer" class="cta-large">
-      💰 CLAIM YOUR FREE BTC NOW 💰
-    </a>
-
-    <div class="features">
-      <div class="feature">⚡ Hourly Claims</div>
-      <div class="feature">🎯 Level-Up Bonuses</div>
-      <div class="feature">🎮 4,850x Multiplier</div>
-      <div class="feature">👥 50% Referral</div>
-    </div>
-
-    <div class="footer-ctas">
-      <a href="https://freebtcco.in?ref=50ktSJCFSV" target="_blank" rel="noopener noreferrer" class="cta-small">Start Earning</a>
-      <a href="https://freebtcco.in?ref=50ktSJCFSV" target="_blank" rel="noopener noreferrer" class="cta-small">Hourly Faucet</a>
-      <a href="https://freebtcco.in?ref=50ktSJCFSV" target="_blank" rel="noopener noreferrer" class="cta-small">Join & Level Up</a>
-    </div>
-
-    <p class="note">
-      🔓 All links open in a new tab. No downloads. No scams. Just free BTC!
+  <div class="header">
+    <h1>⚡ Free BTC Every Hour!</h1>
+    <p>
+      Claim up to <span class="highlight">0.0002016000 BTC every hour</span> • Level up • Play fair games • Earn more across top faucets!
     </p>
   </div>
+
+  <!-- MAIN CTA -->
+  <div class="main-cta">
+    <a href="https://freebtcco.in?ref=50ktSJCFSV" target="_blank" rel="noopener noreferrer" class="cta-large">
+      💰 CLAIM FREE BTC NOW 💰
+    </a>
+  </div>
+
+  <!-- OTHER FAUCETS (5 TOTAL) -->
+  <h2 class="section-title">More Free Crypto Faucets</h2>
+  <div class="faucet-grid">
+    <a href="https://freebch.in?ref=n2cVl80AjV" target="_blank" rel="noopener noreferrer" class="faucet-btn">Free BCH</a>
+    <a href="https://freesui.in?ref=1hESc5Zc2H" target="_blank" rel="noopener noreferrer" class="faucet-btn">Free SUI</a>
+    <a href="https://freetoncoin.in?ref=pC0i7TcNwH" target="_blank" rel="noopener noreferrer" class="faucet-btn">Free TON</a>
+    <a href="https://freeshib.in?ref=Mkm32etV7z" target="_blank" rel="noopener noreferrer" class="faucet-btn">Free SHIB</a>
+  </div>
+
+  <!-- MASTER DIRECTORY -->
+  <a href="https://cryptohama.com/faucets" target="_blank" rel="noopener noreferrer" class="directory-btn">
+    🔍 View All Verified Faucets
+  </a>
+
+  <p class="note">All links open in a new tab • Part of a trusted faucet network</p>
 </body>
 </html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to AllFaucet.us | CryptoHama Has Moved</title>
+  <meta name="description" content="CryptoHama has rebranded to AllFaucet.us. You are being redirected to the new home of verified crypto faucets.">
+  <meta http-equiv="refresh" content="3;url=https://allfaucet.us">
+  <link rel="canonical" href="https://allfaucet.us">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='0.9em'%20font-size='90'%20text-anchor='middle'%20x='50'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0b1120 0%, #1a2235 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      background: rgba(22, 31, 50, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 40px 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #4dffea, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .redirect-info {
+      background: rgba(77, 255, 234, 0.1);
+      border: 1px solid rgba(77, 255, 234, 0.3);
+      border-radius: 10px;
+      padding: 14px;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+    .redirect-info strong {
+      color: #4dffea;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4dffea, #00c9ff);
+      color: #0b1120;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 10px 0;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(77, 255, 234, 0.4);
+    }
+    .timer {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #ff6b6b;
+      margin: 16px 0;
+      min-height: 1.6em;
+    }
+    .footer-note {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    @media (max-width: 480px) {
+      .container { padding: 30px 20px; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🚀</div>
+    <h1>CryptoHama Has Moved!</h1>
+    <p>We've rebranded to <strong>AllFaucet.us</strong> — your new home for verified, high-paying crypto faucets with instant withdrawals.</p>
+    
+    <div class="redirect-info">
+      ✅ Same trusted faucets<br>
+      ✅ Updated design & faster performance<br>
+      ✅ All your favorite links still work
+    </div>
+    
+    <div class="timer" id="timer">Redirecting in <span id="count">3</span> seconds...</div>
+    
+    <a href="https://allfaucet.us" class="btn" id="manualLink">
+      Go to AllFaucet.us Now →
+    </a>
+    
+    <div class="footer-note">
+      <p>If you're not redirected automatically, <a href="https://allfaucet.us" style="color:#4dffea;text-decoration:none;font-weight:600">click here</a>.</p>
+      <p style="margin-top:8px">© 2026 AllFaucet.us • Formerly CryptoHama</p>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript redirect (primary method)
+    const targetUrl = "https://allfaucet.us";
+    let seconds = 3;
+    const countEl = document.getElementById("count");
+    const timerEl = document.getElementById("timer");
+    
+    const countdown = setInterval(() => {
+      seconds--;
+      countEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        timerEl.textContent = "Redirecting now...";
+        window.location.replace(targetUrl);
+      }
+    }, 1000);
+    
+    // Fallback: meta refresh will catch if JS is disabled
+  </script>
+</body>
+</html>

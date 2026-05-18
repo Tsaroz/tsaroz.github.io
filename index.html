@@ -1,394 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary Meta Tags -->
-    <title>CryptoHama | Best Crypto Faucets, Casinos, Exchanges & Poker Guides</title>
-    <meta name="description" content="Discover the best crypto faucets, trusted crypto casinos, top exchanges, and expert poker guides—all in one place. CryptoHama ranks the most reliable, high-payout, and secure crypto platforms for 2025.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cryptohama.com/">
-    <meta property="og:title" content="CryptoHama | Best Crypto Resources 2025">
-    <meta property="og:description" content="Find the highest-paying crypto faucets, safest casinos, lowest-fee exchanges, and winning poker strategies.">
-    <meta property="og:image" content="https://cryptohama.com/images/og-preview.jpg"> 
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://cryptohama.com/">
-    <meta property="twitter:title" content="CryptoHama | Best Crypto Resources 2025">
-    <meta property="twitter:description" content="Top-ranked crypto faucets, casinos, exchanges, and poker guides—curated for reliability and rewards.">
-    <meta property="twitter:image" content="https://cryptohama.com/images/og-preview.jpg">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://cryptohama.com/">
-
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
-
-    <!-- Google Font: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="preconnect" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            transition: background 0.4s ease, color 0.3s ease;
-            color: #1a202c;
-            line-height: 1.6;
-        }
-        body.dark-mode {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 32px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        body.dark-mode .header {
-            background: rgba(15, 23, 42, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-        .logo-link:hover {
-            transform: scale(1.03);
-        }
-
-        .logo-icon {
-            font-size: 2.1rem;
-            animation: rocketFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: inline-block;
-        }
-
-        .crypto-part {
-            color: #2d3748;
-        }
-        .hama-part {
-            color: #e53e3e;
-        }
-        body.dark-mode .crypto-part {
-            color: #e2e8f0;
-        }
-        body.dark-mode .hama-part {
-            color: #f56565;
-        }
-
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.25);
-            border: none;
-            border-radius: 50%;
-            width: 46px;
-            height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        body.dark-mode .theme-toggle {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.1);
-        }
-        body.dark-mode .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-        .theme-icon {
-            font-size: 1.4rem;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 20px 30px;
-        }
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 20px;
-            padding: 32px 24px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-            position: relative;
-            overflow: hidden;
-        }
-        body.dark-mode .card {
-            background: rgba(30, 41, 59, 0.7);
-            border: 2px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
-            z-index: 10;
-        }
-        body.dark-mode .card:hover {
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
-        }
-
-        .card-icon {
-            font-size: 3.2rem;
-            margin-bottom: 14px;
-            display: block;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-            transition: transform 0.3s ease;
-        }
-        .card:hover .card-icon {
-            transform: scale(1.12);
-        }
-
-        .card-title {
-            font-size: 1.45rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #1a202c;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.08);
-        }
-        body.dark-mode .card-title {
-            color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-        }
-
-        .card-description {
-            color: #4a5568;
-            font-size: 1rem;
-            font-weight: 500;
-            opacity: 0.9;
-        }
-        body.dark-mode .card-description {
-            color: #cbd5e1;
-        }
-
-        .card:nth-child(1):hover {
-            background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
-            color: #0f172a !important;
-            border-color: #00c9ff;
-        }
-        .card:nth-child(2):hover {
-            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-            color: #fff !important;
-            border-color: #ff416c;
-        }
-        .card:nth-child(3):hover {
-            background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
-            color: #fff !important;
-            border-color: #8e2de2;
-        }
-        .card:nth-child(4):hover {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: #1e293b !important;
-            border-color: #f6d365;
-        }
-
-        .card:hover .card-title,
-        .card:hover .card-description {
-            color: inherit !important;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 24px 20px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        body.dark-mode .footer {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @keyframes rocketFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 768px) {
-            .header { padding: 8px 20px; }
-            .logo-text { font-size: 1.8rem; }
-            .logo-icon { font-size: 1.8rem; }
-            .theme-toggle { width: 42px; height: 42px; }
-            .theme-icon { font-size: 1.3rem; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to AllFaucet.us | CryptoHama Has Moved</title>
+  <meta name="description" content="CryptoHama has rebranded to AllFaucet.us. You are being redirected to the new home of verified crypto faucets.">
+  <meta http-equiv="refresh" content="3;url=https://allfaucet.us">
+  <link rel="canonical" href="https://allfaucet.us">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='0.9em'%20font-size='90'%20text-anchor='middle'%20x='50'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0b1120 0%, #1a2235 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      background: rgba(22, 31, 50, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 40px 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #4dffea, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .redirect-info {
+      background: rgba(77, 255, 234, 0.1);
+      border: 1px solid rgba(77, 255, 234, 0.3);
+      border-radius: 10px;
+      padding: 14px;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+    .redirect-info strong {
+      color: #4dffea;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4dffea, #00c9ff);
+      color: #0b1120;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 10px 0;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(77, 255, 234, 0.4);
+    }
+    .timer {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #ff6b6b;
+      margin: 16px 0;
+      min-height: 1.6em;
+    }
+    .footer-note {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    @media (max-width: 480px) {
+      .container { padding: 30px 20px; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <a href="/" class="logo-link" aria-label="Go to CryptoHama homepage">
-            <div class="logo-icon" aria-hidden="true">🚀</div>
-            <div class="logo-text">
-                <span class="crypto-part">Crypto</span><span class="hama-part">Hama</span>
-            </div>
-        </a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <span class="theme-icon" aria-hidden="true">☀️</span>
-        </button>
-    </header>
+  <div class="container">
+    <div class="logo">🚀</div>
+    <h1>CryptoHama Has Moved!</h1>
+    <p>We've rebranded to <strong>AllFaucet.us</strong> — your new home for verified, high-paying crypto faucets with instant withdrawals.</p>
+    
+    <div class="redirect-info">
+      ✅ Same trusted faucets<br>
+      ✅ Updated design & faster performance<br>
+      ✅ All your favorite links still work
+    </div>
+    
+    <div class="timer" id="timer">Redirecting in <span id="count">3</span> seconds...</div>
+    
+    <a href="https://allfaucet.us" class="btn" id="manualLink">
+      Go to AllFaucet.us Now →
+    </a>
+    
+    <div class="footer-note">
+      <p>If you're not redirected automatically, <a href="https://allfaucet.us" style="color:#4dffea;text-decoration:none;font-weight:600">click here</a>.</p>
+      <p style="margin-top:8px">© 2026 AllFaucet.us • Formerly CryptoHama</p>
+    </div>
+  </div>
 
-    <main class="main-content">
-        <!-- Structured content with semantic headings -->
-        <div class="card-container">
-            <article class="card" onclick="window.location.href='faucets.html'" role="link" tabindex="0" aria-label="Best Crypto Faucets – Find the highest-paying and most reliable crypto faucets with low withdrawal limits.">
-                <div class="card-icon" aria-hidden="true">💧</div>
-                <h2 class="card-title">Best Crypto Faucets</h2>
-                <p class="card-description">Discover the best crypto faucets with highest payouts and lowest withdrawal limits.</p>
-            </article>
-           
-            <article class="card" onclick="window.location.href='casinos.html'" role="link" tabindex="0" aria-label="Best Crypto Casinos – Trusted, fair, and instant-withdrawal crypto gambling sites.">
-                <div class="card-icon" aria-hidden="true">🎰</div>
-                <h2 class="card-title">Best Crypto Casinos</h2>
-                <p class="card-description">Find the most trusted and profitable crypto casinos with fair play and instant withdrawals.</p>
-            </article>
-           
-            <article class="card" onclick="window.location.href='exchanges.html'" role="link" tabindex="0" aria-label="Best Crypto Exchanges – Compare secure, low-fee exchanges with top trading pairs.">
-                <div class="card-icon" aria-hidden="true">📈</div>
-                <h2 class="card-title">Best Crypto Exchanges</h2>
-                <p class="card-description">Compare top crypto exchanges with lowest fees, highest security, and best trading pairs.</p>
-            </article>
-           
-<article class="card"
-    onclick="location.href='https://pokerhama.com'"
-    role="link"
-    tabindex="0"
-    aria-label="Poker Rules & Crypto Poker Sites – Learn strategies and find the best real-money crypto poker platforms.">
-                <div class="card-icon" aria-hidden="true">🃏</div>
-                <h2 class="card-title">Poker Rules & Guides</h2>
-                <p class="card-description">Learn poker rules, strategies, and find the best crypto poker sites for real money games.</p>
-            </article>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <p>© 2025 CryptoHama. Your trusted crypto resource hub for faucets, casinos, exchanges, and poker.</p>
-    </footer>
-
-    <!-- Structured Data (JSON-LD) for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "CryptoHama",
-      "url": "https://cryptohama.com/",
-      "description": "Top-ranked crypto resources: faucets, casinos, exchanges, and poker guides.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "CryptoHama",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://cryptohama.com/favicon.svg"
-        }
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          {
-            "@type": "WebPage",
-            "name": "Best Crypto Faucets",
-            "url": "https://cryptohama.com/faucets.html"
-          },
-          {
-            "@type": "WebPage",
-            "name": "Best Crypto Casinos",
-            "url": "https://cryptohama.com/casinos.html"
-          },
-          {
-            "@type": "WebPage",
-            "name": "Best Crypto Exchanges",
-            "url": "https://cryptohama.com/exchanges.html"
-          },
-          {
-            "@type": "WebPage",
-            "name": "Poker Rules & Crypto Poker Sites",
-            "url": "https://cryptohama.com/poker.html"
-          }
-        ]
+  <script>
+    // JavaScript redirect (primary method)
+    const targetUrl = "https://allfaucet.us";
+    let seconds = 3;
+    const countEl = document.getElementById("count");
+    const timerEl = document.getElementById("timer");
+    
+    const countdown = setInterval(() => {
+      seconds--;
+      countEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        timerEl.textContent = "Redirecting now...";
+        window.location.replace(targetUrl);
       }
-    }
-    </script>
-
-    <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.querySelector('.theme-icon');
-        const body = document.body;
-
-        const savedTheme = localStorage.getItem('theme');
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        const currentTheme = savedTheme || systemTheme;
-
-        if (currentTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeIcon.textContent = '🌙';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            themeIcon.textContent = isDark ? '🌙' : '☀️';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                const newTheme = e.matches ? 'dark' : 'light';
-                body.classList.toggle('dark-mode', newTheme === 'dark');
-                themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-            }
-        });
-    </script>
+    }, 1000);
+    
+    // Fallback: meta refresh will catch if JS is disabled
+  </script>
 </body>
 </html>

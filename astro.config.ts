@@ -5,9 +5,9 @@ import icon from "astro-icon";
 
 function getBase(): string {
   if (process.env.BASE !== undefined) return process.env.BASE;
-  const repo = process.env.GITHUB_REPOSITORY;
-  if (!repo) return "/";
+  const repo = (process.env.GITHUB_REPOSITORY ?? "").toLowerCase();
   const [owner, name] = repo.split("/");
+  if (!name) return "/";
   if (name === `${owner}.github.io`) return "/";
   return `/${name}/`;
 }

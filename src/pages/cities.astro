@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import { getCities, getRankingsForCity } from "@data";
+import { url, formatNumber } from "@utils/url";
+
+const cities = getCities().map((c) => ({ c, rankings: getRankingsForCity(c.slug) }));
+cities.sort((a, b) => b.rankings.length - a.rankings.length || a.c.name.localeCompare(b.c.name));
+---
+
+<BaseLayout
+  title="Rankings by city, Pokhara, Kathmandu, Bhaktapur and more | NepalRanks"
+  description="Every city on NepalRanks with its community-run local rankings, best momo in Pokhara, best cafes in Kathmandu, best lakeside spots and more."
+>
+  <div class="nr-container pt-10">
+    <h1 class="flex items-center gap-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+      <Icon name="lucide:map" class="size-8 text-brand-600" aria-hidden="true" />
+      Rankings by city
+    </h1>
+    <p class="mt-2 max-w-2xl text-sm leading-7 text-ink-600">
+      Local rankings are decided by the people who actually live there, from
+      <a href={url("/ranking/best-momo-in-pokhara/")} class="nr-link">Best Momo in Pokhara</a> to valley-wide favourites.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {cities.map(({ c, rankings }) => (
+        <a href={url(`/city/${c.slug}/`)} class="nr-card group flex flex-col gap-2 p-5 transition-shadow hover:shadow-card-hover">
+          <span class="flex items-center gap-2.5">
+            <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700 group-hover:bg-brand-100">
+              <Icon name="lucide:building-2" class="size-4.5" aria-hidden="true" />
+            </span>
+            <span class="min-w-0">
+              <span class="block font-display text-base font-bold text-ink-900 group-hover:text-brand-700">{c.name}</span>
+              <span class="block text-xs text-ink-500">{c.district}</span>
+            </span>
+          </span>
+          <span class="line-clamp-2 text-sm leading-6 text-ink-600">{c.description}</span>
+          <span class="mt-auto flex items-center gap-3 pt-2 text-xs tabular-nums text-ink-500">
+            <span class="inline-flex items-center gap-1"><Icon name="lucide:list-ordered" class="size-3.5" aria-hidden="true" />{formatNumber(rankings.length)} rankings</span>
+            {rankings[0] && <span class="truncate">· hot: {rankings[0].title}</span>}
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

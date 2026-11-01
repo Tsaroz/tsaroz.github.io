@@ -1,0 +1,59 @@
+---
+import AdminLayout from "@layouts/AdminLayout.astro";
+import { getCities, getRankingsForCity } from "@data";
+import { url, formatNumber } from "@utils/url";
+const cities = getCities();
+---
+
+<AdminLayout title="Cities" heading="City management" sub="City pages (/city/slug/) list every ranking tagged to them.">
+  <section class="nr-card mb-6 p-5">
+    <h2 class="font-display text-base font-bold">Add a city</h2>
+    <form data-add class="mt-4 grid gap-3 sm:grid-cols-5">
+      <input name="name" required placeholder="Name" class="rounded-lg border border-ink-200 px-3 py-2 text-sm" />
+      <input name="district" placeholder="District" class="rounded-lg border border-ink-200 px-3 py-2 text-sm" />
+      <input name="description" placeholder="One-line intro" class="rounded-lg border border-ink-200 px-3 py-2 text-sm sm:col-span-2" />
+      <button type="submit" class="rounded-lg bg-brand-600 px-3 py-2 text-sm font-semibold text-white">Create</button>
+    </form>
+  </section>
+
+  <ul class="grid gap-3 sm:grid-cols-2">
+    {cities.map((c) => (
+      <li class="nr-card p-4" data-row={c.slug}>
+        <div class="flex items-center justify-between gap-2">
+          <a href={url(`/city/${c.slug}/`)} class="font-display font-bold hover:text-brand-700">{c.name}</a>
+          <span class="text-xs text-ink-500 tabular-nums">{formatNumber(getRankingsForCity(c.slug).length)} rankings</span>
+        </div>
+        <div class="mt-2 flex flex-wrap items-center gap-1.5">
+          <input data-f="district" value={c.district ?? ""} placeholder="District" class="w-28 rounded-md border border-ink-200 px-3 py-2 text-sm" />
+          <textarea data-f="description" rows="2" class="min-w-0 flex-1 rounded-md border border-ink-200 px-3 py-2 text-sm">{c.description}</textarea>
+          <button type="button" data-save class="h-fit rounded-md bg-brand-600 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-700">Save</button>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <script>
+    import { insert, update, adminGuard, saved, slugify } from "@lib/adminclient";
+    import { adminToast } from "@lib/admin";
+    if (adminGuard()) {
+      document.querySelector<HTMLFormElement>("[data-add]")!.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const f = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+        try {
+          await insert("cat_cities", { slug: slugify(String(f.name)), name: f.name, district: f.district || null, description: f.description ?? "" });
+          saved("City added.");
+          (e.target as HTMLFormElement).reset();
+        } catch (err) { adminToast(String(err), false); }
+      });
+      document.querySelectorAll<HTMLElement>("[data-row]").forEach((row) => {
+        row.querySelector("[data-save]")!.addEventListener("click", async () => {
+          const get = (n: string) => row.querySelector<HTMLInputElement>(`[data-f="${n}"]`)!.value;
+          try {
+            await update("cat_cities", `slug=eq.${row.dataset.row}`, { district: get("district") || null, description: get("description") });
+            saved("City saved.");
+          } catch (err) { adminToast(String(err), false); }
+        });
+      });
+    }
+  </script>
+</AdminLayout>

@@ -1,0 +1,29 @@
+{
+  "ads": {
+    "code": {
+      "city_top": "",
+      "home_top": "",
+      "entry_top": "",
+      "search_top": "",
+      "ranking_top": "",
+      "category_top": "",
+      "home_between": "",
+      "ranking_inline": "",
+      "sitewide_bottom": "",
+      "entry_after_comments": ""
+    },
+    "enabled": false
+  },
+  "design": {
+    "font": "default",
+    "size": "md",
+    "brand": "#1e46cc",
+    "theme": "auto"
+  },
+  "notices": {
+    "home": "",
+    "entry": "",
+    "ranking": "",
+    "category": ""
+  }
+}

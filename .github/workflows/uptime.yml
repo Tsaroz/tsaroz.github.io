@@ -1,0 +1,28 @@
+name: Uptime check
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check endpoints
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -e
+          check() { code=$(curl -s -m 15 -o /dev/null -w "%{http_code}" "$1"); echo "$2 -> $code"; [ "$code" = "$3" ]; }
+          check "https://nepalranks.com/" "home" 200
+          check "https://nepalranks.com/ranking/best-banks-in-nepal/" "ranking" 200
+          check "https://nepalranks.com/city/pokhara/" "city" 200
+          check "https://nepalranks.com/cp-7f3k9q/" "ops path absent" 404
+          check "https://nr-cp-c71ba3aa.pages.dev/cp-7f3k9q/" "ops console" 200
+          check "https://nepalranks.com/search-index.json" "index" 200
+          code=$(curl -s -m 15 -o /dev/null -w "%{http_code}" -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $SUPABASE_ANON_KEY" "$SUPABASE_URL/rest/v1/live_deltas?select=entry_id&limit=1")
+          echo "api -> $code"; [ "$code" = "200" ]
+          code=$(curl -s -m 15 -o /dev/null -w "%{http_code}" -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $SUPABASE_ANON_KEY" "$SUPABASE_URL/rest/v1/comments?select=email&limit=1")
+          echo "guard -> $code"; [ "$code" = "401" ]

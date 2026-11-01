@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  categoryId?: string;
+}
+
+const { categoryId } = Astro.props;
+---
+
+<aside
+  class="nr-card flex flex-col gap-3 border-brand-100 bg-brand-50/70 p-4 text-sm sm:flex-row sm:items-center sm:justify-between"
+  aria-label="Voting allowance"
+  data-category-id={categoryId}
+>
+  <p class="flex items-start gap-2.5 text-ink-700">
+    <Icon name="lucide:ticket-check" class="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden="true" />
+    <span>
+      <strong class="font-semibold text-brand-900">Voting rule:</strong>
+      one vote per ranking, up to <strong class="font-semibold text-brand-900">3 votes across the whole site</strong>
+      per rolling 24 hours. Switching your vote on an item replaces it and costs no extra allowance.
+    </span>
+  </p>
+  <span class="flex shrink-0 items-center gap-2 pl-7 sm:pl-0">
+    <span class="nr-label">24h site allowance</span>
+    <span class="flex gap-1.5" role="img" aria-label="Zero of three votes used" data-allowance-dots>
+      <span class="size-3 rounded-full border-2 border-brand-300 bg-white" data-dot></span>
+      <span class="size-3 rounded-full border-2 border-brand-300 bg-white" data-dot></span>
+      <span class="size-3 rounded-full border-2 border-brand-300 bg-white" data-dot></span>
+    </span>
+  </span>
+</aside>

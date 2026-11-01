@@ -1,0 +1,32 @@
+---
+import type { Comment } from "@data";
+import { netScore } from "@data";
+import { Icon } from "astro-icon/components";
+import { timeAgo, formatNumber, url } from "@utils/url";
+
+interface Props {
+  comment: Comment;
+}
+
+const { comment } = Astro.props;
+const score = netScore(comment);
+---
+
+<li class="rounded-lg border border-ink-200 bg-white p-3">
+  <div class="flex items-center justify-between gap-3">
+    <p class="flex items-center gap-2 text-sm font-semibold text-ink-900">
+      <span class="grid size-6 place-items-center rounded-full bg-brand-50 text-[10px] font-bold text-brand-700">
+        {comment.author.slice(0, 2).toUpperCase()}
+      </span>
+      {comment.author}
+    </p>
+    <p class="flex items-center gap-1 text-xs text-ink-500">
+      <time datetime={comment.createdAt}>{timeAgo(comment.createdAt)}</time>
+      <span class="mx-1 text-ink-300" aria-hidden="true">·</span>
+      <Icon name="lucide:arrow-up-right" class="size-3.5 text-up-600" aria-hidden="true" />
+      <span class="font-semibold text-ink-700">{formatNumber(score)}</span>
+      <span class="sr-only">comment score</span>
+    </p>
+  </div>
+  <p class="mt-2 text-sm leading-6 text-ink-600">{comment.body}</p>
+</li>

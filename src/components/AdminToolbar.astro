@@ -1,0 +1,33 @@
+---
+
+---
+<div class="border-b border-ink-200 bg-ink-50">
+  <div class="flex flex-wrap items-center gap-x-6 gap-y-1.5 px-5 py-2 text-xs text-ink-600">
+    <strong class="font-semibold text-ink-900">NepalRanks Admin</strong>
+    <span>writes go straight to the live database, enforced by row-level security</span>
+    <span data-staff-badge class="ml-auto rounded-full bg-ink-200 px-2.5 py-1 font-semibold text-ink-600">checking…</span>
+  </div>
+</div>
+
+<script>
+  import { userRole, session } from "@lib/auth";
+  import { list } from "@lib/store";
+  const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
+  (async () => {
+    const role = await userRole();
+    if (!role) {
+      badge.textContent = "not signed in, read-only";
+      return;
+    }
+    try {
+      const rows = await list<Array<{ id: string }>>("cat_entries", "?select=id&limit=1");
+      const seeded = rows.length > 0;
+      badge.textContent = seeded ? `signed in · ${role}` : `signed in · ${role} · backend not ready`;
+      badge.className = "ml-auto rounded-full px-2.5 py-1 font-semibold " + (seeded ? "bg-up-100 text-up-700" : "bg-down-100 text-down-700");
+    } catch {
+      badge.textContent = `signed in · ${role}`;
+      badge.className = "ml-auto rounded-full bg-up-100 px-2.5 py-1 font-semibold text-up-700";
+    }
+    void session();
+  })();
+</script>

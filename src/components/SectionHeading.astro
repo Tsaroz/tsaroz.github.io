@@ -1,0 +1,30 @@
+---
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+
+interface Props {
+  title: string;
+  sub?: string;
+  icon?: string;
+  allHref?: string;
+  allLabel?: string;
+}
+
+const { title, sub, icon, allHref, allLabel = "View all" } = Astro.props;
+---
+
+<div class="mb-5 flex items-end justify-between gap-4">
+  <div>
+    <h2 class="flex items-center gap-2.5 font-display text-2xl font-bold tracking-tight text-ink-900">
+      {icon && <Icon name={icon} class="size-5.5 text-brand-600" aria-hidden="true" />}
+      {title}
+    </h2>
+    {sub && <p class="mt-1 text-sm text-ink-500">{sub}</p>}
+  </div>
+  {allHref && (
+    <a href={url(allHref)} class="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-700 hover:underline">
+      {allLabel}
+      <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
+    </a>
+  )}
+</div>

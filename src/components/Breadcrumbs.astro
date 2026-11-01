@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+
+interface Crumb {
+  name: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="nr-container py-4">
+  <ol class="flex flex-wrap items-center gap-1 text-sm text-ink-500">
+    <li>
+      <a href={url("/")} class="inline-flex items-center gap-1 hover:text-brand-700">
+        <Icon name="lucide:home" class="size-3.5" aria-hidden="true" />
+        Home
+      </a>
+    </li>
+    {items.map((c, i) => (
+      <li class="flex items-center gap-1">
+        <Icon name="lucide:chevron-right" class="size-3.5 text-ink-300" aria-hidden="true" />
+        {i === items.length - 1 || !c.href ? (
+          <span aria-current="page" class="font-medium text-ink-800">{c.name}</span>
+        ) : (
+          <a href={url(c.href)} class="hover:text-brand-700">{c.name}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

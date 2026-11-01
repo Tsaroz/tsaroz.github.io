@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import InfoPage from "@components/InfoPage.astro";
+import { IS_LIVE } from "@lib/config";
+---
+
+<BaseLayout
+  title="Privacy Policy | NepalRanks"
+  description="NepalRanks privacy policy: Google sign-in data (user ID, name, email), how votes and comments are stored, what the static site collects (nothing), and your deletion rights."
+>
+  <InfoPage eyebrow="Legal">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: 31 October 2026.</p>
+
+    <h2>The two parts of this site</h2>
+    <p>
+      NepalRanks is a <strong>static content site</strong> plus a
+      separate <strong>small voting service</strong> that only steps in when you vote or comment.
+      Just reading pages involves no tracking.
+    </p>
+
+    <h2>What the voting service stores {IS_LIVE ? "on this deployment" : "(when enabled)"}</h2>
+    <ul>
+      <li><strong>Google account identity</strong>, voting and commenting require a one-click Google sign-in. We receive your Google user ID, name and email address from Supabase Auth; Google's own privacy terms cover the sign-in itself.</li>
+      <li><strong>Vote records</strong>, your user ID, the entry voted, up/down, timestamp. The email lives in the auth system, attached to your ID, used to enforce one-account-one-vote and to ban abuse, never displayed.</li>
+      <li><strong>Comments</strong>, the nickname you choose is what the public sees; your email is stored privately alongside each comment (admin view only) so impersonation and abuse can be traced and banned.</li>
+      <li><strong>Preferences</strong>, theme/font/size choices stay in your browser only.</li>
+    </ul>
+    <p>
+      No cookies beyond Supabase's auth tokens; no third-party analytics. Public pages show only
+      aggregated counts and chosen nicknames, vote records are summed into plain numbers and
+      identities never travel to the public side.
+    </p>
+
+    <h2>Ads</h2>
+    <p>
+      Advertising slots are <strong>disabled by default</strong>. If they are ever switched on,
+      third-party ad creatives may set their own cookies under their own policies; that will be
+      noted here and marked as “Sponsored” on every slot.
+    </p>
+
+    <h2>Server logs</h2>
+    <p>
+      Our hosting providers may record standard request
+      metadata (including IP addresses) transiently for security and uptime. We do not store IPs in
+      the voting database or use them for identification.
+    </p>
+
+    <h2>Your choices and rights</h2>
+    <ul>
+      <li>Signing out ends the session on that device; your votes follow your account, not the browser.</li>
+      <li>To review or delete the votes/comments tied to your account, or to erase your auth profile and email, contact us (below) with the email you signed in with. Requests are actioned within days.</li>
+      <li>Account bans (email + reason logged admin-side) are the sanction for manipulation; appeals go to the same contact.</li>
+    </ul>
+
+    <p>
+      We will not sell personal data or run behavioural advertising. If advertising slots are ever
+      enabled, they render static creatives, no cross-site trackers unless clearly marked.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Privacy questions: use the <a href="contact/">contact page</a> (or reach the team through the
+      project repository) while the mail channel is being connected.
+    </p>
+  </InfoPage>
+</BaseLayout>

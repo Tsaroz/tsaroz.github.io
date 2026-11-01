@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+/* ============================================================
+   NepalRanks Design System
+   Editorial ranking identity: Nepal-blue brand, crimson accent
+   (flag colours), serif display headings, system sans body.
+   ============================================================ */
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+
+  /* Brand — Himalayan blue */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dce7ff;
+  --color-brand-200: #b9ccfe;
+  --color-brand-300: #8aa6fc;
+  --color-brand-400: #567ff4;
+  --color-brand-500: #2f5ce8;
+  --color-brand-600: #1e46cc;
+  --color-brand-700: #1837a6;
+  --color-brand-800: #162e84;
+  --color-brand-900: #142a6a;
+  --color-brand-950: #0c1740;
+
+  /* Ink — neutral text/surface ramp */
+  --color-ink-50: #f7f8fa;
+  --color-ink-100: #eef0f4;
+  --color-ink-200: #dde1e8;
+  --color-ink-300: #bcc3cf;
+  --color-ink-400: #8f99a9;
+  --color-ink-500: #6a7486;
+  --color-ink-600: #4e5768;
+  --color-ink-700: #3a4252;
+  --color-ink-800: #252b38;
+  --color-ink-900: #161b26;
+  --color-ink-950: #0b0e16;
+
+  /* Semantics */
+  --color-up-50: #e9f9f1;
+  --color-up-100: #cdefdf;
+  --color-up-500: #12a06b;
+  --color-up-600: #0c8a5a;
+  --color-up-700: #096e48;
+
+  --color-down-50: #fdeeef;
+  --color-down-100: #fbd9dc;
+  --color-down-500: #d2263c;
+  --color-down-600: #b31229;
+  --color-down-700: #8f0e21;
+
+  --color-gold-100: #fdf1d7;
+  --color-gold-500: #d99e0b;
+  --color-gold-600: #b57f06;
+  --color-gold-700: #8a610a;
+
+  --shadow-card: 0 1px 2px rgb(22 27 38 / 0.05), 0 4px 16px rgb(22 27 38 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(22 27 38 / 0.06), 0 12px 28px rgb(22 27 38 / 0.1);
+}
+
+/* ------------------------------------------------------------
+   Base layer
+   ------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink-800 antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-display text-ink-900;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-brand-100);
+    color: var(--color-brand-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Reusable component classes
+   ------------------------------------------------------------ */
+@layer components {
+  .nr-container {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+
+  .nr-card {
+    @apply rounded-xl border border-ink-200 bg-white shadow-card;
+  }
+
+  .nr-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2
+      text-sm font-semibold transition-colors;
+  }
+
+  .nr-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2
+      text-sm font-semibold transition-colors bg-brand-600 text-white
+      hover:bg-brand-700 active:bg-brand-800;
+  }
+
+  .nr-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2
+      text-sm font-semibold transition-colors border border-ink-300 bg-white
+      text-ink-800 hover:border-brand-400 hover:text-brand-700;
+  }
+
+  .nr-badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5
+      text-xs font-semibold;
+  }
+
+  .nr-link {
+    @apply text-brand-700 underline-offset-2 hover:underline;
+  }
+
+  .nr-label {
+    @apply text-xs font-semibold uppercase tracking-[0.08em] text-ink-500;
+  }
+}
+
+/* ------------------------------------------------------------
+   User preferences: dark theme, font face, font size
+   Set on <html> as data-theme / data-font / data-size.
+   ------------------------------------------------------------ */
+:root[data-theme="dark"] {
+  --color-ink-50: #10141d;
+  --color-ink-100: #161b26;
+  --color-ink-200: #333d52;
+  --color-ink-300: #4a5468;
+  --color-ink-400: #8f99a9;
+  --color-ink-500: #a7b1c2;
+  --color-ink-600: #bcc3cf;
+  --color-ink-700: #d5dae2;
+  --color-ink-800: #e6e9ef;
+  --color-ink-900: #f7f8fa;
+  --color-ink-950: #0b0e16;
+
+  --color-brand-50: #12203f;
+  --color-brand-100: #16294f;
+  --color-brand-200: #1f3a75;
+  --color-brand-500: #4f79ee;
+  --color-brand-600: #3563e0;
+  --color-brand-300: #8aa6fc;
+  --color-brand-700: #8aa6fc;
+  --color-brand-800: #b9ccfe;
+  --color-brand-900: #dce7ff;
+  --color-brand-950: #eef4ff;
+
+  --color-up-50: #0e2a1e;
+  --color-up-100: #12382a;
+  --color-up-700: #4adea0;
+  --color-down-50: #2b1116;
+  --color-down-100: #3a151c;
+  --color-down-700: #f47183;
+  --color-gold-100: #2c2312;
+  --color-gold-600: #d9a414;
+  --color-gold-700: #e7b94a;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.45), 0 4px 16px rgb(0 0 0 / 0.4);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 28px rgb(0 0 0 / 0.55);
+
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] body { background-color: var(--color-ink-950); }
+:root[data-theme="dark"] .bg-white,
+:root[data-theme="dark"] .nr-card,
+:root[data-theme="dark"] .nr-btn-outline { background-color: var(--color-ink-50); }
+:root[data-theme="dark"] .bg-ink-900 { background-color: #1b2233; }
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea { background-color: var(--color-ink-50); color: var(--color-ink-800); }
+:root[data-theme="dark"] ::selection { background: #1f3a75; color: #dce7ff; }
+
+:root[data-font="serif"] {
+  --font-sans: Georgia, "Times New Roman", "Noto Serif", serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+:root[data-font="grotesk"] {
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+}
+
+:root[data-font="mono"] {
+  --font-sans: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-display: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root[data-size="sm"] { font-size: 93.75%; }
+:root[data-size="md"] { font-size: 100%; }
+:root[data-size="lg"] { font-size: 112.5%; }
+:root[data-size="xl"] { font-size: 125%; }
+
+/* Suggestion search */
+.nr-suggest-list {
+  @apply absolute inset-x-0 top-full z-40 mt-1 max-h-80 overflow-y-auto rounded-xl border border-ink-200 bg-white p-1.5 shadow-card-hover;
+}
+.nr-suggest-item {
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-left text-sm hover:bg-ink-100;
+}
+.nr-suggest-item[data-active] { background: var(--color-brand-50); }
+
+/* ------------------------------------------------------------
+   Admin tables: card layout on phones
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .nr-cards thead {
+    display: none;
+  }
+  .nr-cards,
+  .nr-cards tbody {
+    display: block;
+    width: 100%;
+  }
+  .nr-cards tr {
+    display: block;
+    border: 1px solid var(--color-ink-200);
+    border-radius: 0.75rem;
+    background: white;
+    box-shadow: var(--shadow-card);
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+  :root[data-theme="dark"] .nr-cards tr {
+    background: var(--color-ink-50);
+  }
+  .nr-cards td {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border: 0 !important;
+    text-align: left !important;
+    padding: 0.2rem 0 !important;
+  }
+  .nr-cards td[data-label]::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+  }
+  .nr-cards details {
+    width: 100%;
+  }
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "r-banks",
+    "categoryId": "c-banks",
+    "title": "Best Banks in Nepal",
+    "slug": "best-banks-in-nepal",
+    "description": "The community's running verdict on which commercial banks deserve the top spot in Nepal. Positions are set by votes, never by the site.",
+    "createdAt": "2026-08-10T10:00:00+00:00",
+    "updatedAt": "2026-10-29T12:00:00+00:00"
+  },
+  {
+    "id": "r-restaurants",
+    "categoryId": "c-food",
+    "title": "Best Restaurants in Kathmandu Valley",
+    "slug": "best-restaurants-in-kathmandu",
+    "description": "The capital valley's kitchens, from Newa classics to Thamel's global street food, decided by the people who eat there.",
+    "cities": [
+      "kathmandu"
+    ],
+    "createdAt": "2026-08-20T10:00:00+00:00",
+    "updatedAt": "2026-10-31T09:05:00+00:00"
+  }
+]

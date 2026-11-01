@@ -1,0 +1,108 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import InfoPage from "@components/InfoPage.astro";
+---
+
+<BaseLayout
+  title="Contact | NepalRanks"
+  description="Contact the NepalRanks team about a ranking, a report, partnership, press or your personal data. Messages go straight to the moderation desk and get answered by email."
+>
+  <InfoPage eyebrow="Contact">
+    <h1>Contact</h1>
+    <p>
+      A wrong entry, a missing city, a rude comment, a partnership or a question about your data:
+      it all lands on the same desk. Messages require a quick Google sign-in, which also gives us
+      the email to reply to. We answer within a few days.
+    </p>
+
+    <form id="contact-form" class="mt-8 nr-card space-y-4 p-5 sm:p-6">
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-semibold text-ink-800">Your name <span class="font-normal text-ink-500">(for the reply signature; your Google email is captured automatically)</span></span>
+        <input name="name" required minlength="2" maxlength="120" autocomplete="name" placeholder="How we should call you"
+          class="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm focus:border-brand-400" />
+      </label>
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-semibold text-ink-800">Topic</span>
+        <select name="topic" class="w-full rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm">
+          <option value="general">General feedback</option>
+          <option value="ranking">A ranking or entry is wrong</option>
+          <option value="report">Report a comment or voter</option>
+          <option value="deletion">Delete my data</option>
+          <option value="partnership">Partnership or advertising</option>
+          <option value="press">Press</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-semibold text-ink-800">Message</span>
+        <textarea name="body" required minlength="10" maxlength="4000" rows="5"
+          placeholder="Links to the page in question help us act faster."
+          class="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm leading-6 focus:border-brand-400"></textarea>
+      </label>
+      <label class="hidden" aria-hidden="true">
+        Leave empty <input name="honeypot" tabindex="-1" autocomplete="off" />
+      </label>
+      <div class="flex flex-wrap items-center gap-4">
+        <button type="submit" class="nr-btn-primary">
+          <Icon name="lucide:send" class="size-4" aria-hidden="true" />
+          Send message
+        </button>
+        <p role="status" aria-live="polite" data-state class="text-sm text-ink-500"></p>
+      </div>
+    </form>
+
+    <h2>Data requests</h2>
+    <p>
+      Want your votes, comments or account data erased? Sign in, pick <em>Delete my data</em> above,
+      and say the word; we handle it from the message.
+    </p>
+  </InfoPage>
+
+  <script>
+    import { authHeaders, session, requireAuth, displayName } from "@lib/auth";
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const state = form.querySelector<HTMLElement>("[data-state]")!;
+    const nameInput = form.querySelector<HTMLInputElement>("input[name=name]")!;
+
+    void session().then((s) => {
+      if (s && !nameInput.value) nameInput.value = displayName(s);
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const f = Object.fromEntries(new FormData(form).entries());
+      if (f.honeypot) return;
+      if (!(await session())) {
+        state.textContent = "Sign in first; we reply to the Google account you vote with.";
+        await requireAuth();
+        return;
+      }
+      state.textContent = "Sending…";
+      try {
+        const cfg = JSON.parse(document.getElementById("nr-live-config")?.textContent ?? "{}");
+        if (!cfg.url) throw new Error("contact is offline right now");
+        const res = await fetch(`${cfg.url}/rest/v1/contact_messages`, {
+          method: "POST",
+          headers: { ...(await authHeaders()), "content-type": "application/json", prefer: "return=minimal" },
+          body: JSON.stringify({
+            name: f.name,
+            topic: f.topic,
+            body: f.body,
+            status: "new",
+            honeypot: "",
+
+          }),
+        });
+        if (!res.ok) {
+          let msg = `HTTP ${res.status}`;
+          try { msg = (await res.json()).message ?? msg; } catch {}
+          throw new Error(msg);
+        }
+        form.reset();
+        state.textContent = "Sent. We will reply to your account email.";
+      } catch (err) {
+        state.textContent = `Could not send (${String(err)}). Try again shortly.`;
+      }
+    });
+  </script>
+</BaseLayout>

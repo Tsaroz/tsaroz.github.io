@@ -1,0 +1,248 @@
+---
+import "@styles/global.css";
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+import { IS_LIVE, IS_SUPABASE, LIVE_API, SUPABASE_ANON_KEY, SUPABASE_URL } from "@lib/config";
+import { getCategories, getCities, getSettings } from "@data";
+import AdSlot from "@components/AdSlot.astro";
+import SuggestBox from "@components/SuggestBox.astro";
+import UserPrefs from "@components/UserPrefs.astro";
+import AuthWidget from "@components/AuthWidget.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
+}
+
+const { title, description, noindex = false, hideHeader = false, hideFooter = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://nepalranks.com").href;
+const ogImage = new URL("og.png", Astro.site ?? "https://nepalranks.com").href;
+const siteName = "NepalRanks";
+
+const navCategories = getCategories();
+const navCities = getCities();
+const design = getSettings().design;
+const brand = design.brand?.trim();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
+    <meta name="nr-base" content={import.meta.env.BASE_URL} />
+    <meta name="nr-supabase" content={SUPABASE_URL} />
+    {}
+    <script id="nr-live-config" is:inline type="application/json" set:html={JSON.stringify({ url: SUPABASE_URL, anon: SUPABASE_ANON_KEY, api: LIVE_API })} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="theme-color" content="#161b26" />
+
+    {}
+    <script is:inline define:vars={{ defaults: { theme: design.theme, font: design.font, size: design.size } }}>
+      (function () {
+        try {
+          var p = JSON.parse(localStorage.getItem("nr.prefs") || "{}");
+          var theme = p.theme || defaults.theme;
+          var t = theme === "auto" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : theme;
+          var e = document.documentElement;
+          e.setAttribute("data-theme", t);
+          e.setAttribute("data-font", p.font || defaults.font);
+          e.setAttribute("data-size", p.size || defaults.size);
+        } catch (_) {}
+      })();
+    </script>
+
+    {brand && (
+      <Fragment set:html={`<style>
+        :root:not([data-theme="dark"]) {
+          --color-brand-50: color-mix(in srgb, ${brand} 8%, white);
+          --color-brand-100: color-mix(in srgb, ${brand} 16%, white);
+          --color-brand-200: color-mix(in srgb, ${brand} 32%, white);
+          --color-brand-300: color-mix(in srgb, ${brand} 55%, white);
+          --color-brand-400: color-mix(in srgb, ${brand} 76%, white);
+          --color-brand-500: color-mix(in srgb, ${brand} 88%, white);
+          --color-brand-600: ${brand};
+          --color-brand-700: color-mix(in srgb, ${brand} 84%, black);
+          --color-brand-800: color-mix(in srgb, ${brand} 66%, black);
+          --color-brand-900: color-mix(in srgb, ${brand} 50%, black);
+          --color-brand-950: color-mix(in srgb, ${brand} 34%, black);
+        }
+        :root[data-theme="dark"] {
+          --color-brand-500: color-mix(in srgb, ${brand} 80%, white);
+          --color-brand-600: color-mix(in srgb, ${brand} 90%, white);
+        }
+      </style>`} />
+    )}
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white">
+    <a
+      href="#main"
+      class="sr-only rounded-lg bg-brand-600 px-4 py-2 text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
+      >Skip to content</a
+    >
+    {!hideHeader && <header class="sticky top-0 z-40 border-b border-ink-200 bg-white/95 backdrop-blur" data-v-w95="1">
+      <div class="nr-container flex h-16 items-center justify-between gap-3">
+        <a href={url("/")} class="flex shrink-0 items-center gap-2.5" aria-label="NepalRanks home">
+          <span class="grid size-9 place-items-center rounded-lg bg-ink-900">
+            <Icon name="lucide:chart-column" class="size-5 text-brand-300" aria-hidden="true" />
+          </span>
+          <span class="leading-tight">
+            <span class="block font-display text-lg font-bold tracking-tight text-ink-900">Nepal<span class="text-brand-600">Ranks</span></span>
+            <span class="hidden text-[11px] font-medium uppercase tracking-[0.14em] text-ink-400 sm:block">Your Voice. Your Rankings.</span>
+          </span>
+        </a>
+
+        <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+          <details class="nav-dd relative">
+            <summary class="flex cursor-pointer list-none items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-ink-600 hover:bg-ink-100 hover:text-ink-900 [&::-webkit-details-marker]:hidden">
+              Categories <Icon name="lucide:chevron-down" class="size-3.5" aria-hidden="true" />
+            </summary>
+            <div class="absolute left-0 z-40 mt-1 w-64 rounded-xl border border-ink-200 bg-white p-1.5 shadow-card-hover">
+              {navCategories.map((c) => (
+                <a href={url(`/category/${c.slug}/`)} class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-ink-700 hover:bg-ink-100">
+                  <Icon name={c.icon} class="size-4 text-brand-600" aria-hidden="true" />
+                  <span class="truncate">{c.name}</span>
+                </a>
+              ))}
+              <a href={url("/categories/")} class="mt-1 block rounded-lg border-t border-ink-100 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">All categories →</a>
+            </div>
+          </details>
+
+          <details class="nav-dd relative">
+            <summary class="flex cursor-pointer list-none items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-ink-600 hover:bg-ink-100 hover:text-ink-900 [&::-webkit-details-marker]:hidden">
+              Cities <Icon name="lucide:chevron-down" class="size-3.5" aria-hidden="true" />
+            </summary>
+            <div class="absolute left-0 z-40 mt-1 grid w-[320px] grid-cols-2 gap-0.5 rounded-xl border border-ink-200 bg-white p-1.5 shadow-card-hover">
+              {navCities.slice(0, 7).map((c) => (
+                <a href={url(`/city/${c.slug}/`)} class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-ink-700 hover:bg-ink-100">
+                  <Icon name="lucide:building-2" class="size-4 shrink-0 text-brand-600" aria-hidden="true" />
+                  <span class="truncate">{c.name}</span>
+                </a>
+              ))}
+              <a href={url("/cities/")} class="col-span-2 mt-1 block rounded-lg border-t border-ink-100 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">All cities →</a>
+            </div>
+          </details>
+
+        </nav>
+
+        <div class="flex items-center gap-2">
+          {IS_SUPABASE && <AuthWidget />}
+          <SuggestBox variant="nav" id="nav-search" />
+          <a
+            href={url("/search/")}
+            class="inline-flex items-center gap-2 rounded-lg border border-ink-200 bg-ink-50 px-3 py-1.5 text-sm text-ink-500 hover:border-brand-300 hover:text-brand-700 sm:hidden"
+            aria-label="Search"
+          >
+            <Icon name="lucide:search" class="size-4" aria-hidden="true" />
+          </a>
+          <details class="relative md:hidden" id="mobile-nav">
+            <summary class="grid size-9 cursor-pointer list-none place-items-center rounded-lg border border-ink-200 text-ink-700 hover:bg-ink-100 [&::-webkit-details-marker]:hidden">
+              <Icon name="lucide:menu" class="size-5" aria-hidden="true" />
+              <span class="sr-only">Open menu</span>
+            </summary>
+            <div class="absolute right-0 z-40 mt-2 max-h-[80vh] w-64 overflow-y-auto rounded-xl border border-ink-200 bg-white p-2 shadow-card">
+              <nav aria-label="Mobile">
+                <a href={url("/")} class="block rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-100">Home</a>
+                <p class="nr-label px-3 pt-3">Categories</p>
+                {navCategories.map((c) => (
+                  <a href={url(`/category/${c.slug}/`)} class="block rounded-lg px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-100">{c.name}</a>
+                ))}
+                <p class="nr-label px-3 pt-3">Cities</p>
+                <div class="grid grid-cols-2">
+                  {navCities.map((c) => (
+                    <a href={url(`/city/${c.slug}/`)} class="block truncate rounded-lg px-3 py-1.5 text-sm text-ink-700 hover:bg-ink-100">{c.name}</a>
+                  ))}
+                </div>
+                <p class="nr-label px-3 pt-3">More</p>
+                <a href={url("/contact/")} class="block rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-100">Contact</a>
+              </nav>
+            </div>
+          </details>
+        </div>
+      </div>
+    </header>}
+
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+
+    {!hideFooter && <AdSlot name="sitewide_bottom" class="pt-8" />}
+
+    {!hideHeader && <UserPrefs />}
+
+    {!hideFooter && <footer class="mt-16 border-t border-ink-200 bg-ink-950 text-ink-300">
+      <div class="nr-container grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <p class="font-display text-lg font-bold text-white">Nepal<span class="text-brand-300">Ranks</span></p>
+          <p class="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-ink-500">Your Voice. Your Rankings.</p>
+          <p class="mt-4 text-sm leading-6 text-ink-400">
+            Community-driven rankings where positions are decided by public votes, never by the site, its owners or its advertisers.
+          </p>
+        </div>
+        <nav aria-label="Explore">
+          <p class="nr-label text-ink-500">Explore</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a class="hover:text-white" href={url("/categories/")}>All categories</a></li>
+            <li><a class="hover:text-white" href={url("/cities/")}>All cities</a></li>
+            <li><a class="hover:text-white" href={url("/search/")}>Search</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Learn">
+          <p class="nr-label text-ink-500">Learn</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a class="hover:text-white" href={url("/how-rankings-work/")}>How rankings work</a></li>
+            <li><a class="hover:text-white" href={url("/voting-rules/")}>Voting rules</a></li>
+            <li><a class="hover:text-white" href={url("/community-guidelines/")}>Community guidelines</a></li>
+            <li><a class="hover:text-white" href={url("/about/")}>About us</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Legal">
+          <p class="nr-label text-ink-500">Legal</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a class="hover:text-white" href={url("/privacy-policy/")}>Privacy Policy</a></li>
+            <li><a class="hover:text-white" href={url("/terms/")}>Terms of Service</a></li>
+            <li><a class="hover:text-white" href={url("/contact/")}>Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="border-t border-white/10">
+        <div class="nr-container flex flex-col gap-2 py-5 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>{IS_LIVE
+            ? "© 2026 NepalRanks. Every count and every position on this site is live."
+            : "© 2026 NepalRanks. Design preview, all rankings, votes and comments shown are fictional sample data."}</p>
+        </div>
+      </div>
+    </footer>}
+  </body>
+</html>
+
+<style>
+  header[data-v-w95="1"] {
+    background-color: color-mix(in oklab, white 95%, transparent);
+  }
+  :global(html[data-theme="dark"]) header[data-v-w95="1"] {
+    background-color: color-mix(in oklab, var(--color-ink-50) 95%, transparent);
+  }
+  .nav-dd[open] > summary {
+    background: var(--color-ink-100);
+    color: var(--color-ink-900);
+  }
+</style>

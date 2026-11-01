@@ -1,0 +1,64 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  eyebrow: string;
+}
+
+const { eyebrow } = Astro.props;
+---
+
+<article class="nr-container py-10">
+  <div class="mx-auto max-w-3xl">
+    <p class="nr-label text-brand-600">{eyebrow}</p>
+    <div class="nr-prose mt-3">
+      <slot />
+    </div>
+  </div>
+</article>
+
+<style>
+  .nr-prose :global(h1) {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-ink-900);
+  }
+  .nr-prose :global(h2) {
+    margin-top: 2.25rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--color-ink-900);
+  }
+  .nr-prose :global(p) {
+    margin-top: 1rem;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--color-ink-600);
+  }
+  .nr-prose :global(ul) {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--color-ink-600);
+  }
+  .nr-prose :global(strong) {
+    font-weight: 600;
+    color: var(--color-ink-900);
+  }
+  .nr-prose :global(a) {
+    color: var(--color-brand-700);
+    text-underline-offset: 2px;
+  }
+  .nr-prose :global(a:hover) {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,104 @@
+---
+import AdminLayout from "@layouts/AdminLayout.astro";
+import { Icon } from "astro-icon/components";
+import { allDecorated, getCities, getCategories } from "@data";
+import { url, formatNumber } from "@utils/url";
+import { CP } from "@lib/config";
+const rows = allDecorated().sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt));
+const cityOptions = getCities();
+---
+
+<AdminLayout title="Rankings" heading="Ranking management" sub={`${rows.length} rankings · order is computed from votes, never editable.`}>
+  <section class="nr-card mb-6 p-5">
+    <h2 class="font-display text-base font-bold">Add a ranking</h2>
+    <form data-add class="mt-4 grid gap-3 sm:grid-cols-4">
+      <select name="categoryId" class="rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm">
+        {getCategories().map((c) => <option value={c.id}>{c.name}</option>)}
+      </select>
+      <input name="title" required placeholder="Title, Best Momo in Butwal" class="rounded-lg border border-ink-200 px-3 py-2 text-sm" />
+      <input name="cities" placeholder="city slugs, comma-separated" class="rounded-lg border border-ink-200 px-3 py-2 font-mono text-xs" />
+      <button type="submit" class="rounded-lg bg-brand-600 px-3 py-2 text-sm font-semibold text-white">Create</button>
+      <input name="description" placeholder="Description" class="rounded-lg border border-ink-200 px-3 py-2 text-sm sm:col-span-4" />
+    </form>
+    <p class="mt-2 text-xs text-ink-500">Cities available: {cityOptions.map((c) => c.slug).join(", ")}</p>
+  </section>
+
+  <div class="nr-card overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="nr-cards w-full text-left text-sm">
+        <thead>
+          <tr class="border-b border-ink-100 bg-ink-50 text-xs uppercase tracking-wide text-ink-500">
+            <th class="px-5 py-3 font-semibold">Ranking</th>
+            <th class="px-5 py-3 text-right font-semibold">Entries</th>
+            <th class="px-5 py-3 text-right font-semibold">Votes</th>
+            <th class="px-5 py-3 font-semibold">Cities</th>
+            <th class="px-5 py-3 font-semibold">Edit</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-ink-100">
+          {rows.map((r) => (
+            <tr class="hover:bg-ink-50/60" data-row={r.id}>
+              <td class="px-5 py-3" data-label="Ranking">
+                <a href={url(`/ranking/${r.slug}/`)} class="font-semibold text-ink-900 hover:text-brand-700">{r.title}</a>
+                <span class="block font-mono text-[11px] text-ink-400">{r.slug}</span>
+              </td>
+              <td class="px-5 py-3 text-right tabular-nums" data-label="Entries"><a href={url(`${CP}/entries/${r.slug}/`)} class="nr-link hover:underline">{r.entryCount}</a></td>
+              <td class="px-5 py-3 text-right tabular-nums" data-label="Votes">{formatNumber(r.totalVotes)}</td>
+              <td class="px-5 py-3" data-label="Cities"><span class="flex flex-wrap gap-1">{(r.cities ?? []).map((cs) => <span class="nr-badge bg-brand-50 text-brand-700">{cs}</span>)}</span></td>
+              <td class="px-5 py-3" data-label="Edit">
+                <details class="min-w-64">
+                  <summary class="inline-flex cursor-pointer list-none items-center gap-1 rounded-md border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-600 hover:border-brand-400 hover:text-brand-700 [&::-webkit-details-marker]:hidden">Edit</summary>
+                  <div class="mt-2 grid w-full gap-2 rounded-lg border border-ink-200 bg-white p-3 shadow-card">
+                    <label class="block text-xs"><span class="mb-1 block font-semibold text-ink-800">Title</span>
+                      <input data-f="title" value={r.title} class="w-full rounded-md border border-ink-200 px-3 py-2 text-sm" /></label>
+                    <label class="block text-xs"><span class="mb-1 block font-semibold text-ink-800">Description</span>
+                      <textarea data-f="description" rows="2" class="w-full rounded-md border border-ink-200 px-3 py-2 text-sm">{r.description}</textarea></label>
+                    <label class="block text-xs"><span class="mb-1 block font-semibold text-ink-800">Cities (slugs, comma-separated)</span>
+                      <input data-f="cities" value={(r.cities ?? []).join(", ")} class="w-full rounded-md border border-ink-200 px-3 py-2 font-mono text-sm" /></label>
+                    <label class="block text-xs"><span class="mb-1 block font-semibold text-ink-800">Ranking page ad <span class="font-normal text-ink-500">(optional HTML; shows on this ranking only, even if global ads are off)</span></span>
+                      <textarea data-f="ad" rows="3" placeholder="e.g. <a href=...><img ...></a>, leave empty for none" class="w-full rounded-md border border-ink-200 p-2.5 font-mono text-xs">{r.ad ?? ""}</textarea></label>
+                    <button type="button" data-save class="w-full rounded-md bg-brand-600 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-700">Save</button>
+                  </div>
+                </details>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    import { insert, update, nowIso, slugify, adminGuard, saved } from "@lib/adminclient";
+    import { adminToast } from "@lib/admin";
+    if (adminGuard()) {
+      document.querySelector<HTMLFormElement>("[data-add]")!.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const f = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+        const slug = slugify(String(f.title));
+        try {
+          await insert("cat_rankings", {
+            id: `r-${slug}`, category_id: f.categoryId, title: f.title, slug,
+            description: f.description ?? "", cities: String(f.cities ?? "").split(/[,;\s]+/).filter(Boolean),
+            created_at: nowIso(), updated_at: nowIso(),
+          });
+          saved("Ranking created.");
+          (e.target as HTMLFormElement).reset();
+        } catch (err) { adminToast(String(err), false); }
+      });
+      document.querySelectorAll<HTMLElement>("[data-row]").forEach((row) => {
+        row.querySelector("[data-save]")!.addEventListener("click", async () => {
+          const inputs = [...row.querySelectorAll<HTMLInputElement>("[data-f]")];
+          const get = (n: string) => inputs.find((i) => i.dataset.f === n)!.value;
+          try {
+            await update("cat_rankings", `id=eq.${row.dataset.row}`, {
+              title: get("title"), description: get("description"),
+              cities: get("cities").split(/[,;\s]+/).filter(Boolean), ad: get("ad"), updated_at: nowIso(),
+            });
+            saved("Ranking saved.");
+          } catch (err) { adminToast(String(err), false); }
+        });
+      });
+    }
+  </script>
+</AdminLayout>

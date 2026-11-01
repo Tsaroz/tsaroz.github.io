@@ -1,0 +1,97 @@
+---
+import AdminLayout from "@layouts/AdminLayout.astro";
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+---
+
+<AdminLayout title="Comment moderation" heading="Comment moderation" sub="Every real comment, straight from the database. Hide removes it from the site; ban stops the account voting and commenting.">
+  <div class="nr-card overflow-hidden">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-ink-100 px-5 py-4">
+      <h2 class="flex items-center gap-2 font-display text-base font-bold">
+        <Icon name="lucide:inbox" class="size-4.5 text-brand-600" aria-hidden="true" />
+        Live comments
+        <span data-count class="nr-badge bg-ink-100 tabular-nums text-ink-600">…</span>
+      </h2>
+      <div class="flex items-center gap-2">
+        <select data-filter class="rounded-lg border border-ink-200 bg-white px-3 py-1.5 text-sm">
+          <option value="approved">approved</option>
+          <option value="pending">pending</option>
+          <option value="hidden">hidden</option>
+          <option value="all">all</option>
+        </select>
+        <button type="button" data-refresh class="nr-btn-outline py-1.5 text-xs">Refresh</button>
+      </div>
+    </div>
+    <ul class="divide-y divide-ink-100" data-list></ul>
+    <p data-empty class="hidden border-t border-ink-100 bg-ink-50 px-5 py-4 text-sm text-ink-500">Nothing here.</p>
+  </div>
+
+  <script>
+    import { list, rpc, entryNames, adminGuard } from "@lib/adminclient";
+    import { adminToast } from "@lib/admin";
+
+    type Row = { id: string; entry_id: string; author: string; body: string; status: string; created_at: string; email?: string; user_id?: string; upvotes: number; downvotes: number };
+    const esc = (s: string) => s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]!);
+
+    if (!adminGuard()) throw new Error("guard");
+    const listEl = document.querySelector<HTMLElement>("[data-list]")!;
+    const emptyEl = document.querySelector<HTMLElement>("[data-empty]")!;
+    const countEl = document.querySelector<HTMLElement>("[data-count]")!;
+    const filterEl = document.querySelector<HTMLSelectElement>("[data-filter]")!;
+
+    async function load() {
+      try {
+        const names = await entryNames();
+        const f = filterEl.value;
+        const q = f === "all" ? "?select=*&order=created_at.desc&limit=200" : `?select=*&status=eq.${f}&order=created_at.desc&limit=200`;
+        const rows = await list<Row>("moderation_queue", q);
+        countEl.textContent = String(rows.length);
+        emptyEl.classList.toggle("hidden", rows.length > 0);
+        listEl.innerHTML = rows
+          .map(
+            (c) =>
+              `<li class="flex flex-col gap-3 p-5 sm:flex-row sm:items-start" data-id="${c.id}">` +
+              `<div class="min-w-0 flex-1"><p class="text-sm"><strong class="font-semibold">${esc(c.author)}</strong>` +
+              `<span class="text-ink-400"> on </span><span class="font-medium">${esc(names[c.entry_id] ?? c.entry_id)}</span>` +
+              `<span class="text-ink-400"> · ${new Date(c.created_at).toLocaleString("en-GB")}</span>` +
+              (c.email ? `<span class="block text-[11px] text-ink-400">${esc(c.email)}</span>` : "") + `</p>` +
+              `<p class="mt-1.5 text-sm leading-6 text-ink-600">${esc(c.body)}</p></div>` +
+              `<div class="flex shrink-0 flex-col items-end gap-1.5">` +
+              `<span class="nr-badge ${c.status === "hidden" ? "bg-down-100 text-down-700" : c.status === "pending" ? "bg-gold-100 text-gold-700" : "bg-up-100 text-up-700"}">${c.status}</span>` +
+              `<div class="flex gap-1.5">` +
+              (c.status !== "hidden"
+                ? `<button type="button" data-act="hide" class="rounded-md border border-ink-200 px-2.5 py-1 text-xs font-semibold text-ink-600 hover:border-down-500 hover:text-down-700">Hide</button>`
+                : `<button type="button" data-act="approve" class="rounded-md bg-up-600 px-2.5 py-1 text-xs font-semibold text-white">Unhide</button>`) +
+              `<button type="button" data-act="delete" class="rounded-md border border-ink-200 px-2.5 py-1 text-xs font-semibold text-ink-600 hover:border-down-500 hover:text-down-700">Delete</button>` +
+              (c.user_id ? `<button type="button" data-ban="${c.user_id}" class="rounded-md border border-down-500 px-2.5 py-1 text-xs font-semibold text-down-700 hover:bg-down-50">Ban</button>` : "") +
+              `</div></div></li>`,
+          )
+          .join("");
+      } catch (err) {
+        adminToast(`Load failed: ${String(err)} (staff sign-in required)`, false);
+      }
+    }
+
+    listEl.addEventListener("click", async (e) => {
+      const banBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-ban]");
+      if (banBtn) {
+        try {
+          await rpc("set_user_ban", { p_user: banBtn.dataset.ban, p_banned: true, p_reason: "panel action" });
+          adminToast("Account banned from voting and commenting.");
+        } catch (err) { adminToast(String(err), false); }
+        return;
+      }
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-act]");
+      if (!btn) return;
+      const id = btn.closest("[data-id]")!.getAttribute("data-id")!;
+      try {
+        await rpc("moderate_comment", { p_id: id, p_action: btn.dataset.act });
+        adminToast(btn.dataset.act === "delete" ? "Deleted." : btn.dataset.act === "hide" ? "Hidden from the site." : "Restored.");
+        load();
+      } catch (err) { adminToast(String(err), false); }
+    });
+    filterEl.addEventListener("change", load);
+    document.querySelector("[data-refresh]")!.addEventListener("click", load);
+    load();
+  </script>
+</AdminLayout>

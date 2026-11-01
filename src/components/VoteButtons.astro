@@ -1,0 +1,59 @@
+---
+import { netScore, type Entry } from "@data";
+import { IS_LIVE } from "@lib/config";
+import { Icon } from "astro-icon/components";
+import { formatNumber } from "@utils/url";
+
+interface Props {
+  entry: Entry;
+  size?: "sm" | "md";
+}
+
+const { entry, size = "md" } = Astro.props;
+const score = netScore(entry);
+const pad = size === "sm" ? "px-2.5 py-1.5 text-xs" : "px-3 py-2 text-sm";
+const icon = size === "sm" ? "size-3.5" : "size-4";
+const voteTitle = IS_LIVE
+  ? `Vote on ${entry.name}, counted live within seconds`
+  : "Demonstration only, set a live API to enable real voting";
+---
+
+<div
+  class="vote-group flex items-center gap-1.5 rounded-xl border border-ink-200 bg-ink-50 p-1"
+  data-vote-group
+  data-item={entry.name}
+  data-entry-id={entry.id}
+  data-category-id={entry.categoryId}
+  data-ranking-id={entry.rankingId}
+  data-up={entry.upvotes}
+  data-down={entry.downvotes}
+>
+  <button
+    type="button"
+    data-vote="up"
+    aria-pressed="false"
+    title={voteTitle}
+    class:list={["vote-btn inline-flex items-center gap-1.5 rounded-lg border border-transparent font-semibold text-ink-600 transition-colors hover:border-up-500 hover:bg-up-50 hover:text-up-700", pad]}
+  >
+    <Icon name="lucide:arrow-up" class={icon} aria-hidden="true" />
+    <span data-count="up">{formatNumber(entry.upvotes)}</span>
+    <span class="sr-only">upvotes for {entry.name}</span>
+  </button>
+  <span
+    class="min-w-12 rounded-lg bg-white px-2 py-1 text-center text-sm font-bold tabular-nums text-ink-900"
+    data-score
+    aria-label={`Net score ${score} for ${entry.name}`}
+    title={`Net score: ${entry.upvotes} up; ${entry.downvotes} down`}
+  >{formatNumber(score)}</span>
+  <button
+    type="button"
+    data-vote="down"
+    aria-pressed="false"
+    title={voteTitle}
+    class:list={["vote-btn inline-flex items-center gap-1.5 rounded-lg border border-transparent font-semibold text-ink-600 transition-colors hover:border-down-500 hover:bg-down-50 hover:text-down-700", pad]}
+  >
+    <span data-count="down">{formatNumber(entry.downvotes)}</span>
+    <span class="sr-only">downvotes for {entry.name}</span>
+    <Icon name="lucide:arrow-down" class={icon} aria-hidden="true" />
+  </button>
+</div>

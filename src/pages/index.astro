@@ -1,0 +1,101 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import NoticeBar from "@components/NoticeBar.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import RankingCard from "@components/RankingCard.astro";
+import AdSlot from "@components/AdSlot.astro";
+import { trendingRankings, popularRankings, newRankings } from "@data";
+import { url } from "@utils/url";
+
+const trending = trendingRankings(20);
+const popular = popularRankings(20);
+const newest = newRankings(20);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "NepalRanks",
+  url: (Astro.site ?? "https://nepalranks.com").toString(),
+  description: "Community-driven rankings of Nepal. Your Voice. Your Rankings.",
+  inLanguage: "en",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${(Astro.site ?? "https://nepalranks.com").toString()}search/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
+---
+
+<BaseLayout
+  title="NepalRanks, Community-Driven Rankings of Nepal | Your Voice. Your Rankings."
+  description="Trending, popular and brand-new community rankings for Nepal, banks, cities, momo, ISPs and more, decided purely by public votes. Find your city and cast your vote."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <AdSlot name="home_top" />
+
+  <NoticeBar scope="home" />
+
+  <section class="nr-container pt-8" aria-labelledby="trending-h">
+    <h1 id="trending-h" class="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+      <Icon name="lucide:flame" class="mr-2 inline size-6 text-down-500" aria-hidden="true" />
+      Trending this week
+    </h1>
+    <p class="mt-1.5 max-w-3xl text-sm leading-6 text-ink-600">
+      Nepal ranks itself, the people decide. This list is ordered automatically by the
+      votes and comments each ranking collected in the <strong class="font-semibold text-ink-900">last 7 days</strong>.
+    </p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      {trending.map((r) => <RankingCard ranking={r} />)}
+    </div>
+  </section>
+
+  <AdSlot name="home_between" />
+
+  <section class="nr-container pt-4" aria-labelledby="popular-h">
+    <SectionHeading
+      title="Popular rankings"
+      icon="lucide:trophy"
+      sub="Ranked by lifetime votes + comments, the all-time heavyweights."
+      allHref="/categories/"
+      allLabel="Browse categories"
+    />
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      {popular.map((r) => <RankingCard ranking={r} />)}
+    </div>
+  </section>
+
+  <section class="nr-container pt-12" aria-labelledby="new-h">
+    <SectionHeading
+      title="New rankings"
+      icon="lucide:sparkles"
+      sub="The freshest battlegrounds, every vote counts double while they're small."
+      allHref="/cities/"
+      allLabel="Explore by city"
+    />
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      {newest.map((r) => <RankingCard ranking={r} />)}
+    </div>
+  </section>
+
+  <section class="nr-container pt-14">
+    <div class="nr-card flex flex-col items-center gap-5 bg-ink-50/80 px-6 py-10 text-center">
+      <span class="grid size-12 place-items-center rounded-2xl bg-brand-600 text-white">
+        <Icon name="lucide:vote" class="size-6" aria-hidden="true" />
+      </span>
+      <h2 class="max-w-2xl font-display text-2xl font-bold sm:text-3xl">
+        We never touch the numbers. That's the entire point.
+      </h2>
+      <p class="max-w-xl text-sm leading-6 text-ink-600">
+        Admins add categories and keep discussions civil, they cannot set positions.
+        A ranking only moves when the community moves it. Read exactly how the
+        mechanics work before your first vote.
+      </p>
+      <p class="flex flex-wrap justify-center gap-3">
+        <a href={url("/how-rankings-work/")} class="nr-btn-primary">How rankings work</a>
+        <a href={url("/voting-rules/")} class="nr-btn-outline">Voting rules</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

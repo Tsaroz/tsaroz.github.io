@@ -1,0 +1,68 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import SuggestBox from "@components/SuggestBox.astro";
+import AdSlot from "@components/AdSlot.astro";
+import { popularRankings } from "@data";
+import { url } from "@utils/url";
+
+const initial = String(Astro.url.searchParams.get("q") ?? "");
+const hot = popularRankings(8).map((r) => r.title);
+---
+
+<BaseLayout
+  title="Search rankings and entries | NepalRanks"
+  description="Search every NepalRanks ranking and entry, banks, momo, cities, ISPs and more, with instant suggestions as you type."
+>
+  <AdSlot name="search_top" />
+
+  <div class="nr-container pt-10 pb-16">
+    <h1 class="flex items-center gap-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+      <Icon name="lucide:search" class="size-8 text-brand-600" aria-hidden="true" />
+      Search
+    </h1>
+    <p class="mt-2 max-w-2xl text-sm leading-7 text-ink-600">
+      Start typing, suggestions for ranking titles and entries appear instantly.
+    </p>
+
+    <div class="mt-6">
+      <SuggestBox variant="page" id="page-search" autofocus={initial !== ""} />
+    </div>
+
+    <section class="mt-10" aria-label="Popular searches">
+      <p class="nr-label">Popular right now</p>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {hot.map((t) => (
+          <li>
+            <a href={url(`/search/?q=${encodeURIComponent(t)}`)} class="nr-badge bg-ink-100 text-ink-700 hover:bg-brand-50 hover:text-brand-700">
+              <Icon name="lucide:search" class="size-3" aria-hidden="true" />
+              {t}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <noscript>
+      <p class="mt-8 text-sm text-ink-600">
+        JavaScript is off, so suggestions can't stream in. The full index lives at
+        <a class="nr-link" href={url("/search-index.json")}>/search-index.json</a> and every category is under
+        <a class="nr-link" href={url("/categories/")}>Categories</a> and <a class="nr-link" href={url("/cities/")}>Cities</a>.
+      </p>
+    </noscript>
+  </div>
+
+  <script>
+
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q");
+    if (q) {
+      const input = document.querySelector<HTMLInputElement>("#page-search");
+      if (input) {
+        input.value = q;
+        input.focus();
+        input.dispatchEvent(new Event("input"));
+      }
+    }
+  </script>
+</BaseLayout>

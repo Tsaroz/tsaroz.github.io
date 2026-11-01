@@ -19,5 +19,95 @@
     ],
     "createdAt": "2026-08-20T10:00:00+00:00",
     "updatedAt": "2026-10-31T09:05:00+00:00"
+  },
+  {
+    "id": "r-isp",
+    "categoryId": "c-telecom",
+    "title": "Best ISP in Nepal",
+    "slug": "best-isp-in-nepal",
+    "description": "Fiber, FTTH and the great Nepali buffer debate. Which provider actually delivers? Voters decide.",
+    "createdAt": "2026-10-24T09:00:00+00:00",
+    "updatedAt": "2026-10-24T09:00:00+00:00"
+  },
+  {
+    "id": "r-mobile-network",
+    "categoryId": "c-telecom",
+    "title": "Best Mobile Network in Nepal",
+    "slug": "best-mobile-network-in-nepal",
+    "description": "The oldest argument in Nepali tech: coverage, speed, price. Vote your side.",
+    "createdAt": "2026-10-24T09:00:00+00:00",
+    "updatedAt": "2026-10-24T09:00:00+00:00"
+  },
+  {
+    "id": "r-banking-apps",
+    "categoryId": "c-banks",
+    "title": "Best Mobile Banking Apps in Nepal",
+    "slug": "best-mobile-banking-apps-in-nepal",
+    "description": "Which bank app actually works at 11 PM on payday? Ratings from real transfers.",
+    "createdAt": "2026-10-26T09:00:00+00:00",
+    "updatedAt": "2026-10-26T09:00:00+00:00"
+  },
+  {
+    "id": "r-wallets",
+    "categoryId": "c-banks",
+    "title": "Best Wallet Apps in Nepal",
+    "slug": "best-wallet-apps-in-nepal",
+    "description": "Load, pay, send, recharge. The wallets every street vendor expects.",
+    "createdAt": "2026-10-26T09:00:00+00:00",
+    "updatedAt": "2026-10-26T09:00:00+00:00"
+  },
+  {
+    "id": "r-airlines",
+    "categoryId": "c-travel",
+    "title": "Best Domestic Airlines in Nepal",
+    "slug": "best-domestic-airlines-in-nepal",
+    "description": "Kathmandu to Pokhara, and the mountain runways beyond. Rated by riders, not PR.",
+    "createdAt": "2026-10-28T09:00:00+00:00",
+    "updatedAt": "2026-10-28T09:00:00+00:00"
+  },
+  {
+    "id": "r-noodles",
+    "categoryId": "c-food",
+    "title": "Best Instant Noodles in Nepal",
+    "slug": "best-instant-noodles-in-nepal",
+    "description": "Nepal eats noodles like sport. Raw, souped, or chatpate-fried — pick your champion.",
+    "createdAt": "2026-10-28T09:00:00+00:00",
+    "updatedAt": "2026-10-28T09:00:00+00:00"
+  },
+  {
+    "id": "r-escooters",
+    "categoryId": "c-vehicles",
+    "title": "Best Electric Scooters in Nepal",
+    "slug": "best-electric-scooters-in-nepal",
+    "description": "Hills, monsoon, charging at home — the EV scooter that survives all three wins.",
+    "createdAt": "2026-10-30T09:00:00+00:00",
+    "updatedAt": "2026-10-30T09:00:00+00:00"
+  },
+  {
+    "id": "r-phones",
+    "categoryId": "c-tech",
+    "title": "Best Smartphone Brands in Nepal",
+    "slug": "best-smartphone-brands-in-nepal",
+    "description": "From Rs 10k workhorses to flagship flexes, judged by the hands that hold them.",
+    "createdAt": "2026-10-30T09:00:00+00:00",
+    "updatedAt": "2026-10-30T09:00:00+00:00"
+  },
+  {
+    "id": "r-hospitals",
+    "categoryId": "c-health",
+    "title": "Best Hospitals in Nepal",
+    "slug": "best-hospitals-in-nepal",
+    "description": "Care, queues, bills and outcomes — ranked by the people who needed them.",
+    "createdAt": "2026-11-01T09:00:00+00:00",
+    "updatedAt": "2026-11-01T09:00:00+00:00"
+  },
+  {
+    "id": "r-life-insurance",
+    "categoryId": "c-banks",
+    "title": "Best Life Insurance Companies in Nepal",
+    "slug": "best-life-insurance-companies-in-nepal",
+    "description": "Claim settlement speed and agent honesty — the only two things that matter.",
+    "createdAt": "2026-11-01T09:00:00+00:00",
+    "updatedAt": "2026-11-01T09:00:00+00:00"
   }
 ]

@@ -16,5 +16,50 @@
     "icon": "lucide:utensils",
     "createdAt": "2026-08-05T11:30:00+00:00",
     "updatedAt": "2026-10-31T07:15:00+00:00"
+  },
+  {
+    "id": "c-telecom",
+    "name": "Telecom & Internet",
+    "slug": "telecom",
+    "description": "ISPs and mobile networks, argued about by the people who actually sit through the outages.",
+    "icon": "lucide:wifi",
+    "createdAt": "2026-10-20T06:00:00+00:00",
+    "updatedAt": "2026-11-01T04:00:00+00:00"
+  },
+  {
+    "id": "c-travel",
+    "name": "Travel & Aviation",
+    "slug": "travel",
+    "description": "Airlines and routes rated by the passengers who fly them, week after week.",
+    "icon": "lucide:plane",
+    "createdAt": "2026-10-20T06:00:00+00:00",
+    "updatedAt": "2026-11-01T04:00:00+00:00"
+  },
+  {
+    "id": "c-vehicles",
+    "name": "Vehicles & Mobility",
+    "slug": "vehicles",
+    "description": "Scooters, bikes and everything charging its way through Nepali traffic.",
+    "icon": "lucide:bike",
+    "createdAt": "2026-10-20T06:00:00+00:00",
+    "updatedAt": "2026-11-01T04:00:00+00:00"
+  },
+  {
+    "id": "c-tech",
+    "name": "Tech & Gadgets",
+    "slug": "tech",
+    "description": "Phones, brands and gadgets chosen (and complained about) by daily users.",
+    "icon": "lucide:smartphone",
+    "createdAt": "2026-10-20T06:00:00+00:00",
+    "updatedAt": "2026-11-01T04:00:00+00:00"
+  },
+  {
+    "id": "c-health",
+    "name": "Health & Hospitals",
+    "slug": "health",
+    "description": "Hospitals and care, ranked by the patients and families who walked through the doors.",
+    "icon": "lucide:heart-pulse",
+    "createdAt": "2026-10-20T06:00:00+00:00",
+    "updatedAt": "2026-11-01T04:00:00+00:00"
   }
 ]

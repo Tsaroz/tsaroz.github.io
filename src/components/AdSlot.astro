@@ -18,7 +18,7 @@ const show = ads.enabled && !!code;
 {show && (
   <div class:list={[bare ? "ad-slot" : "nr-container ad-slot my-6", Astro.props.class]} data-ad-slot={name}>
     <div class="mx-auto max-w-4xl overflow-hidden text-center">
-      <p class="nr-label mb-1 text-ink-400">Sponsored</p>
+      <p class="nr-label mb-1 text-ink-600">Sponsored</p>
       <div class="nr-card p-3" set:html={code} />
     </div>
   </div>

@@ -43,7 +43,7 @@
   --color-up-100: #cdefdf;
   --color-up-500: #12a06b;
   --color-up-600: #0c8a5a;
-  --color-up-700: #096e48;
+  --color-up-700: #04573a;
 
   --color-down-50: #fdeeef;
   --color-down-100: #fbd9dc;
@@ -83,7 +83,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-500);
+    outline: 3px solid var(--color-gold-600);
     outline-offset: 2px;
     border-radius: 2px;
   }

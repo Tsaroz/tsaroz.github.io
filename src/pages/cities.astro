@@ -31,11 +31,11 @@ cities.sort((a, b) => b.rankings.length - a.rankings.length || a.c.name.localeCo
             </span>
             <span class="min-w-0">
               <span class="block font-display text-base font-bold text-ink-900 group-hover:text-brand-700">{c.name}</span>
-              <span class="block text-xs text-ink-500">{c.district}</span>
+              <span class="block text-xs text-ink-600">{c.district}</span>
             </span>
           </span>
           <span class="line-clamp-2 text-sm leading-6 text-ink-600">{c.description}</span>
-          <span class="mt-auto flex items-center gap-3 pt-2 text-xs tabular-nums text-ink-500">
+          <span class="mt-auto flex items-center gap-3 pt-2 text-xs tabular-nums text-ink-600">
             <span class="inline-flex items-center gap-1"><Icon name="lucide:list-ordered" class="size-3.5" aria-hidden="true" />{formatNumber(rankings.length)} rankings</span>
             {rankings[0] && <span class="truncate">· hot: {rankings[0].title}</span>}
           </span>

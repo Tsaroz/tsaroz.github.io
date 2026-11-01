@@ -24,14 +24,12 @@ const iconClass = variant === "nav" ? "left-2.5 size-4" : "left-3.5 size-5";
     id={id}
     type="search"
     autocomplete="off"
-    role="combobox"
-    aria-expanded="false"
-    aria-controls={`${id}-list`}
     placeholder={variant === "nav" ? "Search…" : "Try “bank”, “momo”, “Pokhara”…"}
     class={inputClass}
     autofocus={autofocus}
   />
   <div id={`${id}-list`} data-suggest-list class="nr-suggest-list hidden" role="listbox"></div>
+  <span data-suggest-count class="sr-only" aria-live="polite"></span>
 </div>
 
 <script>

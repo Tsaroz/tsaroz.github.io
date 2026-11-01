@@ -73,7 +73,7 @@ const stats = [
               <td class="px-5 py-3 text-ink-600">{r.category?.name}</td>
               <td class="px-5 py-3 text-right tabular-nums">{formatNumber(r.totalVotes)}</td>
               <td class="px-5 py-3 text-right">{r.top[0]?.name}</td>
-              <td class="px-5 py-3 text-right text-xs text-ink-500">{timeAgo(r.updatedAt)}</td>
+              <td class="px-5 py-3 text-right text-xs text-ink-500">{timeAgo(r.lastActivity)}</td>
             </tr>
           ))}
         </tbody>

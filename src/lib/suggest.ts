@@ -69,19 +69,22 @@ export function mountSuggest({ input, list, wrap, onNavigate }: SuggestUi) {
     t === "Ranking" ? "☷" : t === "Category" ? "▦" : "◆";
 
   function render() {
+    const live = wrap.querySelector<HTMLElement>("[data-suggest-count]");
     if (!items.length) {
-      list.innerHTML = `<p class="px-3 py-2.5 text-sm text-ink-500">No matches, try “bank”, “momo”, “Pokhara”.</p>`;
+      list.innerHTML = `<p class="px-3 py-2.5 text-sm text-ink-700">No matches, try “bank”, “momo”, “Pokhara”.</p>`;
+      if (live) live.textContent = "No matches found";
       list.classList.remove("hidden");
       wrap.dataset.open = "1";
       return;
     }
+    if (live) live.textContent = `${items.length} suggestions`;
     list.innerHTML = items
       .map(
         (it, i) =>
           `<a class="nr-suggest-item" data-i="${i}" href="${esc(it.u)}">` +
           `<span class="w-5 shrink-0 text-center text-ink-400" aria-hidden="true">${icon(it.t)}</span>` +
           `<span class="min-w-0 flex-1"><span class="block truncate font-semibold text-ink-900">${esc(it.n)}</span>` +
-          `<span class="block truncate text-xs text-ink-500">${esc(it.t)} · ${esc(it.h)}</span></span></a>`,
+          `<span class="block truncate text-xs text-ink-600">${esc(it.t)} · ${esc(it.h)}</span></span></a>`,
       )
       .join("");
     list.classList.remove("hidden");

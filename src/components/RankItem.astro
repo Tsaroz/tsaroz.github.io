@@ -45,7 +45,7 @@ const medal = entry.rank <= 3;
         </h3>
         <VoteButtons {entry} />
       </div>
-      <p class="mt-1.5 flex items-center gap-2 text-xs text-ink-400">
+      <p class="mt-1.5 flex items-center gap-2 text-xs text-ink-600">
         <Icon name="lucide:clock" class="size-3.5" aria-hidden="true" />
         Votes updated {timeAgo(entry.updatedAt)}
         <span class="hidden sm:inline">· see full discussion for every position</span>
@@ -63,7 +63,7 @@ const medal = entry.rank <= 3;
           {comments.map((c) => <CommentItem comment={c} />)}
         </ul>
       ) : (
-        <p class="py-1 text-xs text-ink-500">No comments yet; be the first to weigh in.</p>
+        <p class="py-1 text-xs text-ink-600">No comments yet; be the first to weigh in.</p>
       )}
       <p class="mt-3 flex items-center justify-between gap-3">
         <a href={url(discussion + "?respond=1")} class="nr-btn-outline inline-flex px-3 py-1.5 text-xs">
@@ -72,7 +72,7 @@ const medal = entry.rank <= 3;
         </a>
         <a href={url(discussion)} class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
           Read more comments
-          <span class="text-ink-400">({total})</span>
+          <span class="text-ink-600">({total})</span>
           <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
         </a>
       </p>

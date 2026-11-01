@@ -39,7 +39,7 @@ const href = `/ranking/${ranking.slug}/`;
     <ol class="mt-4 space-y-1.5" aria-label={`Current top three of ${ranking.title}`}>
       {ranking.top.map((e) => (
         <li class="flex items-center gap-2.5 rounded-lg bg-ink-50 px-3 py-1.5 text-sm">
-          <span class:list={["w-4 text-center font-display font-bold tabular-nums", e.rank <= 3 ? "text-gold-600" : "text-ink-500"]}>{e.rank}</span>
+          <span class:list={["w-4 text-center font-display font-bold tabular-nums", e.rank <= 3 ? "text-gold-600" : "text-ink-600"]}>{e.rank}</span>
           <a href={url(`/ranking/${ranking.slug}/${e.slug}/`)} class="relative z-10 min-w-0 flex-1 truncate font-medium text-ink-800 hover:text-brand-700">{e.name}</a>
           <span class="flex items-center gap-1 text-xs font-semibold tabular-nums text-up-700">
             <Icon name="lucide:arrow-up-right" class="size-3" aria-hidden="true" />
@@ -50,7 +50,7 @@ const href = `/ranking/${ranking.slug}/`;
     </ol>
   )}
 
-  <footer class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-ink-100 pt-4 text-xs text-ink-500">
+  <footer class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-ink-100 pt-4 text-xs text-ink-600">
     <span class="inline-flex items-center gap-1.5">
       <Icon name="lucide:list-ordered" class="size-3.5" aria-hidden="true" />
       {ranking.entryCount} entries
@@ -65,7 +65,7 @@ const href = `/ranking/${ranking.slug}/`;
     </span>
     <span class="ml-auto inline-flex items-center gap-1.5">
       <Icon name="lucide:clock" class="size-3.5" aria-hidden="true" />
-      {timeAgo(ranking.updatedAt)}
+      {timeAgo(ranking.lastActivity)}
     </span>
   </footer>
 </article>

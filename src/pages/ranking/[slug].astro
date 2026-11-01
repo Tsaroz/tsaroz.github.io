@@ -68,7 +68,7 @@ const crumbCategory = d.category
   {ranking.ad?.trim() ? (
     <div class="nr-container pt-6">
       <div class="mx-auto max-w-4xl overflow-hidden text-center">
-        <p class="nr-label mb-1 text-ink-400">Sponsored</p>
+        <p class="nr-label mb-1 text-ink-600">Sponsored</p>
         <div class="nr-card p-3" set:html={ranking.ad} />
       </div>
     </div>
@@ -98,11 +98,11 @@ const crumbCategory = d.category
     </div>
     <h1 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{ranking.title}</h1>
     <p class="mt-2 max-w-3xl text-sm leading-7 text-ink-600 sm:text-base">{ranking.description}</p>
-    <p class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-500">
-      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:boxes" class="size-4 text-ink-400" aria-hidden="true" />{entries.length} entries</span>
-      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:vote" class="size-4 text-ink-400" aria-hidden="true" /><span data-live-total-votes={d.totalVotes}>{formatNumber(d.totalVotes)}</span> votes</span>
-      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:messages-square" class="size-4 text-ink-400" aria-hidden="true" />{d.commentCount} comments</span>
-      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:clock" class="size-4 text-ink-400" aria-hidden="true" />updated {timeAgo(ranking.updatedAt)}</span>
+    <p class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-600">
+      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:boxes" class="size-4 text-ink-600" aria-hidden="true" />{entries.length} entries</span>
+      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:vote" class="size-4 text-ink-600" aria-hidden="true" /><span data-live-total-votes={d.totalVotes}>{formatNumber(d.totalVotes)}</span> votes</span>
+      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:messages-square" class="size-4 text-ink-600" aria-hidden="true" />{d.commentCount} comments</span>
+      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:clock" class="size-4 text-ink-600" aria-hidden="true" />updated {timeAgo(decorate(ranking).lastActivity)}</span>
     </p>
   </header>
 

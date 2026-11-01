@@ -159,9 +159,11 @@ export type DecoratedRanking = Ranking & {
   entryCount: number;
   totalVotes: number;
   commentCount: number;
-
+  
   activity7d: number;
   lifetimeScore: number;
+  
+  lastActivity: string;
   top: EntryWithRank[];
 };
 
@@ -172,6 +174,10 @@ export function rankingActivity7d(rankingId: string): number {
 }
 
 export function decorate(r: Ranking): DecoratedRanking {
+  const times = entries
+    .filter((e) => e.rankingId === r.id)
+    .flatMap((e) => [+new Date(e.createdAt), +new Date(e.updatedAt)])
+    .concat([+new Date(r.createdAt), +new Date(r.updatedAt)]);
   return {
     ...r,
     category: getCategoryById(r.categoryId),
@@ -180,6 +186,7 @@ export function decorate(r: Ranking): DecoratedRanking {
     commentCount: rankingCommentCount(r.id),
     activity7d: rankingActivity7d(r.id),
     lifetimeScore: rankingTotalVotes(r.id) + rankingCommentCount(r.id),
+    lastActivity: new Date(Math.max(...times)).toISOString(),
     top: getRankedEntries(r.id).slice(0, 3),
   };
 }

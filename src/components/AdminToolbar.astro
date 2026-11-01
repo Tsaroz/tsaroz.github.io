@@ -5,28 +5,39 @@
   <div class="flex flex-wrap items-center gap-x-6 gap-y-1.5 px-5 py-2 text-xs text-ink-600">
     <strong class="font-semibold text-ink-900">NepalRanks Admin</strong>
     <span>writes go straight to the live database, enforced by row-level security</span>
-    <span data-staff-badge class="ml-auto rounded-full bg-ink-200 px-2.5 py-1 font-semibold text-ink-600">checking…</span>
+    <span class="ml-auto flex items-center gap-2">
+      <button type="button" data-staff-signin hidden class="rounded-md bg-brand-600 px-2.5 py-1 font-semibold text-white hover:bg-brand-700">Sign in with Google</button>
+      <button type="button" data-staff-signout hidden class="rounded-md border border-ink-300 px-2.5 py-1 font-semibold text-ink-600 hover:bg-ink-100">Sign out</button>
+      <span data-staff-badge class="rounded-full bg-ink-200 px-2.5 py-1 font-semibold text-ink-600">checking…</span>
+    </span>
   </div>
 </div>
 
 <script>
-  import { userRole, session } from "@lib/auth";
+  import { userRole, session, requireAuth, signOut } from "@lib/auth";
   import { list } from "@lib/store";
   const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
+  const inBtn = document.querySelector<HTMLButtonElement>("[data-staff-signin]")!;
+  const outBtn = document.querySelector<HTMLButtonElement>("[data-staff-signout]")!;
+  inBtn.addEventListener("click", () => { void requireAuth(location.href); });
+  outBtn.addEventListener("click", () => { void signOut(); });
   (async () => {
     const role = await userRole();
     if (!role) {
       badge.textContent = "not signed in, read-only";
+      inBtn.hidden = false;
       return;
     }
+    inBtn.hidden = true;
+    outBtn.hidden = false;
     try {
       const rows = await list<Array<{ id: string }>>("cat_entries", "?select=id&limit=1");
       const seeded = rows.length > 0;
       badge.textContent = seeded ? `signed in · ${role}` : `signed in · ${role} · backend not ready`;
-      badge.className = "ml-auto rounded-full px-2.5 py-1 font-semibold " + (seeded ? "bg-up-100 text-up-700" : "bg-down-100 text-down-700");
+      badge.className = "rounded-full px-2.5 py-1 font-semibold " + (seeded ? "bg-up-100 text-up-700" : "bg-down-100 text-down-700");
     } catch {
       badge.textContent = `signed in · ${role}`;
-      badge.className = "ml-auto rounded-full bg-up-100 px-2.5 py-1 font-semibold text-up-700";
+      badge.className = "rounded-full bg-up-100 px-2.5 py-1 font-semibold text-up-700";
     }
     void session();
   })();

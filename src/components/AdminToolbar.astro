@@ -6,6 +6,7 @@
     <strong class="font-semibold text-ink-900">NepalRanks Admin</strong>
     <span>writes go straight to the live database, enforced by row-level security</span>
     <span class="ml-auto flex items-center gap-2">
+      <button type="button" data-publish hidden class="rounded-md border border-brand-500 px-2.5 py-1 font-semibold text-brand-700 hover:bg-brand-50 disabled:opacity-50">Publish site</button>
       <button type="button" data-staff-signin hidden class="rounded-md bg-brand-600 px-2.5 py-1 font-semibold text-white hover:bg-brand-700">Sign in with Google</button>
       <button type="button" data-staff-signout hidden class="rounded-md border border-ink-300 px-2.5 py-1 font-semibold text-ink-600 hover:bg-ink-100">Sign out</button>
       <span data-staff-badge class="rounded-full bg-ink-200 px-2.5 py-1 font-semibold text-ink-600">checking…</span>
@@ -15,11 +16,46 @@
 
 <script>
   import { userRole, session, requireAuth, signOut, sb } from "@lib/auth";
-  import { list } from "@lib/store";
+  import { list, insert, update, nowIso } from "@lib/store";
+  import { adminToast } from "@lib/admin";
   const ATTEMPT_KEY = "nr-signin-attempt";
   const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
   const inBtn = document.querySelector<HTMLButtonElement>("[data-staff-signin]")!;
   const outBtn = document.querySelector<HTMLButtonElement>("[data-staff-signout]")!;
+  const pubBtn = document.querySelector<HTMLButtonElement>("[data-publish]")!;
+  let watchTimer = 0;
+  const queued = () => {
+    pubBtn.disabled = true;
+    pubBtn.textContent = "queued…";
+    window.clearInterval(watchTimer);
+    const until = Date.now() + 15 * 60000;
+    watchTimer = window.setInterval(async () => {
+      try {
+        if ((await list("meta", "?select=value&key=eq.publish_requested")).length === 0) {
+          window.clearInterval(watchTimer);
+          pubBtn.disabled = false;
+          pubBtn.textContent = "Publish site";
+          adminToast("Site published.");
+        } else if (Date.now() > until) {
+          window.clearInterval(watchTimer);
+          pubBtn.textContent = "still queued";
+        }
+      } catch {}
+    }, 20000);
+  };
+  pubBtn.addEventListener("click", async () => {
+    pubBtn.disabled = true;
+    try {
+      const patch = { value: { requested_at: nowIso() } };
+      if ((await list("meta", "?select=value&key=eq.publish_requested")).length) await update("meta", "key=eq.publish_requested", patch);
+      else await insert("meta", { key: "publish_requested", ...patch });
+      adminToast("Queued. The site rebuilds within a few minutes.");
+      queued();
+    } catch (e) {
+      pubBtn.disabled = false;
+      adminToast(String(e), false);
+    }
+  });
   inBtn.addEventListener("click", () => {
     try { localStorage.setItem(ATTEMPT_KEY, String(Date.now())); } catch {}
     void requireAuth(location.href);
@@ -73,6 +109,10 @@
     } catch {
       badge.textContent = `signed in · ${role}`;
       badge.className = "rounded-full bg-up-100 px-2.5 py-1 font-semibold text-up-700";
+    }
+    if (role === "admin" || role === "moderator") {
+      pubBtn.hidden = false;
+      if ((await list("meta", "?select=value&key=eq.publish_requested")).length) queued();
     }
   })();
 </script>

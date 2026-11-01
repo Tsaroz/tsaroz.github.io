@@ -28,18 +28,22 @@
   outBtn.addEventListener("click", () => { void signOut(); });
   (async () => {
     const params = new URLSearchParams(location.search);
+    const hadCode = params.has("code");
     let s = await session();
-    if (!s && params.get("code")) {
+    if (!s && hadCode) {
       try {
         const r = await sb()?.auth.exchangeCodeForSession(params.get("code")!);
         s = r?.data.session ?? null;
-        history.replaceState({}, "", location.pathname);
-      } catch (e) {
-        badge.textContent = `sign-in exchange failed: ${(e as Error)?.message ?? String(e)}`;
-        badge.className = "rounded-full bg-down-100 px-2.5 py-1 font-semibold text-down-700";
-        inBtn.hidden = false;
-        return;
+      } catch {
+        s = await session();
       }
+      history.replaceState({}, "", location.pathname);
+    }
+    if (!s && hadCode) {
+      badge.textContent = "sign-in landed on the wrong site, or Supabase rejected the return URL";
+      badge.className = "rounded-full bg-down-100 px-2.5 py-1 font-semibold text-down-700";
+      inBtn.hidden = false;
+      return;
     }
     if (!s) {
       badge.textContent = "not signed in, read-only";

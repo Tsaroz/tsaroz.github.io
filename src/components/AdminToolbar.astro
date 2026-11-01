@@ -16,45 +16,24 @@
 
 <script>
   import { userRole, session, requireAuth, signOut, sb } from "@lib/auth";
-  import { list, insert, update, nowIso } from "@lib/store";
+  import { list, rpc } from "@lib/store";
   import { adminToast } from "@lib/admin";
   const ATTEMPT_KEY = "nr-signin-attempt";
   const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
   const inBtn = document.querySelector<HTMLButtonElement>("[data-staff-signin]")!;
   const outBtn = document.querySelector<HTMLButtonElement>("[data-staff-signout]")!;
   const pubBtn = document.querySelector<HTMLButtonElement>("[data-publish]")!;
-  let watchTimer = 0;
-  const queued = () => {
-    pubBtn.disabled = true;
-    pubBtn.textContent = "queued…";
-    window.clearInterval(watchTimer);
-    const until = Date.now() + 15 * 60000;
-    watchTimer = window.setInterval(async () => {
-      try {
-        if ((await list("meta", "?select=value&key=eq.publish_requested")).length === 0) {
-          window.clearInterval(watchTimer);
-          pubBtn.disabled = false;
-          pubBtn.textContent = "Publish site";
-          adminToast("Site published.");
-        } else if (Date.now() > until) {
-          window.clearInterval(watchTimer);
-          pubBtn.textContent = "still queued";
-        }
-      } catch {}
-    }, 20000);
-  };
   pubBtn.addEventListener("click", async () => {
     pubBtn.disabled = true;
+    pubBtn.textContent = "publishing…";
     try {
-      const patch = { value: { requested_at: nowIso() } };
-      if ((await list("meta", "?select=value&key=eq.publish_requested")).length) await update("meta", "key=eq.publish_requested", patch);
-      else await insert("meta", { key: "publish_requested", ...patch });
-      adminToast("Queued. The site rebuilds within a few minutes.");
-      queued();
+      const r = await rpc<{ ok: boolean; error?: string }>("request_publish", {});
+      if (!r?.ok) throw new Error(r?.error ?? "dispatch failed");
+      adminToast("Publish dispatched, pages refresh in about two minutes.");
     } catch (e) {
-      pubBtn.disabled = false;
       adminToast(String(e), false);
     }
+    setTimeout(() => { pubBtn.disabled = false; pubBtn.textContent = "Publish site"; }, 95000);
   });
   inBtn.addEventListener("click", () => {
     try { localStorage.setItem(ATTEMPT_KEY, String(Date.now())); } catch {}
@@ -112,7 +91,6 @@
     }
     if (role === "admin" || role === "moderator") {
       pubBtn.hidden = false;
-      if ((await list("meta", "?select=value&key=eq.publish_requested")).length) queued();
     }
   })();
 </script>

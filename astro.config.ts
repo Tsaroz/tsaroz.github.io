@@ -21,7 +21,7 @@ export default defineConfig({
   integrations: [
     sitemap({
 
-      filter: (page) => !/\/(admin|cp-7f3k9q)\/?$/.test(page) && !page.includes("/cp-7f3k9q/") && !page.includes("/admin/"),
+      filter: (page) => !/\/(admin|cp-7f3k9q)\/?$/.test(page) && !page.includes("/cp-7f3k9q/") && !page.includes("/admin/") && !page.includes("/auth-relay/"),
     }),
     icon(),
   ],

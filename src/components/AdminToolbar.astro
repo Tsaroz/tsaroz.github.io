@@ -16,10 +16,15 @@
 <script>
   import { userRole, session, requireAuth, signOut } from "@lib/auth";
   import { list } from "@lib/store";
+  import { PANEL_URL } from "@lib/config";
   const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
   const inBtn = document.querySelector<HTMLButtonElement>("[data-staff-signin]")!;
   const outBtn = document.querySelector<HTMLButtonElement>("[data-staff-signout]")!;
-  inBtn.addEventListener("click", () => { void requireAuth(location.href); });
+  inBtn.addEventListener("click", () => {
+    let onPanel = false;
+    try { onPanel = !!PANEL_URL && location.origin === new URL(PANEL_URL).origin; } catch {}
+    void requireAuth(onPanel ? `https://nepalranks.com/auth-relay/?next=${encodeURIComponent(location.href)}` : location.href);
+  });
   outBtn.addEventListener("click", () => { void signOut(); });
   (async () => {
     const role = await userRole();

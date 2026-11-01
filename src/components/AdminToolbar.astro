@@ -16,19 +16,19 @@
 <script>
   import { userRole, session, requireAuth, signOut, sb } from "@lib/auth";
   import { list } from "@lib/store";
-  import { PANEL_URL } from "@lib/config";
+  const ATTEMPT_KEY = "nr-signin-attempt";
   const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
   const inBtn = document.querySelector<HTMLButtonElement>("[data-staff-signin]")!;
   const outBtn = document.querySelector<HTMLButtonElement>("[data-staff-signout]")!;
   inBtn.addEventListener("click", () => {
-    let onPanel = false;
-    try { onPanel = !!PANEL_URL && location.origin === new URL(PANEL_URL).origin; } catch {}
-    void requireAuth(onPanel ? `https://nepalranks.com/auth-relay/?next=${encodeURIComponent(location.href)}` : location.href);
+    try { localStorage.setItem(ATTEMPT_KEY, String(Date.now())); } catch {}
+    void requireAuth(location.href);
   });
   outBtn.addEventListener("click", () => { void signOut(); });
   (async () => {
     const params = new URLSearchParams(location.search);
     const hadCode = params.has("code");
+    const attempt = Number(localStorage.getItem(ATTEMPT_KEY) || 0);
     let s = await session();
     if (!s && hadCode) {
       try {
@@ -39,8 +39,16 @@
       }
       history.replaceState({}, "", location.pathname);
     }
+    if (s) localStorage.removeItem(ATTEMPT_KEY);
     if (!s && hadCode) {
-      badge.textContent = "sign-in landed on the wrong site, or Supabase rejected the return URL";
+      badge.textContent = "sign-in code rejected (used already or expired) — click Sign in once more";
+      badge.className = "rounded-full bg-down-100 px-2.5 py-1 font-semibold text-down-700";
+      inBtn.hidden = false;
+      return;
+    }
+    if (!s && attempt && Date.now() - attempt < 180000) {
+      localStorage.removeItem(ATTEMPT_KEY);
+      badge.textContent = "Supabase never returned the code to this domain — the Redirect URL is not being honored";
       badge.className = "rounded-full bg-down-100 px-2.5 py-1 font-semibold text-down-700";
       inBtn.hidden = false;
       return;

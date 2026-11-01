@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Nepali Chulo">
+<rect width="160" height="160" rx="16" fill="#1e46cc"/>
+<g transform="rotate(3 80 80)" opacity="0.16" fill="none" stroke="#ffffff" stroke-width="2">
+  <path d="M-40 110 Q40 40 120 100 T280 90"/>
+  <path d="M-40 130 Q40 60 120 120 T280 110"/>
+</g>
+<text x="80" y="80" text-anchor="middle" dominant-baseline="central" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#ffffff">NC</text>
+</svg>

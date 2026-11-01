@@ -111,8 +111,8 @@ async function dbMirror() {
     return {
       id: e.id, rankingId: e.ranking_id, categoryId: e.category_id, name: e.name, slug: e.slug,
       description: e.description,
-      image: `/img/entries/${r?.slug ?? "unknown"}/${e.slug}.svg`,
-      imageAlt: `${e.name} logo tile`,
+      image: e.image_url || `/img/entries/${r?.slug ?? "unknown"}/${e.slug}.svg`,
+      imageAlt: e.image_url ? `${e.name} image` : `${e.name} logo tile`,
       upvotes: e.upvotes, downvotes: e.downvotes,
       votes7d: a.votes ?? 0, comments7d: a.comments ?? 0,
       createdAt: e.created_at, updatedAt: e.updated_at,

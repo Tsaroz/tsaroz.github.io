@@ -63,7 +63,7 @@ const ranks = getRankings().sort((a, b) => a.title.localeCompare(b.title));
           </thead>
           <tbody class="divide-y divide-ink-100">
             {rows.map((e) => (
-              <tr class="hover:bg-ink-50/60" data-row={e.id}>
+                      <tr class="hover:bg-ink-50/60" data-row={e.id} data-tile={url(`/img/entries/${ranking.slug}/${e.slug}.svg`)}>
                 <td class="px-5 py-3 text-right font-display font-bold tabular-nums text-ink-400" data-label="Rank">{e.rank}</td>
                 <td class="px-5 py-3" data-label="Entry">
                   <a href={url(`/ranking/${ranking.slug}/${e.slug}/`)} class="block max-w-52 truncate font-semibold text-ink-900 hover:text-brand-700">{e.name}</a>
@@ -86,6 +86,13 @@ const ranks = getRankings().sort((a, b) => a.title.localeCompare(b.title));
                         <label class="block min-w-0 flex-1 text-xs"><span class="mb-1 block font-semibold text-ink-800">Baseline downvotes</span>
                           <input data-f="downvotes" type="number" min="0" value={e.downvotes} class="w-full rounded-md border border-ink-200 px-3 py-2 text-sm tabular-nums" /></label>
                       </span>
+                      <span class="flex items-center gap-2">
+                        <img data-prev src={e.image.startsWith("http") ? e.image : url(e.image)} class="size-10 shrink-0 rounded-md border border-ink-200 bg-ink-100 object-cover" alt="" />
+                        <label class="cursor-pointer rounded-md border border-ink-200 px-2.5 py-1.5 text-xs font-semibold text-ink-600 hover:border-brand-400 hover:text-brand-700">Pick image
+                          <input type="file" accept="image/*" data-img class="hidden" /></label>
+                        <span data-img-name class="min-w-0 truncate text-[11px] text-ink-500">none picked · use Tile to reset</span>
+                        <button type="button" data-img-clear class="ml-auto rounded-md border border-ink-200 px-2 py-1.5 text-xs font-semibold text-ink-500 hover:bg-ink-50">Tile</button>
+                      </span>
                       <button type="button" data-save class="w-full rounded-md bg-brand-600 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-700">Save</button>
                     </div>
                   </details>
@@ -101,6 +108,43 @@ const ranks = getRankings().sort((a, b) => a.title.localeCompare(b.title));
   <script>
     import { insert, update, rpc, nowIso, slugify, adminGuard, saved } from "@lib/adminclient";
     import { adminToast } from "@lib/admin";
+    import { authHeaders } from "@lib/auth";
+
+    function liveCfg(): { url: string } {
+      const el = document.getElementById("nr-live-config");
+      const c = el ? JSON.parse(el.textContent ?? "{}") : {};
+      if (!c.url) throw new Error("no backend configured");
+      return c;
+    }
+    function shrink(file: File): Promise<Blob> {
+      return new Promise((res, rej) => {
+        if (file.size > 8 * 1024 * 1024) { rej(new Error("image larger than 8 MB")); return; }
+        const img = new Image();
+        img.onload = () => {
+          const k = Math.min(1, 512 / Math.max(img.width, img.height));
+          const cv = document.createElement("canvas");
+          cv.width = Math.max(1, Math.round(img.width * k));
+          cv.height = Math.max(1, Math.round(img.height * k));
+          cv.getContext("2d")!.drawImage(img, 0, 0, cv.width, cv.height);
+          cv.toBlob((b) => (b ? res(b) : rej(new Error("encode failed"))), "image/webp", 0.85);
+          URL.revokeObjectURL(img.src);
+        };
+        img.onerror = () => rej(new Error("not a readable image"));
+        img.src = URL.createObjectURL(file);
+      });
+    }
+    async function uploadImage(entryId: string, file: File): Promise<string> {
+      const c = liveCfg();
+      const blob = await shrink(file);
+      const path = `${entryId.replace(":", "/")}.webp`;
+      const r = await fetch(`${c.url}/storage/v1/object/entry-images/${path}`, {
+        method: "PUT",
+        headers: { ...(await authHeaders()), "content-type": "image/webp", "x-upsert": "true" },
+        body: blob,
+      });
+      if (!r.ok) throw new Error(`image upload failed: HTTP ${r.status}`);
+      return `${c.url}/storage/v1/object/public/entry-images/${path}`;
+    }
     document.querySelector<HTMLSelectElement>("[data-switch]")?.addEventListener("change", (e) => {
       const sel = e.target as HTMLSelectElement;
       if (sel.value) location.href = sel.value;
@@ -127,10 +171,29 @@ const ranks = getRankings().sort((a, b) => a.title.localeCompare(b.title));
         row.querySelector("[data-save]")!.addEventListener("click", async () => {
           const get = (n: string) => (row.querySelector(`[data-f="${n}"]`) as HTMLInputElement | HTMLTextAreaElement).value;
           const id = row.dataset.row!;
+          const fileIn = row.querySelector<HTMLInputElement>("[data-img]");
           try {
             await rpc("update_entry_baseline", { p_entry: id, p_up: Number(get("upvotes")), p_down: Number(get("downvotes")) });
             await update("cat_entries", `id=eq.${id}`, { name: get("name"), description: get("description"), updated_at: nowIso() });
-            saved("Baseline + text saved.");
+            if (fileIn?.files?.[0]) {
+              const pub = await uploadImage(id, fileIn.files[0]);
+              await update("cat_entries", `id=eq.${id}`, { image_url: pub, updated_at: nowIso() });
+              const prev = row.querySelector<HTMLImageElement>("[data-prev]");
+              if (prev) prev.src = pub;
+              fileIn.value = "";
+              const lbl = row.querySelector<HTMLElement>("[data-img-name]");
+              if (lbl) lbl.textContent = "custom image set";
+            }
+            saved("Entry saved.");
+          } catch (err) { adminToast(String(err), false); }
+        });
+        row.querySelector("[data-img-clear]")!.addEventListener("click", async () => {
+          const id = row.dataset.row!;
+          try {
+            await update("cat_entries", `id=eq.${id}`, { image_url: null, updated_at: nowIso() });
+            const prev = row.querySelector<HTMLImageElement>("[data-prev]");
+            if (prev && row.dataset.tile) prev.src = row.dataset.tile;
+            saved("Using the generated tile.");
           } catch (err) { adminToast(String(err), false); }
         });
       });

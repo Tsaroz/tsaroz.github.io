@@ -20,3 +20,4 @@ jobs:
             "$SUPABASE_URL/rest/v1/live_deltas?select=entry_id&limit=1")
           echo "ping -> HTTP $code"
           [ "$code" = "200" ] || exit 1
+

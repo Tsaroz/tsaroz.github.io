@@ -70,3 +70,4 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           curl -s -o /dev/null -X DELETE -H "apikey: $SUPABASE_SERVICE_KEY" -H "authorization: Bearer $SUPABASE_SERVICE_KEY" "$SUPABASE_URL/rest/v1/meta?key=eq.publish_requested"
+

@@ -26,3 +26,4 @@ jobs:
           echo "api -> $code"; [ "$code" = "200" ]
           code=$(curl -s -m 15 -o /dev/null -w "%{http_code}" -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $SUPABASE_ANON_KEY" "$SUPABASE_URL/rest/v1/comments?select=email&limit=1")
           echo "guard -> $code"; [ "$code" = "401" ]
+

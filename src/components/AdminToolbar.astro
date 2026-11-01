@@ -14,7 +14,7 @@
 </div>
 
 <script>
-  import { userRole, session, requireAuth, signOut } from "@lib/auth";
+  import { userRole, session, requireAuth, signOut, sb } from "@lib/auth";
   import { list } from "@lib/store";
   import { PANEL_URL } from "@lib/config";
   const badge = document.querySelector<HTMLElement>("[data-staff-badge]")!;
@@ -27,14 +27,32 @@
   });
   outBtn.addEventListener("click", () => { void signOut(); });
   (async () => {
-    const role = await userRole();
-    if (!role) {
+    const params = new URLSearchParams(location.search);
+    let s = await session();
+    if (!s && params.get("code")) {
+      try {
+        const r = await sb()?.auth.exchangeCodeForSession(params.get("code")!);
+        s = r?.data.session ?? null;
+        history.replaceState({}, "", location.pathname);
+      } catch (e) {
+        badge.textContent = `sign-in exchange failed: ${(e as Error)?.message ?? String(e)}`;
+        badge.className = "rounded-full bg-down-100 px-2.5 py-1 font-semibold text-down-700";
+        inBtn.hidden = false;
+        return;
+      }
+    }
+    if (!s) {
       badge.textContent = "not signed in, read-only";
       inBtn.hidden = false;
       return;
     }
-    inBtn.hidden = true;
+    const role = await userRole();
     outBtn.hidden = false;
+    if (!role) {
+      badge.textContent = "signed in · no staff role (read-only)";
+      badge.className = "rounded-full bg-gold-100 px-2.5 py-1 font-semibold text-gold-700";
+      return;
+    }
     try {
       const rows = await list<Array<{ id: string }>>("cat_entries", "?select=id&limit=1");
       const seeded = rows.length > 0;
@@ -44,6 +62,5 @@
       badge.textContent = `signed in · ${role}`;
       badge.className = "rounded-full bg-up-100 px-2.5 py-1 font-semibold text-up-700";
     }
-    void session();
   })();
 </script>

@@ -912,22 +912,6 @@
     "updatedAt": "2026-11-01T07:35:04.678+00:00"
   },
   {
-    "id": "r-life-insurance:nepal-life",
-    "rankingId": "r-life-insurance",
-    "categoryId": "c-banks",
-    "name": "Nepal Life Insurance",
-    "slug": "nepal-life",
-    "description": "The oldest name in the sector.",
-    "image": "https://ozmcqdcoqjzxaosgiony.supabase.co/storage/v1/object/public/entry-images/r-life-insurance/nepal-life.webp",
-    "imageAlt": "Nepal Life Insurance image",
-    "upvotes": 0,
-    "downvotes": 0,
-    "votes7d": 1,
-    "comments7d": 0,
-    "createdAt": "2026-11-01T09:30:00+00:00",
-    "updatedAt": "2026-11-01T09:20:48.229692+00:00"
-  },
-  {
     "id": "r-escooters:ather",
     "rankingId": "r-escooters",
     "categoryId": "c-vehicles",
@@ -974,6 +958,22 @@
     "comments7d": 0,
     "createdAt": "2026-10-30T09:30:00+00:00",
     "updatedAt": "2026-11-01T07:36:43.083+00:00"
+  },
+  {
+    "id": "r-life-insurance:nepal-life",
+    "rankingId": "r-life-insurance",
+    "categoryId": "c-banks",
+    "name": "Nepal Life Insurance",
+    "slug": "nepal-life",
+    "description": "The oldest name in the sector.",
+    "image": "https://ozmcqdcoqjzxaosgiony.supabase.co/storage/v1/object/public/entry-images/r-life-insurance/nepal-life.webp",
+    "imageAlt": "Nepal Life Insurance image",
+    "upvotes": 0,
+    "downvotes": 0,
+    "votes7d": 1,
+    "comments7d": 0,
+    "createdAt": "2026-11-01T09:30:00+00:00",
+    "updatedAt": "2026-11-02T01:00:40.053415+00:00"
   },
   {
     "id": "r-escooters:bajaj-chetak",

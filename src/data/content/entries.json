@@ -16,6 +16,22 @@
     "updatedAt": "2026-11-01T07:41:48.918+00:00"
   },
   {
+    "id": "r-isp:vianet",
+    "rankingId": "r-isp",
+    "categoryId": "c-telecom",
+    "name": "Vianet",
+    "slug": "vianet",
+    "description": "Early fiber player with wide valley and city coverage.",
+    "image": "/img/entries/best-isp-in-nepal/vianet.svg",
+    "imageAlt": "Vianet logo tile",
+    "upvotes": 0,
+    "downvotes": 1,
+    "votes7d": 1,
+    "comments7d": 0,
+    "createdAt": "2026-10-24T09:30:00+00:00",
+    "updatedAt": "2026-11-04T01:38:25.30181+00:00"
+  },
+  {
     "id": "r-restaurants:himalayan-flavor",
     "rankingId": "r-restaurants",
     "categoryId": "c-food",
@@ -56,22 +72,6 @@
     "description": "Nepal's largest private ISP, fiber-to-the-home across the country.",
     "image": "/img/entries/best-isp-in-nepal/worldlink.svg",
     "imageAlt": "WorldLink logo tile",
-    "upvotes": 0,
-    "downvotes": 0,
-    "votes7d": 0,
-    "comments7d": 0,
-    "createdAt": "2026-10-24T09:30:00+00:00",
-    "updatedAt": "2026-10-24T09:30:00+00:00"
-  },
-  {
-    "id": "r-isp:vianet",
-    "rankingId": "r-isp",
-    "categoryId": "c-telecom",
-    "name": "Vianet",
-    "slug": "vianet",
-    "description": "Early fiber player with wide valley and city coverage.",
-    "image": "/img/entries/best-isp-in-nepal/vianet.svg",
-    "imageAlt": "Vianet logo tile",
     "upvotes": 0,
     "downvotes": 0,
     "votes7d": 0,
@@ -989,7 +989,7 @@
     "votes7d": 1,
     "comments7d": 0,
     "createdAt": "2026-11-01T09:30:00+00:00",
-    "updatedAt": "2026-11-03T03:03:41.053109+00:00"
+    "updatedAt": "2026-11-04T01:38:25.30181+00:00"
   },
   {
     "id": "r-banks:everest-bank",

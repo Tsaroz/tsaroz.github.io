@@ -29,7 +29,7 @@
     "votes7d": 1,
     "comments7d": 0,
     "createdAt": "2026-10-24T09:30:00+00:00",
-    "updatedAt": "2026-11-04T01:38:25.30181+00:00"
+    "updatedAt": "2026-11-05T01:45:55.70532+00:00"
   },
   {
     "id": "r-restaurants:himalayan-flavor",
@@ -864,6 +864,22 @@
     "updatedAt": "2026-11-01T09:30:00+00:00"
   },
   {
+    "id": "r-life-insurance:nepal-life",
+    "rankingId": "r-life-insurance",
+    "categoryId": "c-banks",
+    "name": "Nepal Life Insurance",
+    "slug": "nepal-life",
+    "description": "The oldest name in the sector.",
+    "image": "https://ozmcqdcoqjzxaosgiony.supabase.co/storage/v1/object/public/entry-images/r-life-insurance/nepal-life.webp",
+    "imageAlt": "Nepal Life Insurance image",
+    "upvotes": 0,
+    "downvotes": 0,
+    "votes7d": 1,
+    "comments7d": 0,
+    "createdAt": "2026-11-01T09:30:00+00:00",
+    "updatedAt": "2026-11-05T01:45:55.70532+00:00"
+  },
+  {
     "id": "r-escooters:yadea",
     "rankingId": "r-escooters",
     "categoryId": "c-vehicles",
@@ -974,22 +990,6 @@
     "comments7d": 0,
     "createdAt": "2026-10-30T09:30:00+00:00",
     "updatedAt": "2026-11-01T07:37:18.554+00:00"
-  },
-  {
-    "id": "r-life-insurance:nepal-life",
-    "rankingId": "r-life-insurance",
-    "categoryId": "c-banks",
-    "name": "Nepal Life Insurance",
-    "slug": "nepal-life",
-    "description": "The oldest name in the sector.",
-    "image": "https://ozmcqdcoqjzxaosgiony.supabase.co/storage/v1/object/public/entry-images/r-life-insurance/nepal-life.webp",
-    "imageAlt": "Nepal Life Insurance image",
-    "upvotes": 0,
-    "downvotes": 0,
-    "votes7d": 1,
-    "comments7d": 0,
-    "createdAt": "2026-11-01T09:30:00+00:00",
-    "updatedAt": "2026-11-04T01:38:25.30181+00:00"
   },
   {
     "id": "r-banks:everest-bank",

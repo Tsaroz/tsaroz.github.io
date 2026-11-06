@@ -25,10 +25,24 @@ src/
   layouts/             BaseLayout (chrome/SEO), ArticleLayout
   pages/               index, articles/, about, contact, privacy, terms, 404
   lib/articles.ts      collection helpers
+  lib/seo.ts           SEO engine: scoring, JSON-LD, social preview
   styles/global.css    design system
 public/
   images/              cover and product images
 ```
+
+## SEO
+
+Every page is pre-rendered with its metadata baked into the static HTML — there
+is no client-side SEO. `src/lib/seo.ts` is the single source of truth and is used
+at build time to generate:
+
+- `<title>`, meta description, canonical URL, `hreflang`, author
+- `robots` directives (and per-article `noindex`)
+- Open Graph and Twitter card tags, including article publish/modify times
+- JSON-LD: `Article`, `BreadcrumbList`, `ItemList` (from product picks) and
+  `FAQPage` (from `faqs`)
+- `sitemap-index.xml` and `robots.txt`
 
 ## Commands
 

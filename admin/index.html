@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NepalRanks Admin</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">NepalRanks <span>Admin</span></div>
+      <div class="actions">
+        <span id="status" class="status"></span>
+        <button id="new-btn" class="btn ghost">+ New article</button>
+        <button id="publish-btn" class="btn publish">Publish</button>
+      </div>
+    </header>
+
+    <div class="gitbar" id="gitbar">
+      <span class="git-dot" id="git-dot"></span>
+      <span id="git-text">Checking git status…</span>
+      <span class="spacer"></span>
+      <a id="preview-link" class="git-link" href="http://localhost:4321/" target="_blank" rel="noopener">Open live preview ↗</a>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <input id="search" class="search" type="search" placeholder="Search articles…" />
+        <div class="filters" role="tablist">
+          <button type="button" class="filter active" data-filter="all">All</button>
+          <button type="button" class="filter" data-filter="published">Published</button>
+          <button type="button" class="filter" data-filter="draft">Drafts</button>
+        </div>
+        <ul id="list" class="list"></ul>
+      </aside>
+
+      <main class="editor" id="editor">
+        <div class="empty" id="empty">
+          <p class="empty-title">Select an article, or create a new one.</p>
+          <p class="hint">
+            Articles are plain Markdown files in <code>src/content/articles/</code>. Images live in
+            <code>public/images/</code>. Run <code>npm run dev</code> for a live preview at
+            <code>localhost:4321</code>.
+          </p>
+          <button type="button" class="btn primary" id="empty-new">+ New article</button>
+        </div>
+
+        <form id="form" class="hidden">
+          <div class="editor-head">
+            <div class="head-title">
+              <h1 id="form-title">Edit article</h1>
+              <div class="head-meta" id="head-meta"></div>
+            </div>
+            <div class="head-actions">
+              <a id="view-link" class="btn" href="#" target="_blank" rel="noopener">View</a>
+              <button type="button" id="delete-btn" class="btn danger">Delete</button>
+              <button type="submit" class="btn primary">Save</button>
+            </div>
+          </div>
+
+          <section class="card">
+            <h2>Basics</h2>
+            <div class="grid2">
+              <label>Title<input name="title" required /></label>
+              <label>Slug<input name="slug" placeholder="auto from title" /></label>
+            </div>
+            <label>Description (SEO)<textarea name="description" rows="2"></textarea></label>
+            <div class="grid2">
+              <label>Category<input name="category" placeholder="Buying Guides" /></label>
+              <label>Author<input name="author" /></label>
+            </div>
+            <div class="grid2">
+              <label>Published<input name="publishedAt" type="date" /></label>
+              <label>Updated<input name="updatedAt" type="date" /></label>
+            </div>
+            <div class="grid2">
+              <label class="row"><input name="draft" type="checkbox" /> Draft (hidden from the site)</label>
+              <label class="row"><input name="featured" type="checkbox" /> Featured on the homepage</label>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Cover image</h2>
+            <div class="cover-preview" id="cover-preview"></div>
+            <div class="imgrow">
+              <label>Cover path<input name="coverImage" placeholder="/images/covers/…" /></label>
+              <input type="file" accept="image/*" class="upload" data-target="coverImage" />
+            </div>
+            <label>Cover alt text<input name="coverImageAlt" /></label>
+          </section>
+
+          <section class="card">
+            <h2>SEO keywords</h2>
+            <label>Keywords (one per line)<textarea name="keywords" rows="3"></textarea></label>
+          </section>
+
+          <section class="card">
+            <h2>Intro</h2>
+            <label>Intro paragraph<textarea name="intro" rows="4"></textarea></label>
+          </section>
+
+          <section class="card">
+            <div class="card-head">
+              <h2>Products / picks</h2>
+              <button type="button" id="add-product" class="btn ghost small">+ Add product</button>
+            </div>
+            <div id="products"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-head">
+              <h2>Comparison table columns</h2>
+              <button type="button" id="add-column" class="btn ghost small">+ Add column</button>
+            </div>
+            <p class="hint">Each column maps to a spec key on each product. Use <code>price</code> for the price column.</p>
+            <div id="columns"></div>
+          </section>
+
+          <section class="card">
+            <h2>Body (Markdown)</h2>
+            <p class="hint">Use standard Markdown. Images: <code>![alt](/images/…)</code></p>
+            <textarea id="body" name="body" class="body" rows="24" spellcheck="false"></textarea>
+            <div class="uploadbar">
+              <input type="file" accept="image/*" id="body-image" />
+              <span class="hint">Upload an image and insert it at the cursor.</span>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Conclusion</h2>
+            <label>Conclusion<textarea name="conclusion" rows="5"></textarea></label>
+          </section>
+
+          <div class="savebar">
+            <button type="submit" class="btn primary">Save article</button>
+          </div>
+        </form>
+      </main>
+
+      <aside class="library" id="library">
+        <div class="card-head">
+          <h2>Image library</h2>
+          <input type="file" accept="image/*" id="library-upload" class="upload" />
+        </div>
+        <p class="hint">Click an image to copy its path.</p>
+        <div id="library-grid" class="library-grid"></div>
+      </aside>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

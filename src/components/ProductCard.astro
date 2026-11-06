@@ -1,0 +1,63 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  name: string;
+  brand?: string;
+  price?: string;
+  image?: string;
+  imageAlt?: string;
+  summary?: string;
+  specs?: Record<string, string>;
+  rank?: number;
+  anchor?: string;
+}
+
+const { name, brand, price, image, imageAlt, summary, specs, rank, anchor } = Astro.props;
+const specEntries = Object.entries(specs ?? {}).slice(0, 4);
+---
+
+<section id={anchor} class="scroll-mt-24">
+  <div class="nr-card overflow-hidden">
+    <div class="grid gap-0 sm:grid-cols-[minmax(0,15rem)_1fr]">
+      <div class="relative flex items-center justify-center bg-ink-50 p-5">
+        {rank && (
+          <span class="absolute left-3 top-3 grid size-8 place-items-center rounded-full bg-brand-600 font-display text-sm font-bold text-white">
+            {rank}
+          </span>
+        )}
+        {image ? (
+          <img
+            src={image}
+            alt={imageAlt ?? name}
+            loading="lazy"
+            class="h-40 w-full rounded-lg object-contain"
+          />
+        ) : (
+          <div class="grid h-40 w-full place-items-center rounded-lg bg-ink-100 text-ink-400">
+            <Icon name="lucide:image" class="size-10" aria-hidden="true" />
+          </div>
+        )}
+      </div>
+
+      <div class="p-5 sm:p-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h3 class="font-display text-xl font-bold text-ink-900">{name}</h3>
+          {price && <span class="font-display text-lg font-bold text-brand-700">{price}</span>}
+        </div>
+        {brand && <p class="mt-0.5 text-xs font-semibold uppercase tracking-wide text-ink-500">{brand}</p>}
+        {summary && <p class="mt-3 text-sm leading-6 text-ink-600">{summary}</p>}
+        {specEntries.length > 0 && (
+          <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-1.5 border-t border-ink-100 pt-4 text-sm">
+            {specEntries.map(([k, v]) => (
+              <div class="flex flex-col">
+                <dt class="text-[11px] font-semibold uppercase tracking-wide text-ink-500">{k}</dt>
+                <dd class="font-medium text-ink-800">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import { getArticles, formatDate, slugOf } from "@lib/articles";
+import { url } from "@utils/url";
+
+const articles = await getArticles();
+const categories = [...new Set(articles.map((a) => a.data.category))];
+---
+
+<BaseLayout
+  title="All Buying Guides & Rankings | NepalRanks"
+  description="Browse every independent buying guide and ranking for products and services in Nepal."
+>
+  <div class="nr-container pt-12">
+    <h1 class="font-display text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">All articles</h1>
+    <p class="mt-2 max-w-2xl text-ink-600">
+      {articles.length} independent guide{articles.length === 1 ? "" : "s"} across {categories.length} categor{categories.length === 1 ? "y" : "ies"}.
+    </p>
+
+    {categories.length > 0 && (
+      <div class="mt-6 flex flex-wrap gap-2">
+        {categories.map((c) => (
+          <span class="nr-badge border border-ink-200 bg-white text-ink-700">{c}</span>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <section class="nr-container py-10">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {articles.map((a) => (
+        <a href={url(`/articles/${slugOf(a)}/`)} class="nr-card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">
+          <div class="aspect-[16/9] bg-ink-100">
+            {a.data.coverImage ? (
+              <img src={a.data.coverImage} alt={a.data.coverImageAlt ?? a.data.title} class="h-full w-full object-cover" loading="lazy" />
+            ) : (
+              <div class="grid h-full place-items-center text-ink-400"><Icon name="lucide:image" class="size-8" /></div>
+            )}
+          </div>
+          <div class="flex flex-1 flex-col p-5">
+            <span class="nr-label text-brand-700">{a.data.category}</span>
+            <h2 class="mt-2 font-display text-lg font-bold leading-snug text-ink-900 group-hover:text-brand-700">{a.data.title}</h2>
+            <p class="mt-2 line-clamp-3 text-sm leading-6 text-ink-600">{a.data.description}</p>
+            <p class="mt-auto pt-4 text-xs font-medium uppercase tracking-wide text-ink-500">
+              {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {articles.length === 0 && (
+      <p class="py-16 text-center text-ink-600">No articles yet. Add one from the admin panel.</p>
+    )}
+  </section>
+</BaseLayout>

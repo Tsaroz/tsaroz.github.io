@@ -1,0 +1,29 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{items.length > 0 && (
+  <nav aria-label="Table of contents" class="nr-card p-5">
+    <p class="nr-label mb-3">Contents</p>
+    <ol class="space-y-1.5 text-sm">
+      {items.map((h) => (
+        <li class={h.depth === 3 ? "pl-4" : ""}>
+          <a href={`#${h.slug}`} class="text-ink-600 hover:text-brand-700 hover:underline">
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="TVS iQube electric scooter">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef4ff"/>
+      <stop offset="1" stop-color="#dce7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <circle cx="320" cy="240" r="170" fill="#ffffff" opacity="0.55"/>
+  <!-- body -->
+  <g fill="none" stroke="#8a610a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <!-- rear wheel -->
+    <circle cx="200" cy="330" r="60" fill="#161b26" stroke="#161b26"/>
+    <circle cx="200" cy="330" r="26" fill="#bcc3cf" stroke="#bcc3cf"/>
+    <!-- front wheel -->
+    <circle cx="450" cy="330" r="60" fill="#161b26" stroke="#161b26"/>
+    <circle cx="450" cy="330" r="26" fill="#bcc3cf" stroke="#bcc3cf"/>
+    <!-- frame / deck -->
+    <path d="M200 330 L260 250 Q285 235 320 250 L400 300" stroke="#8a610a" stroke-width="14"/>
+    <path d="M320 250 L330 175 Q335 150 365 150 L430 160" stroke="#8a610a" stroke-width="14"/>
+    <!-- handlebar -->
+    <path d="M430 160 L470 140" stroke="#8a610a" stroke-width="12"/>
+    <path d="M470 140 L500 155" stroke="#8a610a" stroke-width="10"/>
+    <!-- seat -->
+    <path d="M255 250 Q300 230 350 250 L360 262 Q305 245 262 268 Z" fill="#8a610a" stroke="#8a610a" stroke-width="6"/>
+    <!-- headlight -->
+    <circle cx="492" cy="150" r="12" fill="#fdf1d7" stroke="#8a610a" stroke-width="6"/>
+    <!-- deck floor -->
+    <path d="M300 300 L380 320" stroke="#8a610a" stroke-width="16"/>
+  </g>
+  <text x="320" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#161b26">TVS iQube</text>
+</svg>

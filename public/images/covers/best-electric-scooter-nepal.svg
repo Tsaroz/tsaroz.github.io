@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Best electric scooter in Nepal">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1740"/>
+      <stop offset="0.55" stop-color="#1e46cc"/>
+      <stop offset="1" stop-color="#8aa6fc"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#142a6a"/>
+      <stop offset="1" stop-color="#0b0e16"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#sky)"/>
+  <!-- mountains -->
+  <path d="M0 470 L180 300 L300 420 L460 250 L620 450 L780 280 L980 440 L1130 320 L1280 460 L1280 560 L0 560 Z" fill="#0c1740" opacity="0.85"/>
+  <path d="M0 520 L200 400 L360 500 L540 380 L720 520 L900 410 L1080 520 L1280 430 L1280 600 L0 600 Z" fill="#0b0e16" opacity="0.7"/>
+  <rect y="560" width="1280" height="160" fill="url(#ground)"/>
+  <!-- scooter silhouette -->
+  <g transform="translate(430 300) scale(1.35)" fill="none" stroke="#f7f8fa" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="90" cy="170" r="46" fill="#161b26" stroke="#8aa6fc"/>
+    <circle cx="90" cy="170" r="18" fill="#bcc3cf" stroke="#bcc3cf"/>
+    <circle cx="290" cy="170" r="46" fill="#161b26" stroke="#8aa6fc"/>
+    <circle cx="290" cy="170" r="18" fill="#bcc3cf" stroke="#bcc3cf"/>
+    <path d="M90 170 L140 95 Q165 80 200 95 L270 150" stroke="#8aa6fc" stroke-width="12"/>
+    <path d="M200 95 L210 30 Q215 8 245 8 L300 18" stroke="#8aa6fc" stroke-width="12"/>
+    <path d="M140 95 Q185 78 235 98 L245 110 Q190 92 148 112 Z" fill="#f7f8fa" stroke="#f7f8fa"/>
+    <path d="M300 18 L335 2" stroke="#8aa6fc" stroke-width="10"/>
+  </g>
+  <text x="80" y="120" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#ffffff">Best Electric</text>
+  <text x="80" y="190" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#8aa6fc">Scooters in Nepal</text>
+  <text x="84" y="240" font-family="ui-sans-serif, system-ui" font-size="26" fill="#dce7ff">2026 buyer's guide · prices, range, specs &amp; picks</text>
+</svg>

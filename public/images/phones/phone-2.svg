@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640" role="img" aria-label="Smartphone illustration">
+  <defs>
+    <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdf1d7"/>
+      <stop offset="1" stop-color="#f7e3b0"/>
+    </linearGradient>
+    <linearGradient id="screen2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b57f06"/>
+      <stop offset="1" stop-color="#d99e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="640" fill="url(#p2)"/>
+  <circle cx="240" cy="300" r="190" fill="#ffffff" opacity="0.5"/>
+  <rect x="130" y="80" width="220" height="470" rx="36" fill="#2b2415"/>
+  <rect x="142" y="92" width="196" height="446" rx="28" fill="url(#screen2)"/>
+  <rect x="210" y="104" width="60" height="12" rx="6" fill="#2b2415" opacity="0.6"/>
+  <circle cx="240" cy="290" r="46" fill="#fffaf0" opacity="0.9"/>
+  <circle cx="240" cy="290" r="22" fill="#2b2415"/>
+  <text x="240" y="520" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#ffffff">Mid-range</text>
+</svg>

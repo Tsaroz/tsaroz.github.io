@@ -13,15 +13,14 @@ function getBase(): string {
 }
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? "https://tsaroz.github.io",
+  site: process.env.SITE_URL ?? "https://nepalranks.com",
   base: getBase(),
   trailingSlash: "always",
   output: "static",
   build: { format: "directory" },
   integrations: [
     sitemap({
-
-      filter: (page) => !/\/(admin|cp-7f3k9q)\/?$/.test(page) && !page.includes("/cp-7f3k9q/") && !page.includes("/admin/") && !page.includes("/auth-relay/"),
+      filter: (page) => !page.includes("/admin/"),
     }),
     icon(),
   ],
@@ -29,8 +28,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       alias: [
-        { find: /^@data$/, replacement: "/src/data/index.ts" },
-        { find: "@data", replacement: "/src/data" },
         { find: "@components", replacement: "/src/components" },
         { find: "@layouts", replacement: "/src/layouts" },
         { find: "@utils", replacement: "/src/utils" },

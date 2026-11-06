@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640" role="img" aria-label="Smartphone illustration">
+  <defs>
+    <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef4ff"/>
+      <stop offset="1" stop-color="#dce7ff"/>
+    </linearGradient>
+    <linearGradient id="screen1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e46cc"/>
+      <stop offset="1" stop-color="#8aa6fc"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="640" fill="url(#p1)"/>
+  <circle cx="240" cy="300" r="190" fill="#ffffff" opacity="0.5"/>
+  <rect x="130" y="80" width="220" height="470" rx="36" fill="#161b26"/>
+  <rect x="142" y="92" width="196" height="446" rx="28" fill="url(#screen1)"/>
+  <rect x="210" y="104" width="60" height="12" rx="6" fill="#161b26" opacity="0.6"/>
+  <circle cx="240" cy="290" r="46" fill="#f7f8fa" opacity="0.85"/>
+  <circle cx="240" cy="290" r="22" fill="#161b26"/>
+  <text x="240" y="520" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#ffffff">Flagship</text>
+</svg>

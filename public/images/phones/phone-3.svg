@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640" role="img" aria-label="Smartphone illustration">
+  <defs>
+    <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9f9f1"/>
+      <stop offset="1" stop-color="#cdefdf"/>
+    </linearGradient>
+    <linearGradient id="screen3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c8a5a"/>
+      <stop offset="1" stop-color="#12a06b"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="640" fill="url(#p3)"/>
+  <circle cx="240" cy="300" r="190" fill="#ffffff" opacity="0.5"/>
+  <rect x="130" y="80" width="220" height="470" rx="36" fill="#0f2a20"/>
+  <rect x="142" y="92" width="196" height="446" rx="28" fill="url(#screen3)"/>
+  <rect x="210" y="104" width="60" height="12" rx="6" fill="#0f2a20" opacity="0.6"/>
+  <circle cx="240" cy="290" r="46" fill="#f0fff8" opacity="0.9"/>
+  <circle cx="240" cy="290" r="22" fill="#0f2a20"/>
+  <text x="240" y="520" text-anchor="middle" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#ffffff">Budget</text>
+</svg>

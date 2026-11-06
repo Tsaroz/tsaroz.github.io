@@ -1,0 +1,50 @@
+---
+interface Product {
+  name: string;
+  image?: string;
+  price?: string;
+  specs?: Record<string, string>;
+}
+
+interface Column {
+  key: string;
+  label: string;
+}
+
+interface Props {
+  products: Product[];
+  columns: Column[];
+}
+
+const { products, columns } = Astro.props;
+---
+
+<div class="my-8 overflow-x-auto rounded-xl border border-ink-200 shadow-card">
+  <table class="w-full min-w-[40rem] border-collapse text-sm">
+    <thead>
+      <tr class="bg-ink-100">
+        <th class="sticky left-0 z-10 bg-ink-100 px-3 py-3 text-left font-semibold text-ink-900">Model</th>
+        {columns.map((c) => (
+          <th class="px-3 py-3 text-left font-semibold text-ink-900 whitespace-nowrap">{c.label}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {products.map((p, i) => (
+        <tr class={i % 2 ? "bg-ink-50/60" : "bg-white"}>
+          <th scope="row" class="sticky left-0 z-10 px-3 py-3 text-left font-semibold text-ink-900 align-top" style={i % 2 ? "background-color:#f7f8fa" : "background-color:#fff"}>
+            <span class="flex items-center gap-2">
+              {p.image && <img src={p.image} alt="" loading="lazy" class="size-9 shrink-0 rounded object-contain" />}
+              <span>{p.name}</span>
+            </span>
+          </th>
+          {columns.map((c) => (
+            <td class="border-t border-ink-200 px-3 py-3 align-top text-ink-700 whitespace-nowrap">
+              {c.key === "price" ? (p.price ?? p.specs?.price ?? "—") : (p.specs?.[c.key] ?? "—")}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -66,6 +66,13 @@ comparisonColumns:
   - key: Storage
     label: "Storage"
 conclusion: "For most people in Nepal, the Galaxy S24 FE is the best phone you can buy in 2026 — it earns its price with a genuinely great screen, a camera that punches above its class and seven years of updates. If you want the cheapest phone that still feels premium, the Redmi Note 14 Pro is the value champion. And if you simply need a reliable phone on a tight budget, the Galaxy A16's long software support makes it the smartest long-term buy. Always check that you are buying an official, warrantied unit — a slightly higher price from an authorised dealer is almost always worth it."
+faqs:
+  - question: "Which smartphone is best for most people in Nepal?"
+    answer: "The Samsung Galaxy S24 FE is the safest all-round choice in 2026 thanks to its bright AMOLED display, dependable camera and seven years of software updates."
+  - question: "Is it worth buying a grey-market phone in Nepal?"
+    answer: "Usually not. Official, warrantied units cost a little more but give you service-centre access and software support that grey imports cannot match."
+  - question: "How much should I spend on a phone in Nepal?"
+    answer: "Most people are best served in the NPR 25,000–45,000 range, where you get a good screen, a large battery and several years of updates without paying flagship prices."
 ---
 
 ## Why buying a phone in Nepal is different

@@ -16,6 +16,11 @@ const specColumn = z.object({
   label: z.string(),
 });
 
+const faq = z.object({
+  question: z.string(),
+  answer: z.string(),
+});
+
 const articles = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
   schema: z.object({
@@ -34,6 +39,8 @@ const articles = defineCollection({
     intro: z.string().optional(),
     products: z.array(product).default([]),
     comparisonColumns: z.array(specColumn).default([]),
+    faqs: z.array(faq).default([]),
+    noindex: z.boolean().default(false),
     conclusion: z.string().optional(),
   }),
 });

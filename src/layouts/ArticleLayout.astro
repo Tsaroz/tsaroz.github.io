@@ -5,7 +5,15 @@ import ProductCard from "@components/ProductCard.astro";
 import ComparisonTable from "@components/ComparisonTable.astro";
 import Toc from "@components/Toc.astro";
 import { url } from "@utils/url";
-import { formatDate, readingTime, type Article } from "@lib/articles";
+import { formatDate, readingTime, slugOf, type Article } from "@lib/articles";
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbJsonLd,
+  buildItemListJsonLd,
+  buildFaqJsonLd,
+  analyzeSeo,
+  type SiteContext,
+} from "@lib/seo";
 
 interface Props {
   entry: Article;
@@ -16,48 +24,23 @@ const { entry, headings } = Astro.props;
 const d = entry.data;
 const body = entry.body ?? "";
 const site = Astro.site ?? new URL("https://nepalranks.com");
-const canonical = new URL(Astro.url.pathname, site).href;
 
-const articleLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: d.title,
-  description: d.description,
-  image: d.coverImage ? new URL(d.coverImage, site).href : new URL("og.png", site).href,
-  datePublished: d.publishedAt.toISOString(),
-  dateModified: (d.updatedAt ?? d.publishedAt).toISOString(),
-  author: { "@type": "Organization", name: d.author },
-  publisher: {
-    "@type": "Organization",
-    name: "NepalRanks",
-    logo: { "@type": "ImageObject", url: new URL("favicon.svg", site).href },
-  },
-  mainEntityOfPage: canonical,
-  keywords: d.keywords.join(", "),
+const seoInput = {
+  ...d,
+  slug: slugOf(entry),
+  body,
+};
+const ctx: SiteContext = {
+  origin: site.origin,
+  siteName: "NepalRanks",
+  logo: "favicon.svg",
 };
 
-const breadcrumbLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: new URL(url("/"), site).href },
-    { "@type": "ListItem", position: 2, name: "Articles", item: new URL(url("/articles/"), site).href },
-    { "@type": "ListItem", position: 3, name: d.title, item: canonical },
-  ],
-};
-
-const itemListLd = d.products.length
-  ? {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      itemListElement: d.products.map((p, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: p.name,
-        ...(p.price ? { description: `${p.name} — ${p.price}` } : {}),
-      })),
-    }
-  : null;
+const articleLd = buildArticleJsonLd(seoInput, ctx);
+const breadcrumbLd = buildBreadcrumbJsonLd(seoInput, ctx);
+const itemListLd = buildItemListJsonLd(seoInput);
+const faqLd = buildFaqJsonLd(d.faqs ?? []);
+const seo = import.meta.env.DEV ? analyzeSeo(seoInput) : null;
 ---
 
 <BaseLayout
@@ -65,11 +48,18 @@ const itemListLd = d.products.length
   description={d.description}
   ogImage={d.coverImage}
   ogType="article"
+  noindex={d.noindex}
+  publishedTime={d.publishedAt.toISOString()}
+  modifiedTime={(d.updatedAt ?? d.publishedAt).toISOString()}
+  articleAuthor={d.author}
+  articleSection={d.category}
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleLd)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
   {itemListLd && <script type="application/ld+json" slot="head" set:html={JSON.stringify(itemListLd)} />}
+  {faqLd && <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />}
   {d.keywords.length > 0 && <meta name="keywords" content={d.keywords.join(", ")} slot="head" />}
+  <meta name="robots" content={d.noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} slot="head" />
 
   <!-- Breadcrumbs -->
   <div class="nr-container pt-6">
@@ -157,6 +147,25 @@ const itemListLd = d.products.length
           </div>
         </section>
       )}
+
+      {(d.faqs ?? []).length > 0 && (
+        <section class="mt-12" aria-labelledby="faq-h">
+          <h2 id="faq-h" class="font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl scroll-mt-24">
+            Frequently asked questions
+          </h2>
+          <div class="mt-4 divide-y divide-ink-200 rounded-xl border border-ink-200">
+            {d.faqs.map((f) => (
+              <details class="group px-5 py-4">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
+                  <span>{f.question}</span>
+                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-ink-500 transition-transform group-open:rotate-180" />
+                </summary>
+                <p class="mt-2 text-sm leading-7 text-ink-600">{f.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
 
     <aside class="hidden lg:block">
@@ -165,4 +174,25 @@ const itemListLd = d.products.length
       </div>
     </aside>
   </div>
+
+  {seo && (
+    <div class="nr-container mt-12">
+      <details class="rounded-xl border border-dashed border-gold-500/50 bg-gold-100/40 p-4 text-sm">
+        <summary class="cursor-pointer font-semibold text-ink-800">
+          SEO self-check (dev only) — score {seo.score}/100
+        </summary>
+        <ul class="mt-3 space-y-1">
+          {seo.issues.map((i) => (
+            <li class:list={["flex gap-2", i.level === "error" ? "text-down-700" : i.level === "warn" ? "text-gold-700" : "text-up-700"]}>
+              <span class="font-mono">{i.level === "ok" ? "✓" : i.level === "warn" ? "!" : "×"}</span>
+              <span><strong>{i.label}.</strong> {i.detail}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-3 text-ink-600">
+          {seo.wordCount} words · {seo.readingTime} min read · title {seo.titleLength}ch · description {seo.descriptionLength}ch
+        </p>
+      </details>
+    </div>
+  )}
 </BaseLayout>

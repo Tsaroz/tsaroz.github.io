@@ -10,3 +10,6 @@ npm-debug.log*
 .pages-work/
 .panelout/
 *.bundle
+
+# local-only operator tooling (never published)
+.workshop/

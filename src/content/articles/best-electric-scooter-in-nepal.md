@@ -2,6 +2,7 @@
 title: "Best Electric Scooter in Nepal (2026 Buyer's Guide)"
 description: "We compare the best electric scooters in Nepal for 2026 — range, price, specs, and honest picks for city commuting, long trips and budget buyers."
 slug: "best-electric-scooter-in-nepal"
+articleType: "comparison"
 category: "Buying Guides"
 publishedAt: 2026-02-10
 updatedAt: 2026-11-06
@@ -29,6 +30,14 @@ products:
       Charge Time: "6–7 hrs"
       Motor: "1200W"
       "Boot Space": "20 L"
+    badge: "Best overall"
+    pros:
+      - "Smooth, refined ride"
+      - "Excellent build quality"
+      - "Smart app connectivity"
+    cons:
+      - "Higher price"
+      - "Limited service network"
   - name: "Yadea G5 Electric Scooter"
     brand: "Yadea"
     price: "NPR 2,79,000"
@@ -42,6 +51,14 @@ products:
       Charge Time: "5–6 hrs"
       Motor: "1000W"
       "Boot Space": "18 L"
+    badge: "Best commuter"
+    pros:
+      - "Comfortable seating"
+      - "Growing dealer network"
+      - "Reliable real-world range"
+    cons:
+      - "Not the cheapest"
+      - "Relaxed performance"
   - name: "Aeon Ai-3 Electric Scooter"
     brand: "Aeon"
     price: "NPR 2,49,000"
@@ -55,6 +72,14 @@ products:
       Charge Time: "6–8 hrs"
       Motor: "1000W"
       "Boot Space": "16 L"
+    badge: "Best value"
+    pros:
+      - "Good range for the price"
+      - "Comfortable ride"
+      - "Well positioned mid-tier"
+    cons:
+      - "Plasticky finish"
+      - "Smaller boot"
   - name: "TVS iQube Electric"
     brand: "TVS"
     price: "NPR 3,49,000"
@@ -68,6 +93,14 @@ products:
       Charge Time: "4–5 hrs"
       Motor: "4400W peak"
       "Boot Space": "17 L"
+    badge: "Best support"
+    pros:
+      - "Widest service network"
+      - "Strongest performance"
+      - "Proven drivetrain"
+    cons:
+      - "Highest price on the list"
+      - "Heavier"
   - name: "Pure EV EPluto 7G"
     brand: "Pure EV"
     price: "NPR 1,99,000"
@@ -81,6 +114,14 @@ products:
       Charge Time: "5–6 hrs"
       Motor: "1200W"
       "Boot Space": "12 L"
+    badge: "Best budget"
+    pros:
+      - "Most affordable credible option"
+      - "Great for short trips"
+      - "Light and easy to ride"
+    cons:
+      - "Limited top speed"
+      - "Small boot"
 comparisonColumns:
   - key: price
     label: "Price"

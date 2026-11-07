@@ -11,8 +11,8 @@ const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.
 ---
 
 <BaseLayout
-  title="All Buying Guides & Rankings | NepalRanks"
-  description="Browse every independent buying guide and ranking for products and services in Nepal."
+  title="All Rankings & Guides | NepalRanks"
+  description="Browse every independent ranking and guide for the best products, restaurants, places and experiences in Nepal."
 >
   <div class="mx-auto w-full max-w-7xl px-4 pt-10 sm:px-6">
     <p class="nr-label">The archive</p>
@@ -34,7 +34,7 @@ const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.
     <section class="mx-auto w-full max-w-7xl px-4 pt-12 sm:px-6" aria-labelledby="cmp-h">
       <div class="mb-6 flex items-center gap-2 border-b-2 pb-3" style="border-color: var(--nr-border);">
         <Icon name="lucide:git-compare" class="size-5" style="color: var(--nr-accent);" aria-hidden="true" />
-        <h2 id="cmp-h" class="font-display text-2xl font-bold">Best-of comparisons</h2>
+        <h2 id="cmp-h" class="font-display text-2xl font-bold">Best-of rankings</h2>
         <span class="nr-badge ml-auto" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">{comparisons.length}</span>
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -47,7 +47,7 @@ const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.
     <section class="mx-auto w-full max-w-7xl px-4 pt-14 sm:px-6" aria-labelledby="info-h">
       <div class="mb-6 flex items-center gap-2 border-b-2 pb-3" style="border-color: var(--nr-border);">
         <Icon name="lucide:book-open" class="size-5" style="color: var(--nr-gold);" aria-hidden="true" />
-        <h2 id="info-h" class="font-display text-2xl font-bold">Explainers & guides</h2>
+        <h2 id="info-h" class="font-display text-2xl font-bold">Guides & explainers</h2>
         <span class="nr-badge ml-auto" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">{guides.length}</span>
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

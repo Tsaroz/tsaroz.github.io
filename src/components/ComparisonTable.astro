@@ -38,7 +38,61 @@ const cell = (p: Product, key: string) => {
       Side-by-side comparison
     </p>
   </div>
-  <div class="overflow-x-auto">
+
+  <!-- Mobile: stacked cards (no horizontal scrolling) -->
+  <ul class="divide-y-2 sm:hidden" style="border-color: var(--nr-border-soft);">
+    {products.map((p, i) => (
+      <li class="p-4">
+        <a href={`#${anchorFor(i)}`} class="group flex items-center gap-3">
+          {p.image ? (
+            <img
+              src={p.image}
+              alt={p.imageAlt ?? ""}
+              loading="lazy"
+              class="size-12 shrink-0 rounded-md border-2 object-contain"
+              style="border-color: var(--nr-border); background: var(--nr-bg-raised);"
+            />
+          ) : (
+            <span
+              class="grid size-12 shrink-0 place-items-center rounded-md border-2"
+              style="border-color: var(--nr-border); background: var(--nr-bg-raised); color: var(--nr-text-soft);"
+            >
+              <Icon name="lucide:package" class="size-5" aria-hidden="true" />
+            </span>
+          )}
+          <span class="flex min-w-0 flex-col">
+            <span class="font-display text-sm font-bold leading-tight group-hover:underline">
+              {p.name}
+            </span>
+            <span class="mt-1 flex flex-wrap items-center gap-1.5">
+              {p.badge && (
+                <span class="w-fit rounded-full px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide" style="background: var(--nr-crimson); color: #fff;">
+                  {p.badge}
+                </span>
+              )}
+              {p.price && (
+                <span class="font-display text-sm font-bold" style="color: var(--nr-accent);">{p.price}</span>
+              )}
+            </span>
+          </span>
+        </a>
+
+        <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
+          {columns.filter((c) => c.key !== "price").map((c) => (
+            <div class="flex flex-col">
+              <dt class="font-mono text-[9px] font-bold uppercase tracking-[0.12em]" style="color: var(--nr-text-soft);">
+                {c.label}
+              </dt>
+              <dd class="text-sm font-semibold" style="color: var(--nr-text);">{cell(p, c.key)}</dd>
+            </div>
+          ))}
+        </dl>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Desktop / tablet: full table -->
+  <div class="hidden overflow-x-auto sm:block">
     <table class="w-full min-w-[44rem] border-collapse text-sm">
       <thead>
         <tr style="background: var(--nr-accent); color: var(--nr-accent-ink);">
@@ -58,9 +112,7 @@ const cell = (p: Product, key: string) => {
       </thead>
       <tbody>
         {products.map((p, i) => (
-          <tr
-            style={i % 2 ? "background: var(--nr-bg-sunken);" : ""}
-          >
+          <tr style={i % 2 ? "background: var(--nr-bg-sunken);" : ""}>
             <th
               scope="row"
               class="sticky left-0 z-10 border-t-2 px-4 py-3 text-left align-middle"

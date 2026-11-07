@@ -18,71 +18,70 @@ const jsonLd = {
   "@type": "WebSite",
   name: "NepalRanks",
   url: site.href,
-  description: "Independent, in-depth buying guides and rankings for products and services in Nepal.",
+  description: "Independent rankings and guides for the best products, restaurants, places and experiences in Nepal.",
   inLanguage: "en",
 };
 ---
 
 <BaseLayout
-  title="NepalRanks — Expert Buying Guides & Rankings for Nepal"
-  description="Independent, in-depth buying guides, honest comparisons and rankings for products and services in Nepal. Research-backed picks you can trust."
+  title="NepalRanks — Expert Rankings & Guides for Nepal"
+  description="Honest, research-backed rankings and guides for the best products, restaurants, tourist places and experiences in Nepal."
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden border-b-2" style="border-color: var(--nr-border); background: var(--nr-bg-sunken);">
-    <div class="nr-stripes absolute inset-x-0 top-0 h-2 opacity-30" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-      <div class="max-w-3xl">
+  <!-- Intro -->
+  <section class="mx-auto max-w-7xl px-4 pt-10 sm:px-6 sm:pt-14">
+    <div class="flex flex-col gap-6 border-b-2 pb-8 sm:flex-row sm:items-end sm:justify-between" style="border-color: var(--nr-border);">
+      <div class="max-w-2xl">
         <div class="flex flex-wrap items-center gap-2">
           <span class="nr-badge" style="background: var(--nr-crimson); color: #fff;">
             <Icon name="lucide:sparkles" class="size-3" aria-hidden="true" /> Independent · Research-backed
           </span>
-          <span class="nr-badge" style="background: var(--nr-bg-raised); color: var(--nr-text-muted);">
+          <span class="nr-badge" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">
             Est. 2026
           </span>
         </div>
-        <h1 class="mt-5 font-display text-4xl font-bold leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl">
-          Buy smarter in
+        <h1 class="mt-4 font-display text-3xl font-bold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
+          The best of
           <span class="relative inline-block">
             <span class="relative z-10">Nepal.</span>
-            <span class="absolute inset-x-0 bottom-1 z-0 h-3 sm:h-4" style="background: var(--nr-gold);"></span>
+            <span class="absolute inset-x-0 bottom-1 z-0 h-2.5 sm:h-3" style="background: var(--nr-gold);"></span>
           </span>
         </h1>
-        <p class="mt-5 max-w-2xl text-lg leading-8" style="color: var(--nr-text-muted);">
-          In-depth buying guides, honest comparisons and rankings for the products and services
-          that matter in Nepal — researched, tested and written by people who live here.
+        <p class="mt-4 text-lg leading-8" style="color: var(--nr-text-muted);">
+          Honest rankings and guides for the products, restaurants, tourist places and experiences
+          that matter in Nepal — researched, compared and written by people who live here.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={url("/articles/")} class="nr-btn nr-btn-primary">
-            Browse all guides <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
-          </a>
-          <a href={url("/about/")} class="nr-btn nr-btn-outline">How we rank</a>
-        </div>
-
-        <dl class="mt-10 flex flex-wrap gap-3">
-          <div class="nr-panel px-4 py-3">
-            <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Comparisons</dt>
-            <dd class="font-display text-2xl font-bold">{comparisons}</dd>
-          </div>
-          <div class="nr-panel px-4 py-3">
-            <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Explainers</dt>
-            <dd class="font-display text-2xl font-bold">{guides}</dd>
-          </div>
-          <div class="nr-panel px-4 py-3">
-            <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Products ranked</dt>
-            <dd class="font-display text-2xl font-bold">
-              {articles.reduce((n, a) => n + a.data.products.length, 0)}
-            </dd>
-          </div>
-        </dl>
+      </div>
+      <div class="flex flex-wrap gap-3 sm:flex-col sm:items-stretch">
+        <a href={url("/articles/")} class="nr-btn nr-btn-primary">
+          Browse all guides <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
+        </a>
+        <a href={url("/about/")} class="nr-btn nr-btn-outline">How we rank</a>
       </div>
     </div>
+
+    <dl class="mt-6 flex flex-wrap gap-3">
+      <div class="nr-panel px-4 py-2.5">
+        <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Rankings</dt>
+        <dd class="font-display text-xl font-bold">{comparisons}</dd>
+      </div>
+      <div class="nr-panel px-4 py-2.5">
+        <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Explainers</dt>
+        <dd class="font-display text-xl font-bold">{guides}</dd>
+      </div>
+      <div class="nr-panel px-4 py-2.5">
+        <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Picks ranked</dt>
+        <dd class="font-display text-xl font-bold">
+          {articles.reduce((n, a) => n + a.data.products.length, 0)}
+        </dd>
+      </div>
+    </dl>
   </section>
 
   {lead && (
-    <section class="mx-auto max-w-7xl px-4 pt-12 sm:px-6">
-      <div class="mb-6 flex items-end justify-between gap-4">
+    <section class="mx-auto max-w-7xl px-4 pt-10 sm:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
         <div>
           <p class="nr-label">Editor's pick</p>
           <h2 class="mt-1 font-display text-2xl font-bold sm:text-3xl">Start here</h2>
@@ -95,7 +94,7 @@ const jsonLd = {
   {rest.length > 0 && (
     <section class="mx-auto max-w-7xl px-4 pt-14 sm:px-6" aria-labelledby="latest-h">
       <div class="mb-6 flex items-end justify-between gap-4 border-b-2 pb-3" style="border-color: var(--nr-border);">
-        <h2 id="latest-h" class="font-display text-2xl font-bold sm:text-3xl">Latest guides</h2>
+        <h2 id="latest-h" class="font-display text-2xl font-bold sm:text-3xl">Latest rankings & guides</h2>
         <a href={url("/articles/")} class="inline-flex items-center gap-1 text-sm font-bold hover:underline" style="color: var(--nr-accent);">
           All articles <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
         </a>

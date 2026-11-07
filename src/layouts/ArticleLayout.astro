@@ -44,7 +44,7 @@ const itemListLd = buildItemListJsonLd(seoInput);
 const faqLd = buildFaqJsonLd(d.faqs ?? []);
 const seo = import.meta.env.DEV ? analyzeSeo(seoInput) : null;
 
-const typeLabel = isComparison ? "Comparison" : "Guide";
+const typeLabel = isComparison ? "Ranking" : "Guide";
 ---
 
 <BaseLayout

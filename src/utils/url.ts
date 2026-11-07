@@ -25,11 +25,11 @@ export function timeAgo(iso: string): string {
   if (days < 31) return `${days} day${days === 1 ? "" : "s"} ago`;
   const months = Math.round(days / 30.4);
   if (months < 12) return `${months} month${months === 1 ? "" : "s"} ago`;
-  return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return (() => { const d = new Date(iso); return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`; })();
 }
 
 export function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return (() => { const d = new Date(iso); return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`; })();
 }
 
 export function initials(name: string): string {

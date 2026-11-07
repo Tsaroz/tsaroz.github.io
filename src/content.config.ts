@@ -42,6 +42,7 @@ const articles = defineCollection({
     keywords: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
+    order: z.number().optional(),
     intro: z.string().optional(),
     products: z.array(product).default([]),
     comparisonColumns: z.array(specColumn).default([]),

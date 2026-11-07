@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import { url } from "@utils/url";
 import BrandMark from "@components/BrandMark.astro";
-import { getArticles, slugOf, formatDate } from "@lib/articles";
+import { getArticles, getLatestArticles, slugOf, formatDate } from "@lib/articles";
 import { resolveCategories } from "@lib/categories";
 
 interface Props {
@@ -11,8 +11,9 @@ interface Props {
 
 const { currentPath } = Astro.props;
 const articles = await getArticles();
+const latest = await getLatestArticles();
 const categories = resolveCategories(articles.map((a) => a.data.category));
-const recent = articles.slice(0, 4);
+const recent = latest.slice(0, 4);
 
 const nav = [
   { href: "/", label: "Home", icon: "lucide:house" },

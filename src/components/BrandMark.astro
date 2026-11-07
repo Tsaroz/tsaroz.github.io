@@ -1,0 +1,50 @@
+---
+interface Props {
+  class?: string;
+  size?: number;
+  title?: string;
+}
+
+const { class: className = "", size = 40, title } = Astro.props;
+const id = `bm-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 48 48"
+  width={size}
+  height={size}
+  class={className}
+  role={title ? "img" : undefined}
+  aria-hidden={title ? undefined : "true"}
+>
+  {title && <title>{title}</title>}
+  <defs>
+    <linearGradient id={`${id}-sky`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d6f66" />
+      <stop offset="1" stop-color="#083a37" />
+    </linearGradient>
+    <clipPath id={`${id}-clip`}>
+      <rect x="2" y="2" width="44" height="44" rx="12" />
+    </clipPath>
+  </defs>
+
+  <rect x="2" y="2" width="44" height="44" rx="12" fill={`url(#${id}-sky)`} />
+
+  <g clip-path={`url(#${id}-clip)`}>
+    <circle cx="34" cy="15" r="5.5" fill="#e0a83e" />
+
+    <path d="M2 36 L15 18 L23 29 L29 21 L46 36 L46 46 L2 46 Z" fill="#f2ede0" />
+    <path d="M15 18 L20 25.5 L15 24 L10.5 25.5 Z" fill="#d63f22" />
+    <path d="M29 21 L32.5 25.8 L29 24.8 L25.5 25.8 Z" fill="#d63f22" />
+    <path d="M2 36 L15 18 L23 29 L29 21 L46 36 L46 46 L2 46 Z" fill="none" stroke="#0f2b28" stroke-width="2" stroke-linejoin="round" />
+  </g>
+
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="none" stroke="#0f2b28" stroke-width="2.5" />
+
+  <g transform="translate(9 34)">
+    <rect x="0" y="4" width="3.5" height="6" rx="1" fill="#0d6f66" />
+    <rect x="5.5" y="1.5" width="3.5" height="8.5" rx="1" fill="#0d6f66" />
+    <rect x="11" y="-1" width="3.5" height="11" rx="1" fill="#0d6f66" />
+  </g>
+</svg>

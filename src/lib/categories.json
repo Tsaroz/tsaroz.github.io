@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Rankings",
+    "slug": "rankings"
+  },
+  {
+    "name": "Guides",
+    "slug": "guides"
+  },
+  {
+    "name": "Restaurants",
+    "slug": "restaurants"
+  },
+  {
+    "name": "Places",
+    "slug": "places"
+  },
+  {
+    "name": "Experiences",
+    "slug": "experiences"
+  }
+]

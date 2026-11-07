@@ -1,7 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
 import { url } from "@utils/url";
+import BrandMark from "@components/BrandMark.astro";
 import { getArticles, slugOf, formatDate } from "@lib/articles";
+import { resolveCategories } from "@lib/categories";
 
 interface Props {
   currentPath: string;
@@ -9,7 +11,7 @@ interface Props {
 
 const { currentPath } = Astro.props;
 const articles = await getArticles();
-const categories = [...new Set(articles.map((a) => a.data.category))];
+const categories = resolveCategories(articles.map((a) => a.data.category));
 const recent = articles.slice(0, 4);
 
 const nav = [
@@ -29,11 +31,8 @@ const isActive = (href: string) =>
 >
   <div class="flex h-full flex-col gap-6 p-5">
     <a href={url("/")} class="group flex items-center gap-3" aria-label="NepalRanks home">
-      <span
-        class="grid size-11 shrink-0 place-items-center rounded-xl border-2"
-        style="border-color: var(--nr-border); background: var(--nr-accent); box-shadow: var(--shadow-pop-sm);"
-      >
-        <Icon name="lucide:mountain-snow" class="size-6" style="color: var(--nr-accent-ink);" aria-hidden="true" />
+      <span class="shrink-0" style="filter: drop-shadow(2px 2px 0 var(--nr-shadow-ink));">
+        <BrandMark size={44} />
       </span>
       <span class="leading-none">
         <span class="block font-display text-xl font-bold tracking-tight" style="color: var(--nr-text);">
@@ -72,12 +71,13 @@ const isActive = (href: string) =>
         <p class="nr-label mb-2.5">Categories</p>
         <div class="flex flex-wrap gap-1.5">
           {categories.map((c) => (
-            <span
-              class="nr-badge"
+            <a
+              href={url(`/articles/?category=${c.slug}`)}
+              class="nr-badge hover:underline"
               style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);"
             >
-              {c}
-            </span>
+              {c.name}
+            </a>
           ))}
         </div>
       </div>
@@ -98,7 +98,7 @@ const isActive = (href: string) =>
                   {a.data.title}
                 </span>
                 <span class="mt-0.5 block font-mono text-[10px] uppercase tracking-wide" style="color: var(--nr-text-soft);">
-                  {a.data.articleType === "comparison" ? "Comparison" : "Explain"} · {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+                  {a.data.articleType === "comparison" ? "Ranking" : "Guide"} · {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
                 </span>
               </a>
             </li>
@@ -107,15 +107,5 @@ const isActive = (href: string) =>
       </div>
     )}
 
-    <div class="mt-auto hidden lg:block">
-      <div class="nr-panel-sunken p-3">
-        <p class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">
-          Independent
-        </p>
-        <p class="mt-1 text-xs leading-relaxed" style="color: var(--nr-text-muted);">
-          Rankings are never sold. Some links may be affiliate links.
-        </p>
-      </div>
-    </div>
   </div>
 </aside>

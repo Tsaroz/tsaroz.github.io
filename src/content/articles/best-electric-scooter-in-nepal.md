@@ -3,7 +3,7 @@ title: "Best Electric Scooter in Nepal (2026 Buyer's Guide)"
 description: "We compare the best electric scooters in Nepal for 2026 — range, price, specs, and honest picks for city commuting, long trips and budget buyers."
 slug: "best-electric-scooter-in-nepal"
 articleType: "comparison"
-category: "Buying Guides"
+category: "Rankings"
 publishedAt: 2026-02-10
 updatedAt: 2026-11-06
 author: "NepalRanks Editorial"

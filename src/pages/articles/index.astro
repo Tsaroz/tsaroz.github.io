@@ -3,9 +3,10 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import ArticleCard from "@components/ArticleCard.astro";
 import { Icon } from "astro-icon/components";
 import { getArticles } from "@lib/articles";
+import { resolveCategories } from "@lib/categories";
 
 const articles = await getArticles();
-const categories = [...new Set(articles.map((a) => a.data.category))];
+const categories = resolveCategories(articles.map((a) => a.data.category));
 const comparisons = articles.filter((a) => a.data.articleType !== "info" && a.data.products.length > 0);
 const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.products.length > 0));
 ---
@@ -22,9 +23,25 @@ const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.
     </p>
 
     {categories.length > 0 && (
-      <div class="mt-6 flex flex-wrap gap-2">
+      <div class="mt-6 flex flex-wrap gap-2" id="category-filters">
+        <button
+          type="button"
+          class="nr-badge category-filter is-active"
+          data-slug=""
+          style="background: var(--nr-accent); color: var(--nr-accent-ink);"
+        >
+          All
+        </button>
         {categories.map((c) => (
-          <span class="nr-badge" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">{c}</span>
+          <button
+            type="button"
+            class="nr-badge category-filter"
+            data-slug={c.slug}
+            data-name={c.name}
+            style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);"
+          >
+            {c.name}
+          </button>
         ))}
       </div>
     )}
@@ -61,4 +78,39 @@ const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.
       <p style="color: var(--nr-text-muted);">No articles yet. Add one from the admin panel.</p>
     </section>
   )}
+
+  <script>
+    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>(".category-filter"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-category]"));
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("section[aria-labelledby]"));
+
+    const apply = (slug: string) => {
+      filters.forEach((b) => {
+        const active = b.dataset.slug === slug;
+        b.classList.toggle("is-active", active);
+        b.style.background = active ? "var(--nr-accent)" : "var(--nr-bg-sunken)";
+        b.style.color = active ? "var(--nr-accent-ink)" : "var(--nr-text-muted)";
+      });
+      const name = filters.find((b) => b.dataset.slug === slug)?.dataset.name ?? "";
+      cards.forEach((card) => {
+        card.style.display = !slug || card.dataset.category === name ? "" : "none";
+      });
+      sections.forEach((s) => {
+        const visible = Array.from(s.querySelectorAll<HTMLElement>("[data-category]")).some(
+          (c) => c.style.display !== "none",
+        );
+        s.style.display = visible ? "" : "none";
+      });
+      const params = new URLSearchParams(location.search);
+      if (slug) params.set("category", slug);
+      else params.delete("category");
+      const qs = params.toString();
+      history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
+    };
+
+    filters.forEach((b) => b.addEventListener("click", () => apply(b.dataset.slug ?? "")));
+
+    const initial = new URLSearchParams(location.search).get("category");
+    if (initial && filters.some((b) => b.dataset.slug === initial)) apply(initial);
+  </script>
 </BaseLayout>

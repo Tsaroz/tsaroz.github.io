@@ -3,7 +3,7 @@ title: "What Is an eSIM? A Plain-English Guide for Nepal"
 description: "eSIMs are built into most new phones, but what are they and should you use one in Nepal? A clear explainer covering how they work, compatibility, costs and when they make sense."
 slug: "what-is-esim-in-nepal"
 articleType: "info"
-category: "Explainers"
+category: "Guides"
 publishedAt: 2026-05-18
 updatedAt: 2026-11-06
 author: "NepalRanks Editorial"

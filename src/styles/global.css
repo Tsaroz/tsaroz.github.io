@@ -110,6 +110,14 @@
   --nr-crimson: #d63f22;
   --nr-gold: #e0a83e;
   --nr-grid: rgb(26 23 18 / 0.055);
+  --nr-pros-bg: #e6f6ec;
+  --nr-pros-border: #1f9d55;
+  --nr-pros-head: #126638;
+  --nr-pros-ink: #123a24;
+  --nr-cons-bg: #fdeceb;
+  --nr-cons-border: #d8392b;
+  --nr-cons-head: #94231a;
+  --nr-cons-ink: #3d1512;
 }
 
 [data-theme="dark"] {
@@ -128,6 +136,14 @@
   --nr-crimson: #f1866e;
   --nr-gold: #edc04b;
   --nr-grid: rgb(242 237 224 / 0.05);
+  --nr-pros-bg: #10241a;
+  --nr-pros-border: #2f9e63;
+  --nr-pros-head: #7ee2a6;
+  --nr-pros-ink: #d8f5e3;
+  --nr-cons-bg: #2a1310;
+  --nr-cons-border: #e0654f;
+  --nr-cons-head: #ff9d88;
+  --nr-cons-ink: #fbded6;
 }
 
 /* ------------------------------------------------------------

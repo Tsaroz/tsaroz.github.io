@@ -94,14 +94,14 @@ const hasLists = pros.length > 0 || cons.length > 0;
         {hasLists && (
           <div class="mt-5 grid gap-3 sm:grid-cols-2">
             {pros.length > 0 && (
-              <div class="rounded-lg border-2 p-3" style="border-color: var(--color-up-500); background: color-mix(in srgb, var(--color-up-50) 70%, transparent);">
-                <p class="mb-2 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em]" style="color: var(--color-up-700);">
+              <div class="rounded-lg border-2 p-3" style="border-color: var(--nr-pros-border); background: var(--nr-pros-bg);">
+                <p class="mb-2 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em]" style="color: var(--nr-pros-head);">
                   <Icon name="lucide:plus-circle" class="size-3.5" aria-hidden="true" /> Pros
                 </p>
                 <ul class="space-y-1.5">
                   {pros.map((pro) => (
-                    <li class="flex gap-1.5 text-[13px] leading-5" style="color: var(--nr-text);">
-                      <Icon name="lucide:check" class="mt-0.5 size-3.5 shrink-0" style="color: var(--color-up-600);" aria-hidden="true" />
+                    <li class="flex gap-1.5 text-[13px] leading-5" style="color: var(--nr-pros-ink);">
+                      <Icon name="lucide:check" class="mt-0.5 size-3.5 shrink-0" style="color: var(--nr-pros-border);" aria-hidden="true" />
                       <span>{pro}</span>
                     </li>
                   ))}
@@ -109,14 +109,14 @@ const hasLists = pros.length > 0 || cons.length > 0;
               </div>
             )}
             {cons.length > 0 && (
-              <div class="rounded-lg border-2 p-3" style="border-color: var(--color-down-500); background: color-mix(in srgb, var(--color-down-50) 70%, transparent);">
-                <p class="mb-2 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em]" style="color: var(--color-down-700);">
+              <div class="rounded-lg border-2 p-3" style="border-color: var(--nr-cons-border); background: var(--nr-cons-bg);">
+                <p class="mb-2 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em]" style="color: var(--nr-cons-head);">
                   <Icon name="lucide:minus-circle" class="size-3.5" aria-hidden="true" /> Cons
                 </p>
                 <ul class="space-y-1.5">
                   {cons.map((con) => (
-                    <li class="flex gap-1.5 text-[13px] leading-5" style="color: var(--nr-text);">
-                      <Icon name="lucide:x" class="mt-0.5 size-3.5 shrink-0" style="color: var(--color-down-600);" aria-hidden="true" />
+                    <li class="flex gap-1.5 text-[13px] leading-5" style="color: var(--nr-cons-ink);">
+                      <Icon name="lucide:x" class="mt-0.5 size-3.5 shrink-0" style="color: var(--nr-cons-border);" aria-hidden="true" />
                       <span>{con}</span>
                     </li>
                   ))}

@@ -3,7 +3,7 @@ title: "Best Smartphones in Nepal (2026 Buyer's Guide)"
 description: "The best smartphones you can actually buy in Nepal in 2026 — honest picks across flagship, mid-range and budget, with local prices, cameras and battery life compared."
 slug: "best-smartphones-in-nepal"
 articleType: "comparison"
-category: "Buying Guides"
+category: "Rankings"
 publishedAt: 2026-03-04
 updatedAt: 2026-11-06
 author: "NepalRanks Editorial"

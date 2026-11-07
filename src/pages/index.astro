@@ -9,8 +9,6 @@ const articles = await getArticles();
 const featured = articles.filter((a) => a.data.featured);
 const lead = featured[0] ?? articles[0];
 const rest = articles.filter((a) => a !== lead);
-const comparisons = articles.filter((a) => a.data.articleType !== "info" && a.data.products.length > 0).length;
-const guides = articles.length - comparisons;
 const site = Astro.site ?? new URL("https://nepalranks.com");
 
 const jsonLd = {
@@ -61,22 +59,6 @@ const jsonLd = {
       </div>
     </div>
 
-    <dl class="mt-6 flex flex-wrap gap-3">
-      <div class="nr-panel px-4 py-2.5">
-        <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Rankings</dt>
-        <dd class="font-display text-xl font-bold">{comparisons}</dd>
-      </div>
-      <div class="nr-panel px-4 py-2.5">
-        <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Explainers</dt>
-        <dd class="font-display text-xl font-bold">{guides}</dd>
-      </div>
-      <div class="nr-panel px-4 py-2.5">
-        <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Picks ranked</dt>
-        <dd class="font-display text-xl font-bold">
-          {articles.reduce((n, a) => n + a.data.products.length, 0)}
-        </dd>
-      </div>
-    </dl>
   </section>
 
   {lead && (

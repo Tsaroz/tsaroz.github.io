@@ -96,20 +96,20 @@
    ------------------------------------------------------------ */
 :root {
   color-scheme: light;
-  --nr-bg: #f7f1e3;
-  --nr-bg-raised: #fffdf7;
-  --nr-bg-sunken: #efe6d2;
-  --nr-text: #1a1712;
-  --nr-text-muted: #5c5240;
-  --nr-text-soft: #7d7156;
-  --nr-border: #1a1712;
-  --nr-border-soft: #d0c3a5;
-  --nr-shadow-ink: #1a1712;
+  --nr-bg: #eef4fb;
+  --nr-bg-raised: #f9fcff;
+  --nr-bg-sunken: #dce8f6;
+  --nr-text: #17202e;
+  --nr-text-muted: #475468;
+  --nr-text-soft: #6d7b90;
+  --nr-border: #17202e;
+  --nr-border-soft: #b9c8dc;
+  --nr-shadow-ink: #17202e;
   --nr-accent: #0d6f66;
-  --nr-accent-ink: #fffdf7;
+  --nr-accent-ink: #f9fcff;
   --nr-crimson: #d63f22;
   --nr-gold: #e0a83e;
-  --nr-grid: rgb(26 23 18 / 0.055);
+  --nr-grid: rgb(23 32 46 / 0.05);
   --nr-pros-bg: #e6f6ec;
   --nr-pros-border: #1f9d55;
   --nr-pros-head: #126638;

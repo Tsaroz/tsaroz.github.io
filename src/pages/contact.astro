@@ -7,23 +7,23 @@ import { Icon } from "astro-icon/components";
   title="Contact NepalRanks"
   description="Get in touch with the NepalRanks editorial team — corrections, tips, partnership and feedback."
 >
-  <article class="nr-prose py-16">
-    <h1 class="font-display text-4xl font-bold tracking-tight text-ink-900">Contact us</h1>
-    <p class="mt-4 text-lg leading-8 text-ink-600">
+  <div class="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6">
+    <h1 class="font-display text-4xl font-bold tracking-tight">Contact us</h1>
+    <p class="mt-4 text-lg leading-8">
       Have a correction, a product tip or a partnership enquiry? We would love to hear from you.
     </p>
 
-    <div class="nr-card mt-8 p-6">
+    <div class="nr-panel mt-8 p-6">
       <div class="flex items-start gap-3">
-        <span class="grid size-10 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700">
+        <span class="grid size-10 shrink-0 place-items-center rounded-lg border-2" style="border-color: var(--nr-border); background: var(--nr-accent); color: var(--nr-accent-ink)">
           <Icon name="lucide:mail" class="size-5" />
         </span>
         <div>
-          <p class="font-semibold text-ink-900">Email</p>
+          <p class="font-semibold">Email</p>
           <a href="mailto:hello@nepalranks.com" class="nr-link">hello@nepalranks.com</a>
-          <p class="mt-1 text-sm text-ink-600">We usually reply within two business days.</p>
+          <p class="mt-1 text-sm">We usually reply within two business days.</p>
         </div>
       </div>
     </div>
-  </article>
+  </div>
 </BaseLayout>

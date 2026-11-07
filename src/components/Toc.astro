@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Heading {
   depth: number;
   slug: string;
@@ -14,12 +16,18 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
 {items.length > 0 && (
-  <nav aria-label="Table of contents" class="nr-card p-5">
-    <p class="nr-label mb-3">Contents</p>
-    <ol class="space-y-1.5 text-sm">
+  <nav aria-label="Table of contents" class="nr-panel-flat p-4">
+    <p class="mb-3 flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">
+      <Icon name="lucide:list" class="size-4" aria-hidden="true" /> On this page
+    </p>
+    <ol class="space-y-1.5 text-[13px]">
       {items.map((h) => (
-        <li class={h.depth === 3 ? "pl-4" : ""}>
-          <a href={`#${h.slug}`} class="text-ink-600 hover:text-brand-700 hover:underline">
+        <li class={h.depth === 3 ? "pl-3 border-l-2 ml-1" : ""} style={h.depth === 3 ? "border-color: var(--nr-border-soft);" : undefined}>
+          <a
+            href={`#${h.slug}`}
+            class="block py-0.5 leading-snug transition-colors hover:underline"
+            style="color: var(--nr-text-muted);"
+          >
             {h.text}
           </a>
         </li>

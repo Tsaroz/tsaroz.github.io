@@ -5,10 +5,15 @@ const product = z.object({
   name: z.string(),
   brand: z.string().optional(),
   price: z.string().optional(),
+  badge: z.string().optional(),
   image: z.string().optional(),
   imageAlt: z.string().optional(),
   summary: z.string().optional(),
   specs: z.record(z.string(), z.string()).optional(),
+  pros: z.array(z.string()).default([]),
+  cons: z.array(z.string()).default([]),
+  verdict: z.string().optional(),
+  link: z.string().optional(),
 });
 
 const specColumn = z.object({
@@ -27,6 +32,7 @@ const articles = defineCollection({
     title: z.string(),
     description: z.string(),
     slug: z.string().optional(),
+    articleType: z.enum(["comparison", "info"]).default("comparison"),
     category: z.string().default("Guides"),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),

@@ -1,8 +1,13 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Product {
   name: string;
-  image?: string;
+  brand?: string;
   price?: string;
+  image?: string;
+  imageAlt?: string;
+  badge?: string;
   specs?: Record<string, string>;
 }
 
@@ -14,37 +19,97 @@ interface Column {
 interface Props {
   products: Product[];
   columns: Column[];
+  anchorFor?: (index: number) => string;
 }
 
 const { products, columns } = Astro.props;
+const anchorFor = Astro.props.anchorFor ?? ((i: number) => `pick-${i + 1}`);
+
+const cell = (p: Product, key: string) => {
+  if (key === "price") return p.price ?? p.specs?.price ?? "—";
+  return p.specs?.[key] ?? "—";
+};
 ---
 
-<div class="my-8 overflow-x-auto rounded-xl border border-ink-200 shadow-card">
-  <table class="w-full min-w-[40rem] border-collapse text-sm">
-    <thead>
-      <tr class="bg-ink-100">
-        <th class="sticky left-0 z-10 bg-ink-100 px-3 py-3 text-left font-semibold text-ink-900">Model</th>
-        {columns.map((c) => (
-          <th class="px-3 py-3 text-left font-semibold text-ink-900 whitespace-nowrap">{c.label}</th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {products.map((p, i) => (
-        <tr class={i % 2 ? "bg-ink-50/60" : "bg-white"}>
-          <th scope="row" class="sticky left-0 z-10 px-3 py-3 text-left font-semibold text-ink-900 align-top" style={i % 2 ? "background-color:#f7f8fa" : "background-color:#fff"}>
-            <span class="flex items-center gap-2">
-              {p.image && <img src={p.image} alt="" loading="lazy" class="size-9 shrink-0 rounded object-contain" />}
-              <span>{p.name}</span>
-            </span>
+<div class="nr-panel-flat my-8 overflow-hidden">
+  <div class="flex items-center gap-2 border-b-2 px-4 py-3" style="border-color: var(--nr-border); background: var(--nr-bg-sunken);">
+    <Icon name="lucide:table-2" class="size-4" style="color: var(--nr-accent);" aria-hidden="true" />
+    <p class="font-mono text-[11px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-muted);">
+      Side-by-side comparison
+    </p>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[44rem] border-collapse text-sm">
+      <thead>
+        <tr style="background: var(--nr-accent); color: var(--nr-accent-ink);">
+          <th
+            scope="col"
+            class="sticky left-0 z-10 px-4 py-3 text-left font-display text-sm font-bold"
+            style="background: var(--nr-accent); color: var(--nr-accent-ink);"
+          >
+            Model
           </th>
           {columns.map((c) => (
-            <td class="border-t border-ink-200 px-3 py-3 align-top text-ink-700 whitespace-nowrap">
-              {c.key === "price" ? (p.price ?? p.specs?.price ?? "—") : (p.specs?.[c.key] ?? "—")}
-            </td>
+            <th scope="col" class="whitespace-nowrap px-4 py-3 text-left font-semibold">
+              {c.label}
+            </th>
           ))}
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {products.map((p, i) => (
+          <tr
+            style={i % 2 ? "background: var(--nr-bg-sunken);" : ""}
+          >
+            <th
+              scope="row"
+              class="sticky left-0 z-10 border-t-2 px-4 py-3 text-left align-middle"
+              style={`border-color: var(--nr-border-soft); background: ${i % 2 ? "var(--nr-bg-sunken)" : "var(--nr-bg-raised)"};`}
+            >
+              <a href={`#${anchorFor(i)}`} class="group flex items-center gap-2.5">
+                {p.image ? (
+                  <img
+                    src={p.image}
+                    alt={p.imageAlt ?? ""}
+                    loading="lazy"
+                    class="size-10 shrink-0 rounded-md border-2 object-contain"
+                    style="border-color: var(--nr-border); background: var(--nr-bg-raised);"
+                  />
+                ) : (
+                  <span
+                    class="grid size-10 shrink-0 place-items-center rounded-md border-2"
+                    style="border-color: var(--nr-border); background: var(--nr-bg-raised); color: var(--nr-text-soft);"
+                  >
+                    <Icon name="lucide:package" class="size-5" aria-hidden="true" />
+                  </span>
+                )}
+                <span class="flex flex-col">
+                  <span class="font-display text-sm font-bold leading-tight group-hover:underline">
+                    {p.name}
+                  </span>
+                  {p.badge && (
+                    <span class="mt-1 w-fit rounded-full px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide" style="background: var(--nr-crimson); color: #fff;">
+                      {p.badge}
+                    </span>
+                  )}
+                </span>
+              </a>
+            </th>
+            {columns.map((c) => (
+              <td
+                class="whitespace-nowrap border-t-2 px-4 py-3 align-middle"
+                style="border-color: var(--nr-border-soft);"
+              >
+                {c.key === "price" ? (
+                  <span class="font-display font-bold" style="color: var(--nr-accent);">{cell(p, c.key)}</span>
+                ) : (
+                  <span style="color: var(--nr-text-muted);">{cell(p, c.key)}</span>
+                )}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 </div>

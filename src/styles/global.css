@@ -1,63 +1,133 @@
 @import "tailwindcss";
 
 /* ============================================================
-   NepalRanks Design System
-   Editorial identity: Nepal-blue brand, crimson accent (flag
-   colours), serif display headings, system sans body.
+   NepalRanks — Neo-retro Editorial Design System
+
+   A warm, print-inspired system: cream paper, deep ink, a
+   Himalayan teal + flag vermilion accent and a mustard gold.
+   Chunky borders, offset "sticker" shadows, halftone patterns
+   and serif display type. Light + dark themes via [data-theme].
    ============================================================ */
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
-    "Times New Roman", serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, "Times New Roman", serif;
+  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    monospace;
 
-  /* Brand — Himalayan blue */
-  --color-brand-50: #eef4ff;
-  --color-brand-100: #dce7ff;
-  --color-brand-200: #b9ccfe;
-  --color-brand-300: #8aa6fc;
-  --color-brand-400: #567ff4;
-  --color-brand-500: #2f5ce8;
-  --color-brand-600: #1e46cc;
-  --color-brand-700: #1837a6;
-  --color-brand-800: #162e84;
-  --color-brand-900: #142a6a;
-  --color-brand-950: #0c1740;
+  /* Brand — Himalayan teal */
+  --color-brand-50: #e7f7f3;
+  --color-brand-100: #c6eee5;
+  --color-brand-200: #93ddd0;
+  --color-brand-300: #57c6b4;
+  --color-brand-400: #2aa999;
+  --color-brand-500: #148a7d;
+  --color-brand-600: #0d6f66;
+  --color-brand-700: #0b5852;
+  --color-brand-800: #0a4642;
+  --color-brand-900: #083a37;
+  --color-brand-950: #032421;
 
-  /* Ink — neutral text/surface ramp */
-  --color-ink-50: #f7f8fa;
-  --color-ink-100: #eef0f4;
-  --color-ink-200: #dde1e8;
-  --color-ink-300: #bcc3cf;
-  --color-ink-400: #8f99a9;
-  --color-ink-500: #6a7486;
-  --color-ink-600: #4e5768;
-  --color-ink-700: #3a4252;
-  --color-ink-800: #252b38;
-  --color-ink-900: #161b26;
-  --color-ink-950: #0b0e16;
+  /* Vermilion — the flag red, used for accent + "retro" pop */
+  --color-crimson-50: #fdeeea;
+  --color-crimson-100: #fbd8d0;
+  --color-crimson-200: #f7b3a3;
+  --color-crimson-300: #f1866e;
+  --color-crimson-400: #e85b3d;
+  --color-crimson-500: #d63f22;
+  --color-crimson-600: #b62e16;
+  --color-crimson-700: #972514;
+  --color-crimson-800: #7a2013;
+  --color-crimson-900: #651d14;
+  --color-crimson-950: #370b07;
 
-  /* Semantics */
-  --color-up-50: #e9f9f1;
-  --color-up-100: #cdefdf;
-  --color-up-500: #12a06b;
-  --color-up-600: #0c8a5a;
-  --color-up-700: #04573a;
+  /* Gold — mustard accent */
+  --color-gold-50: #fdf7e4;
+  --color-gold-100: #faedc1;
+  --color-gold-200: #f4d886;
+  --color-gold-300: #edc04b;
+  --color-gold-400: #e0a83e;
+  --color-gold-500: #c98a17;
+  --color-gold-600: #a56a0f;
+  --color-gold-700: #855210;
+  --color-gold-800: #6f4413;
+  --color-gold-900: #5e3a14;
+  --color-gold-950: #361e08;
 
-  --color-down-50: #fdeeef;
-  --color-down-100: #fbd9dc;
-  --color-down-500: #d2263c;
-  --color-down-600: #b31229;
-  --color-down-700: #8f0e21;
+  /* Ink — warm neutral ramp */
+  --color-ink-50: #faf8f2;
+  --color-ink-100: #f2ede0;
+  --color-ink-200: #e6ddc9;
+  --color-ink-300: #d0c3a5;
+  --color-ink-400: #a89876;
+  --color-ink-500: #7d7156;
+  --color-ink-600: #5c5240;
+  --color-ink-700: #423a2d;
+  --color-ink-800: #2a251d;
+  --color-ink-900: #1a1712;
+  --color-ink-950: #0f0d0a;
 
-  --color-gold-100: #fdf1d7;
-  --color-gold-500: #d99e0b;
-  --color-gold-600: #b57f06;
-  --color-gold-700: #8a610a;
+  /* Semantic */
+  --color-up-50: #e6f6ec;
+  --color-up-100: #c8ead3;
+  --color-up-500: #1f9d55;
+  --color-up-600: #178046;
+  --color-up-700: #126638;
 
-  --shadow-card: 0 1px 2px rgb(22 27 38 / 0.05), 0 4px 16px rgb(22 27 38 / 0.06);
-  --shadow-card-hover: 0 2px 4px rgb(22 27 38 / 0.06), 0 12px 28px rgb(22 27 38 / 0.1);
+  --color-down-50: #fdeceb;
+  --color-down-100: #fad3d0;
+  --color-down-500: #d8392b;
+  --color-down-600: #b92a1f;
+  --color-down-700: #94231a;
+
+  /* Chunky retro shadows */
+  --shadow-card: 0 2px 0 0 var(--nr-shadow-ink);
+  --shadow-pop: 5px 5px 0 0 var(--nr-shadow-ink);
+  --shadow-pop-sm: 3px 3px 0 0 var(--nr-shadow-ink);
+  --shadow-pop-lg: 8px 8px 0 0 var(--nr-shadow-ink);
+}
+
+/* ------------------------------------------------------------
+   Theme tokens — surfaces, ink, borders
+   ------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+  --nr-bg: #f7f1e3;
+  --nr-bg-raised: #fffdf7;
+  --nr-bg-sunken: #efe6d2;
+  --nr-text: #1a1712;
+  --nr-text-muted: #5c5240;
+  --nr-text-soft: #7d7156;
+  --nr-border: #1a1712;
+  --nr-border-soft: #d0c3a5;
+  --nr-shadow-ink: #1a1712;
+  --nr-accent: #0d6f66;
+  --nr-accent-ink: #fffdf7;
+  --nr-crimson: #d63f22;
+  --nr-gold: #e0a83e;
+  --nr-grid: rgb(26 23 18 / 0.055);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --nr-bg: #14120e;
+  --nr-bg-raised: #1e1a14;
+  --nr-bg-sunken: #0f0d0a;
+  --nr-text: #f2ede0;
+  --nr-text-muted: #c3b598;
+  --nr-text-soft: #a89876;
+  --nr-border: #f2ede0;
+  --nr-border-soft: #3a3327;
+  --nr-shadow-ink: #000000;
+  --nr-accent: #57c6b4;
+  --nr-accent-ink: #08201c;
+  --nr-crimson: #f1866e;
+  --nr-gold: #edc04b;
+  --nr-grid: rgb(242 237 224 / 0.05);
 }
 
 /* ------------------------------------------------------------
@@ -66,26 +136,58 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: var(--nr-bg);
   }
 
   body {
-    @apply bg-white font-sans text-ink-800 antialiased;
+    font-family: var(--font-sans);
+    background-color: var(--nr-bg);
+    background-image:
+      linear-gradient(var(--nr-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--nr-grid) 1px, transparent 1px);
+    background-size: 34px 34px;
+    color: var(--nr-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  h1, h2, h3 {
-    @apply font-display text-ink-900;
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--nr-text);
     text-wrap: balance;
   }
 
   ::selection {
-    background: var(--color-brand-100);
-    color: var(--color-brand-900);
+    background: var(--nr-crimson);
+    color: #fff;
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-gold-600);
-    outline-offset: 2px;
+    outline: 3px solid var(--nr-crimson);
+    outline-offset: 3px;
     border-radius: 2px;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+/* ------------------------------------------------------------
+   Layout helpers
+   ------------------------------------------------------------ */
+.nr-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+  .nr-shell {
+    grid-template-columns: 17.5rem minmax(0, 1fr);
   }
 }
 
@@ -94,113 +196,310 @@
    ------------------------------------------------------------ */
 @layer components {
   .nr-container {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .nr-container { padding-inline: 2rem; }
   }
 
   .nr-prose {
-    @apply mx-auto w-full max-w-3xl px-4 sm:px-6;
+    margin-inline: auto;
+    width: 100%;
+    max-width: 46rem;
+    padding-inline: 1.25rem;
+  }
+
+  /* The signature retro panel: thick border + offset shadow */
+  .nr-panel {
+    border: 2px solid var(--nr-border);
+    background: var(--nr-bg-raised);
+    box-shadow: var(--shadow-pop-sm);
+    border-radius: 14px;
+  }
+
+  .nr-panel-flat {
+    border: 2px solid var(--nr-border);
+    background: var(--nr-bg-raised);
+    border-radius: 14px;
+  }
+
+  .nr-panel-sunken {
+    border: 2px solid var(--nr-border);
+    background: var(--nr-bg-sunken);
+    border-radius: 14px;
   }
 
   .nr-card {
-    @apply rounded-xl border border-ink-200 bg-white shadow-card;
+    border: 2px solid var(--nr-border);
+    background: var(--nr-bg-raised);
+    border-radius: 16px;
+    box-shadow: var(--shadow-pop-sm);
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+  }
+
+  .nr-card-hover:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-pop);
   }
 
   .nr-btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2
-      text-sm font-semibold transition-colors;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--nr-border);
+    border-radius: 10px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    box-shadow: var(--shadow-pop-sm);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  }
+
+  .nr-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-pop);
+  }
+
+  .nr-btn:active {
+    transform: translate(0, 0);
+    box-shadow: 0 0 0 0 var(--nr-shadow-ink);
   }
 
   .nr-btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2
-      text-sm font-semibold transition-colors bg-brand-600 text-white
-      hover:bg-brand-700 active:bg-brand-800;
+    background: var(--nr-accent);
+    color: var(--nr-accent-ink);
+  }
+
+  .nr-btn-crimson {
+    background: var(--nr-crimson);
+    color: #fff;
   }
 
   .nr-btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2
-      text-sm font-semibold transition-colors border border-ink-300 bg-white
-      text-ink-800 hover:border-brand-400 hover:text-brand-700;
+    background: var(--nr-bg-raised);
+    color: var(--nr-text);
   }
 
   .nr-badge {
-    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5
-      text-xs font-semibold;
-  }
-
-  .nr-link {
-    @apply text-brand-700 underline-offset-2 hover:underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1.5px solid var(--nr-border);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    line-height: 1.4;
   }
 
   .nr-label {
-    @apply text-xs font-semibold uppercase tracking-[0.08em] text-ink-500;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--nr-text-soft);
+  }
+
+  .nr-link {
+    color: var(--nr-accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .nr-rule {
+    border: 0;
+    border-top: 2px solid var(--nr-border);
+  }
+
+  .nr-halftone {
+    background-image: radial-gradient(var(--nr-border-soft) 1.5px, transparent 1.5px);
+    background-size: 10px 10px;
+  }
+
+  .nr-stripes {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--nr-border) 0 2px,
+      transparent 2px 8px
+    );
   }
 }
 
 /* ------------------------------------------------------------
-   Article typography (used on rendered markdown)
+   Article typography (rendered markdown)
    ------------------------------------------------------------ */
 .nr-article {
-  @apply text-[1.0625rem] leading-8 text-ink-700;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--nr-text);
 }
 
 .nr-article > * + * {
-  margin-top: 1.25em;
+  margin-top: 1.3em;
 }
 
 .nr-article h2 {
-  @apply mt-12 mb-4 font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl;
-  scroll-margin-top: 5rem;
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  scroll-margin-top: 6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--nr-border-soft);
 }
 
 .nr-article h3 {
-  @apply mt-9 mb-3 font-display text-xl font-bold tracking-tight text-ink-900;
-  scroll-margin-top: 5rem;
-}
-
-.nr-article p {
-  @apply leading-8;
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  scroll-margin-top: 6rem;
 }
 
 .nr-article a {
-  @apply text-brand-700 underline underline-offset-2 hover:text-brand-800;
+  color: var(--nr-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 .nr-article ul {
-  @apply list-disc space-y-2 pl-6;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.nr-article ul > li {
+  position: relative;
+  padding-left: 1.6rem;
+}
+
+.nr-article ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 2px solid var(--nr-accent);
+  background: var(--nr-gold);
+  transform: rotate(45deg);
 }
 
 .nr-article ol {
-  @apply list-decimal space-y-2 pl-6;
+  list-style: none;
+  counter-reset: nr-ol;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.nr-article ol > li {
+  counter-increment: nr-ol;
+  position: relative;
+  padding-left: 2.4rem;
+}
+
+.nr-article ol > li::before {
+  content: counter(nr-ol);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 2px solid var(--nr-border);
+  border-radius: 6px;
+  background: var(--nr-accent);
+  color: var(--nr-accent-ink);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .nr-article li {
-  @apply leading-7;
+  line-height: 1.75;
 }
 
 .nr-article blockquote {
-  @apply border-l-4 border-brand-200 bg-brand-50/60 py-2 pl-5 pr-4 italic text-ink-700;
+  border: 2px solid var(--nr-border);
+  border-left-width: 10px;
+  border-left-color: var(--nr-gold);
+  border-radius: 12px;
+  background: var(--nr-bg-sunken);
+  padding: 1.1rem 1.35rem;
+  font-style: italic;
+  box-shadow: var(--shadow-pop-sm);
 }
 
 .nr-article img {
-  @apply rounded-xl border border-ink-200;
+  border: 2px solid var(--nr-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-pop-sm);
 }
 
 .nr-article strong {
-  @apply font-semibold text-ink-900;
+  font-weight: 700;
+  color: var(--nr-text);
+  background: linear-gradient(transparent 62%, color-mix(in srgb, var(--nr-gold) 55%, transparent) 0);
 }
 
 .nr-article hr {
-  @apply my-12 border-ink-200;
+  margin: 2.75rem 0;
+  border: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--nr-border) 0 12px,
+    transparent 12px 22px
+  );
 }
 
 .nr-article table {
-  @apply w-full border-collapse text-sm;
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--nr-border);
+  font-size: 0.9rem;
 }
 
 .nr-article th {
-  @apply bg-ink-100 px-3 py-2 text-left font-semibold text-ink-900;
+  background: var(--nr-accent);
+  color: var(--nr-accent-ink);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  font-weight: 700;
 }
 
 .nr-article td {
-  @apply border-t border-ink-200 px-3 py-2 align-top;
+  border-top: 2px solid var(--nr-border-soft);
+  padding: 0.6rem 0.75rem;
+  vertical-align: top;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }

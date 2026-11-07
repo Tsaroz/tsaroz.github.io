@@ -1,0 +1,66 @@
+---
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+import { formatDate, slugOf, type Article } from "@lib/articles";
+
+interface Props {
+  article: Article;
+  featured?: boolean;
+}
+
+const { article, featured = false } = Astro.props;
+const d = article.data;
+const isComparison = d.articleType !== "info" && d.products.length > 0;
+---
+
+<a
+  href={url(`/articles/${slugOf(article)}/`)}
+  class:list={["nr-card nr-card-hover group flex flex-col overflow-hidden", featured && "sm:grid sm:grid-cols-2"]}
+>
+  <div
+    class:list={["relative overflow-hidden", featured ? "aspect-[16/10] sm:aspect-auto sm:border-r-2" : "aspect-[16/9] border-b-2"]}
+    style="border-color: var(--nr-border); background: var(--nr-bg-sunken);"
+  >
+    {d.coverImage ? (
+      <img
+        src={d.coverImage}
+        alt={d.coverImageAlt ?? d.title}
+        class="h-full w-full object-cover"
+        loading={featured ? "eager" : "lazy"}
+      />
+    ) : (
+      <div class="grid h-full place-items-center" style="color: var(--nr-text-soft);">
+        <Icon name="lucide:image" class="size-10" aria-hidden="true" />
+      </div>
+    )}
+    <span
+      class="absolute left-3 top-3 nr-badge"
+      style={isComparison
+        ? "background: var(--nr-accent); color: var(--nr-accent-ink);"
+        : "background: var(--nr-gold); color: var(--nr-ink-900);"}
+    >
+      <Icon name={isComparison ? "lucide:git-compare" : "lucide:book-open"} class="size-3" aria-hidden="true" />
+      {isComparison ? "Comparison" : "Guide"}
+    </span>
+  </div>
+
+  <div class:list={["flex flex-1 flex-col", featured ? "p-6 sm:p-8" : "p-5"]}>
+    <span class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-crimson);">
+      {d.category}
+    </span>
+    <h3
+      class:list={[
+        "mt-2 font-display font-bold leading-snug group-hover:underline",
+        featured ? "text-2xl sm:text-3xl" : "text-lg",
+      ]}
+    >
+      {d.title}
+    </h3>
+    <p class:list={["mt-2 leading-6", featured ? "text-base" : "line-clamp-3 text-sm"]} style="color: var(--nr-text-muted);">
+      {d.description}
+    </p>
+    <p class="mt-auto pt-4 font-mono text-[10px] uppercase tracking-wide" style="color: var(--nr-text-soft);">
+      {formatDate(d.updatedAt ?? d.publishedAt)}
+    </p>
+  </div>
+</a>

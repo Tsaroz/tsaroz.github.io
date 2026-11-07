@@ -1,57 +1,64 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import ArticleCard from "@components/ArticleCard.astro";
 import { Icon } from "astro-icon/components";
-import { getArticles, formatDate, slugOf } from "@lib/articles";
-import { url } from "@utils/url";
+import { getArticles } from "@lib/articles";
 
 const articles = await getArticles();
 const categories = [...new Set(articles.map((a) => a.data.category))];
+const comparisons = articles.filter((a) => a.data.articleType !== "info" && a.data.products.length > 0);
+const guides = articles.filter((a) => !(a.data.articleType !== "info" && a.data.products.length > 0));
 ---
 
 <BaseLayout
   title="All Buying Guides & Rankings | NepalRanks"
   description="Browse every independent buying guide and ranking for products and services in Nepal."
 >
-  <div class="nr-container pt-12">
-    <h1 class="font-display text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">All articles</h1>
-    <p class="mt-2 max-w-2xl text-ink-600">
+  <div class="mx-auto w-full max-w-7xl px-4 pt-10 sm:px-6">
+    <p class="nr-label">The archive</p>
+    <h1 class="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">All articles</h1>
+    <p class="mt-3 max-w-2xl" style="color: var(--nr-text-muted);">
       {articles.length} independent guide{articles.length === 1 ? "" : "s"} across {categories.length} categor{categories.length === 1 ? "y" : "ies"}.
     </p>
 
     {categories.length > 0 && (
       <div class="mt-6 flex flex-wrap gap-2">
         {categories.map((c) => (
-          <span class="nr-badge border border-ink-200 bg-white text-ink-700">{c}</span>
+          <span class="nr-badge" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">{c}</span>
         ))}
       </div>
     )}
   </div>
 
-  <section class="nr-container py-10">
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {articles.map((a) => (
-        <a href={url(`/articles/${slugOf(a)}/`)} class="nr-card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">
-          <div class="aspect-[16/9] bg-ink-100">
-            {a.data.coverImage ? (
-              <img src={a.data.coverImage} alt={a.data.coverImageAlt ?? a.data.title} class="h-full w-full object-cover" loading="lazy" />
-            ) : (
-              <div class="grid h-full place-items-center text-ink-400"><Icon name="lucide:image" class="size-8" /></div>
-            )}
-          </div>
-          <div class="flex flex-1 flex-col p-5">
-            <span class="nr-label text-brand-700">{a.data.category}</span>
-            <h2 class="mt-2 font-display text-lg font-bold leading-snug text-ink-900 group-hover:text-brand-700">{a.data.title}</h2>
-            <p class="mt-2 line-clamp-3 text-sm leading-6 text-ink-600">{a.data.description}</p>
-            <p class="mt-auto pt-4 text-xs font-medium uppercase tracking-wide text-ink-500">
-              {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
-            </p>
-          </div>
-        </a>
-      ))}
-    </div>
+  {comparisons.length > 0 && (
+    <section class="mx-auto w-full max-w-7xl px-4 pt-12 sm:px-6" aria-labelledby="cmp-h">
+      <div class="mb-6 flex items-center gap-2 border-b-2 pb-3" style="border-color: var(--nr-border);">
+        <Icon name="lucide:git-compare" class="size-5" style="color: var(--nr-accent);" aria-hidden="true" />
+        <h2 id="cmp-h" class="font-display text-2xl font-bold">Best-of comparisons</h2>
+        <span class="nr-badge ml-auto" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">{comparisons.length}</span>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {comparisons.map((a) => <ArticleCard article={a} />)}
+      </div>
+    </section>
+  )}
 
-    {articles.length === 0 && (
-      <p class="py-16 text-center text-ink-600">No articles yet. Add one from the admin panel.</p>
-    )}
-  </section>
+  {guides.length > 0 && (
+    <section class="mx-auto w-full max-w-7xl px-4 pt-14 sm:px-6" aria-labelledby="info-h">
+      <div class="mb-6 flex items-center gap-2 border-b-2 pb-3" style="border-color: var(--nr-border);">
+        <Icon name="lucide:book-open" class="size-5" style="color: var(--nr-gold);" aria-hidden="true" />
+        <h2 id="info-h" class="font-display text-2xl font-bold">Explainers & guides</h2>
+        <span class="nr-badge ml-auto" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">{guides.length}</span>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {guides.map((a) => <ArticleCard article={a} />)}
+      </div>
+    </section>
+  )}
+
+  {articles.length === 0 && (
+    <section class="mx-auto w-full max-w-7xl px-4 py-16 text-center sm:px-6">
+      <p style="color: var(--nr-text-muted);">No articles yet. Add one from the admin panel.</p>
+    </section>
+  )}
 </BaseLayout>

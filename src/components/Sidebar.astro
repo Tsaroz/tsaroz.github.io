@@ -1,0 +1,121 @@
+---
+import { Icon } from "astro-icon/components";
+import { url } from "@utils/url";
+import { getArticles, slugOf, formatDate } from "@lib/articles";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const articles = await getArticles();
+const categories = [...new Set(articles.map((a) => a.data.category))];
+const recent = articles.slice(0, 4);
+
+const nav = [
+  { href: "/", label: "Home", icon: "lucide:house" },
+  { href: "/articles/", label: "All articles", icon: "lucide:newspaper" },
+  { href: "/about/", label: "About", icon: "lucide:info" },
+  { href: "/contact/", label: "Contact", icon: "lucide:mail" },
+];
+
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<aside
+  class="nr-sidebar lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto border-b-2 lg:border-b-0 lg:border-r-2"
+  style="border-color: var(--nr-border); background: var(--nr-bg-raised);"
+>
+  <div class="flex h-full flex-col gap-6 p-5">
+    <a href={url("/")} class="group flex items-center gap-3" aria-label="NepalRanks home">
+      <span
+        class="grid size-11 shrink-0 place-items-center rounded-xl border-2"
+        style="border-color: var(--nr-border); background: var(--nr-accent); box-shadow: var(--shadow-pop-sm);"
+      >
+        <Icon name="lucide:mountain-snow" class="size-6" style="color: var(--nr-accent-ink);" aria-hidden="true" />
+      </span>
+      <span class="leading-none">
+        <span class="block font-display text-xl font-bold tracking-tight" style="color: var(--nr-text);">
+          Nepal<span style="color: var(--nr-crimson);">Ranks</span>
+        </span>
+        <span class="mt-1 block font-mono text-[10px] font-bold uppercase tracking-[0.22em]" style="color: var(--nr-text-soft);">
+          Buyers' Guides
+        </span>
+      </span>
+    </a>
+
+    <nav aria-label="Primary" class="flex flex-col gap-1.5">
+      {nav.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={url(item.href)}
+            class:list={[
+              "group flex items-center gap-3 rounded-lg border-2 border-transparent px-3 py-2 text-sm font-semibold transition-colors",
+              active && "!border-current",
+            ]}
+            style={active
+              ? "color: var(--nr-accent-ink); background: var(--nr-accent); border-color: var(--nr-border);"
+              : "color: var(--nr-text-muted);"}
+            aria-current={active ? "page" : undefined}
+          >
+            <Icon name={item.icon} class="size-4 shrink-0" aria-hidden="true" />
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    {categories.length > 0 && (
+      <div>
+        <p class="nr-label mb-2.5">Categories</p>
+        <div class="flex flex-wrap gap-1.5">
+          {categories.map((c) => (
+            <span
+              class="nr-badge"
+              style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {recent.length > 0 && (
+      <div class="hidden lg:block">
+        <p class="nr-label mb-2.5">Latest</p>
+        <ul class="flex flex-col gap-2.5">
+          {recent.map((a) => (
+            <li>
+              <a
+                href={url(`/articles/${slugOf(a)}/`)}
+                class="group block rounded-lg border-2 border-transparent p-2 -mx-2 transition-colors hover:border-current"
+                style="color: var(--nr-text-muted);"
+              >
+                <span class="block text-sm font-semibold leading-snug" style="color: var(--nr-text);">
+                  {a.data.title}
+                </span>
+                <span class="mt-0.5 block font-mono text-[10px] uppercase tracking-wide" style="color: var(--nr-text-soft);">
+                  {a.data.articleType === "comparison" ? "Comparison" : "Explain"} · {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="mt-auto hidden lg:block">
+      <div class="nr-panel-sunken p-3">
+        <p class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">
+          Independent
+        </p>
+        <p class="mt-1 text-xs leading-relaxed" style="color: var(--nr-text-muted);">
+          Rankings are never sold. Some links may be affiliate links.
+        </p>
+      </div>
+    </div>
+  </div>
+</aside>

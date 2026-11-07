@@ -4,6 +4,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import ProductCard from "@components/ProductCard.astro";
 import ComparisonTable from "@components/ComparisonTable.astro";
 import Toc from "@components/Toc.astro";
+import FaqSection from "@components/FaqSection.astro";
 import { url } from "@utils/url";
 import { formatDate, readingTime, slugOf, type Article } from "@lib/articles";
 import {
@@ -24,6 +25,7 @@ const { entry, headings } = Astro.props;
 const d = entry.data;
 const body = entry.body ?? "";
 const site = Astro.site ?? new URL("https://nepalranks.com");
+const isComparison = d.articleType !== "info" && d.products.length > 0;
 
 const seoInput = {
   ...d,
@@ -41,6 +43,8 @@ const breadcrumbLd = buildBreadcrumbJsonLd(seoInput, ctx);
 const itemListLd = buildItemListJsonLd(seoInput);
 const faqLd = buildFaqJsonLd(d.faqs ?? []);
 const seo = import.meta.env.DEV ? analyzeSeo(seoInput) : null;
+
+const typeLabel = isComparison ? "Comparison" : "Guide";
 ---
 
 <BaseLayout
@@ -61,138 +65,188 @@ const seo = import.meta.env.DEV ? analyzeSeo(seoInput) : null;
   {d.keywords.length > 0 && <meta name="keywords" content={d.keywords.join(", ")} slot="head" />}
   <meta name="robots" content={d.noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} slot="head" />
 
-  <!-- Breadcrumbs -->
-  <div class="nr-container pt-6">
-    <nav aria-label="Breadcrumb" class="text-sm text-ink-500">
+  <div class="mx-auto w-full max-w-7xl px-4 pb-16 pt-6 sm:px-6">
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb" class="font-mono text-[11px] uppercase tracking-wide" style="color: var(--nr-text-soft);">
       <ol class="flex flex-wrap items-center gap-1.5">
-        <li><a href={url("/")} class="hover:text-brand-700">Home</a></li>
-        <li aria-hidden="true"><Icon name="lucide:chevron-right" class="size-3.5" /></li>
-        <li><a href={url("/articles/")} class="hover:text-brand-700">Articles</a></li>
-        <li aria-hidden="true"><Icon name="lucide:chevron-right" class="size-3.5" /></li>
-        <li class="truncate text-ink-700" aria-current="page">{d.title}</li>
+        <li><a href={url("/")} class="hover:underline" style="color: var(--nr-text-muted);">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href={url("/articles/")} class="hover:underline" style="color: var(--nr-text-muted);">Articles</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="truncate" style="color: var(--nr-text);" aria-current="page">{d.title}</li>
       </ol>
     </nav>
-  </div>
 
-  <!-- Article header -->
-  <header class="nr-prose pt-6">
-    <span class="nr-badge bg-brand-50 text-brand-700">{d.category}</span>
-    <h1 class="mt-3 font-display text-3xl font-bold leading-tight tracking-tight text-ink-900 sm:text-4xl">
-      {d.title}
-    </h1>
-    <p class="mt-4 text-lg leading-8 text-ink-600">{d.description}</p>
-    <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-500">
-      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:user" class="size-4" />{d.author}</span>
-      <span class="inline-flex items-center gap-1.5">
-        <Icon name="lucide:calendar" class="size-4" />
-        <time datetime={d.publishedAt.toISOString()}>{formatDate(d.updatedAt ?? d.publishedAt)}</time>
-      </span>
-      <span class="inline-flex items-center gap-1.5"><Icon name="lucide:clock" class="size-4" />{readingTime(body)} min read</span>
-    </div>
-  </header>
+    <!-- Article header -->
+    <header class="mt-6 max-w-4xl">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="nr-badge" style="background: var(--nr-accent); color: var(--nr-accent-ink);">
+          {d.category}
+        </span>
+        <span class="nr-badge" style="background: var(--nr-bg-sunken); color: var(--nr-text-muted);">
+          <Icon name={isComparison ? "lucide:git-compare" : "lucide:book-open"} class="size-3" aria-hidden="true" />
+          {typeLabel}
+        </span>
+      </div>
+      <h1 class="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl lg:text-[2.75rem]">
+        {d.title}
+      </h1>
+      <p class="mt-4 text-lg leading-8" style="color: var(--nr-text-muted);">{d.description}</p>
+      <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[11px] uppercase tracking-wide" style="color: var(--nr-text-soft);">
+        <span class="inline-flex items-center gap-1.5"><Icon name="lucide:pen-line" class="size-3.5" />{d.author}</span>
+        <span class="inline-flex items-center gap-1.5">
+          <Icon name="lucide:calendar" class="size-3.5" />
+          <time datetime={d.publishedAt.toISOString()}>{formatDate(d.updatedAt ?? d.publishedAt)}</time>
+        </span>
+        <span class="inline-flex items-center gap-1.5"><Icon name="lucide:clock" class="size-3.5" />{readingTime(body)} min read</span>
+      </div>
+    </header>
 
-  {d.coverImage && (
-    <div class="nr-container mt-8">
-      <img
-        src={d.coverImage}
-        alt={d.coverImageAlt ?? d.title}
-        class="aspect-[16/9] w-full rounded-2xl border border-ink-200 object-cover shadow-card"
-        fetchpriority="high"
-      />
-    </div>
-  )}
+    {d.coverImage && (
+      <figure class="mt-8">
+        <img
+          src={d.coverImage}
+          alt={d.coverImageAlt ?? d.title}
+          class="aspect-[16/8] w-full rounded-2xl border-2 object-cover"
+          style="border-color: var(--nr-border); box-shadow: var(--shadow-pop);"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
 
-  <!-- Body + TOC -->
-  <div class="nr-container mt-10 grid gap-10 lg:grid-cols-[1fr_minmax(0,15rem)]">
-    <div class="min-w-0">
-      {d.intro && (
-        <div class="nr-article">
-          <p class="text-lg leading-8 text-ink-700">{d.intro}</p>
+    {isComparison ? (
+      <div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_16rem]">
+        <div class="min-w-0">
+          {d.intro && (
+            <div
+              class="rounded-2xl border-2 p-5 text-lg leading-8 sm:p-6"
+              style="border-color: var(--nr-border); background: var(--nr-bg-raised); box-shadow: var(--shadow-pop-sm);"
+            >
+              <p style="color: var(--nr-text);">{d.intro}</p>
+            </div>
+          )}
+
+          {d.comparisonColumns.length > 0 && (
+            <section class="mt-10" aria-labelledby="compare-h">
+              <h2 id="compare-h" class="scroll-mt-24 font-display text-2xl font-bold sm:text-3xl">
+                Comparison table
+              </h2>
+              <ComparisonTable products={d.products} columns={d.comparisonColumns} />
+            </section>
+          )}
+
+          {d.products.length > 0 && (
+            <section class="mt-12" aria-labelledby="products-h">
+              <h2 id="products-h" class="scroll-mt-24 font-display text-2xl font-bold sm:text-3xl">
+                The picks, reviewed
+              </h2>
+              <div class="mt-6 space-y-6">
+                {d.products.map((p, i) => (
+                  <ProductCard {...p} rank={i + 1} anchor={`pick-${i + 1}`} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div class="nr-article mt-12">
+            <slot />
+          </div>
+
+          {d.conclusion && (
+            <section class="mt-12" aria-labelledby="conclusion-h">
+              <h2 id="conclusion-h" class="scroll-mt-24 font-display text-2xl font-bold sm:text-3xl">Conclusion</h2>
+              <div
+                class="mt-4 rounded-xl border-2 border-l-[10px] p-5 text-[1.0625rem] leading-8"
+                style="border-color: var(--nr-border); border-left-color: var(--nr-gold); background: var(--nr-bg-sunken); box-shadow: var(--shadow-pop-sm);"
+              >
+                <p style="color: var(--nr-text);">{d.conclusion}</p>
+              </div>
+            </section>
+          )}
+
+          {(d.faqs ?? []).length > 0 && <FaqSection faqs={d.faqs} />}
         </div>
-      )}
 
-      {d.products.length > 0 && (
-        <section class="mt-10" aria-labelledby="products-h">
-          <h2 id="products-h" class="font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl scroll-mt-24">
-            Our picks at a glance
-          </h2>
-          <div class="mt-5 space-y-5">
-            {d.products.map((p, i) => (
-              <ProductCard {...p} rank={i + 1} anchor={`pick-${i + 1}`} />
-            ))}
+        <aside class="hidden lg:block">
+          <div class="sticky top-20 space-y-4">
+            <Toc headings={headings} />
+            <div class="nr-panel-flat p-4">
+              <p class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Quick jump</p>
+              <ul class="mt-2 space-y-1 text-[13px]">
+                {d.products.map((p, i) => (
+                  <li>
+                    <a href={`#pick-${i + 1}`} class="flex items-center gap-2 py-0.5 hover:underline" style="color: var(--nr-text-muted);">
+                      <span class="grid size-5 shrink-0 place-items-center rounded font-mono text-[10px] font-bold" style="background: var(--nr-accent); color: var(--nr-accent-ink);">{i + 1}</span>
+                      <span class="truncate">{p.name}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </section>
-      )}
-
-      {d.comparisonColumns.length > 0 && d.products.length > 0 && (
-        <section class="mt-12" aria-labelledby="compare-h">
-          <h2 id="compare-h" class="font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl scroll-mt-24">
-            Comparison table
-          </h2>
-          <ComparisonTable products={d.products} columns={d.comparisonColumns} />
-        </section>
-      )}
-
-      <div class="nr-article mt-12">
-        <slot />
+        </aside>
       </div>
-
-      {d.conclusion && (
-        <section class="mt-12" aria-labelledby="conclusion-h">
-          <h2 id="conclusion-h" class="font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl scroll-mt-24">
-            Conclusion
-          </h2>
-          <div class="mt-3 rounded-xl border-l-4 border-brand-500 bg-brand-50/70 p-5 text-[1.0625rem] leading-8 text-ink-800">
-            <p>{d.conclusion}</p>
+    ) : (
+      <div class="mt-10 grid gap-10 lg:grid-cols-[16rem_minmax(0,1fr)]">
+        <aside class="order-2 lg:order-1">
+          <div class="lg:sticky lg:top-20 space-y-4">
+            <Toc headings={headings} />
+            <div class="nr-panel-flat p-4">
+              <p class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">In this guide</p>
+              <p class="mt-2 text-[13px] leading-6" style="color: var(--nr-text-muted);">
+                A plain-English explainer. Jump to any section using the contents above.
+              </p>
+            </div>
           </div>
-        </section>
-      )}
+        </aside>
 
-      {(d.faqs ?? []).length > 0 && (
-        <section class="mt-12" aria-labelledby="faq-h">
-          <h2 id="faq-h" class="font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl scroll-mt-24">
-            Frequently asked questions
-          </h2>
-          <div class="mt-4 divide-y divide-ink-200 rounded-xl border border-ink-200">
-            {d.faqs.map((f) => (
-              <details class="group px-5 py-4">
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
-                  <span>{f.question}</span>
-                  <Icon name="lucide:chevron-down" class="size-4 shrink-0 text-ink-500 transition-transform group-open:rotate-180" />
-                </summary>
-                <p class="mt-2 text-sm leading-7 text-ink-600">{f.answer}</p>
-              </details>
-            ))}
+        <div class="order-1 min-w-0 lg:order-2">
+          {d.intro && (
+            <p class="mb-6 text-lg leading-8 first-letter:float-left first-letter:mr-2 first-letter:font-display first-letter:text-6xl first-letter:font-bold first-letter:leading-[0.8]" style="color: var(--nr-text);">
+              {d.intro}
+            </p>
+          )}
+
+          <div class="nr-article">
+            <slot />
           </div>
-        </section>
-      )}
-    </div>
 
-    <aside class="hidden lg:block">
-      <div class="sticky top-24">
-        <Toc headings={headings} />
+          {d.conclusion && (
+            <section class="mt-12" aria-labelledby="conclusion-h">
+              <h2 id="conclusion-h" class="scroll-mt-24 font-display text-2xl font-bold sm:text-3xl">The takeaway</h2>
+              <div
+                class="mt-4 rounded-xl border-2 border-l-[10px] p-5 text-[1.0625rem] leading-8"
+                style="border-color: var(--nr-border); border-left-color: var(--nr-gold); background: var(--nr-bg-sunken); box-shadow: var(--shadow-pop-sm);"
+              >
+                <p style="color: var(--nr-text);">{d.conclusion}</p>
+              </div>
+            </section>
+          )}
+
+          {(d.faqs ?? []).length > 0 && <FaqSection faqs={d.faqs} />}
+        </div>
       </div>
-    </aside>
-  </div>
+    )}
 
-  {seo && (
-    <div class="nr-container mt-12">
-      <details class="rounded-xl border border-dashed border-gold-500/50 bg-gold-100/40 p-4 text-sm">
-        <summary class="cursor-pointer font-semibold text-ink-800">
+    {seo && (
+      <details class="mt-12 rounded-xl border-2 border-dashed p-4 text-sm" style="border-color: var(--nr-gold); background: var(--nr-bg-sunken);">
+        <summary class="cursor-pointer font-semibold">
           SEO self-check (dev only) — score {seo.score}/100
         </summary>
         <ul class="mt-3 space-y-1">
           {seo.issues.map((i) => (
-            <li class:list={["flex gap-2", i.level === "error" ? "text-down-700" : i.level === "warn" ? "text-gold-700" : "text-up-700"]}>
+            <li class="flex gap-2">
               <span class="font-mono">{i.level === "ok" ? "✓" : i.level === "warn" ? "!" : "×"}</span>
               <span><strong>{i.label}.</strong> {i.detail}</span>
             </li>
           ))}
         </ul>
-        <p class="mt-3 text-ink-600">
+        <p class="mt-3" style="color: var(--nr-text-muted);">
           {seo.wordCount} words · {seo.readingTime} min read · title {seo.titleLength}ch · description {seo.descriptionLength}ch
         </p>
       </details>
-    </div>
-  )}
+    )}
+  </div>
 </BaseLayout>
+
+

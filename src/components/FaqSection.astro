@@ -1,0 +1,42 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Faq {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqs: Faq[];
+}
+
+const { faqs } = Astro.props;
+---
+
+{faqs.length > 0 && (
+  <section class="mt-12" aria-labelledby="faq-h">
+    <h2 id="faq-h" class="scroll-mt-24 font-display text-2xl font-bold sm:text-3xl">
+      Frequently asked questions
+    </h2>
+    <div class="mt-5 flex flex-col gap-3">
+      {faqs.map((f) => (
+        <details class="nr-panel-flat group overflow-hidden">
+          <summary
+            class="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 font-display text-base font-bold [&::-webkit-details-marker]:hidden"
+          >
+            <span>{f.question}</span>
+            <Icon
+              name="lucide:plus"
+              class="size-4 shrink-0 transition-transform group-open:rotate-45"
+              style="color: var(--nr-accent);"
+              aria-hidden="true"
+            />
+          </summary>
+          <p class="border-t-2 px-4 py-3.5 text-sm leading-7" style="border-color: var(--nr-border-soft); color: var(--nr-text-muted);">
+            {f.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </section>
+)}

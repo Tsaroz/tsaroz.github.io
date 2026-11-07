@@ -2,6 +2,7 @@
 import "@styles/global.css";
 import { Icon } from "astro-icon/components";
 import { url } from "@utils/url";
+import Sidebar from "@components/Sidebar.astro";
 
 interface Props {
   title: string;
@@ -32,13 +33,9 @@ const canonical = new URL(Astro.url.pathname, site).href;
 const defaultOg = new URL("og.png", site).href;
 const resolvedOg = ogImage ? new URL(ogImage, site).href : defaultOg;
 const siteName = "NepalRanks";
+const currentPath = Astro.url.pathname;
 
 const year = new Date().getFullYear();
-const nav = [
-  { href: "/articles/", label: "Articles" },
-  { href: "/about/", label: "About" },
-  { href: "/contact/", label: "Contact" },
-];
 ---
 
 <!doctype html>
@@ -51,6 +48,12 @@ const nav = [
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
     <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    />
     <meta name="author" content={articleAuthor ?? siteName} />
     {noindex
       ? <meta name="robots" content="noindex, nofollow" />
@@ -75,103 +78,174 @@ const nav = [
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={resolvedOg} />
     <meta name="twitter:image:alt" content={title} />
-    <meta name="theme-color" content="#161b26" />
+    <meta name="theme-color" content="#f7f1e3" />
+
+    <script is:inline>
+      (() => {
+        try {
+          const param = new URLSearchParams(location.search).get("theme");
+          const stored = localStorage.getItem("nr-theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme =
+            param === "dark" || param === "light"
+              ? param
+              : stored ?? (prefersDark ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch (_) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
 
     <slot name="head" />
   </head>
-  <body class="flex min-h-screen flex-col bg-white">
+  <body>
     <a
       href="#main"
-      class="sr-only rounded-lg bg-brand-600 px-4 py-2 text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
+      class="sr-only rounded-lg border-2 px-4 py-2 font-bold focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100]"
+      style="border-color: var(--nr-border); background: var(--nr-accent); color: var(--nr-accent-ink);"
       >Skip to content</a
     >
-    <header class="sticky top-0 z-40 border-b border-ink-200 bg-white/95 backdrop-blur">
-      <div class="nr-container flex h-16 items-center justify-between gap-3">
-        <a href={url("/")} class="flex shrink-0 items-center gap-2.5" aria-label="NepalRanks home">
-          <span class="grid size-9 place-items-center rounded-lg bg-ink-900">
-            <Icon name="lucide:list-ordered" class="size-5 text-brand-300" aria-hidden="true" />
-          </span>
-          <span class="leading-tight">
-            <span class="block font-display text-lg font-bold tracking-tight text-ink-900"
-              >Nepal<span class="text-brand-600">Ranks</span></span
-            >
-            <span class="hidden text-[11px] font-medium uppercase tracking-[0.14em] text-ink-600 sm:block"
-              >Expert Buyers' Guides</span
-            >
-          </span>
-        </a>
 
-        <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
-          {nav.map((item) => (
-            <a
-              href={url(item.href)}
-              class="rounded-lg px-3 py-2 text-sm font-medium text-ink-600 hover:bg-ink-100 hover:text-ink-900"
-              >{item.label}</a
-            >
-          ))}
-        </nav>
+    <div class="nr-shell">
+      <Sidebar currentPath={currentPath} />
 
-        <details class="relative md:hidden">
-          <summary
-            class="grid size-9 cursor-pointer list-none place-items-center rounded-lg border border-ink-200 text-ink-700 hover:bg-ink-100 [&::-webkit-details-marker]:hidden"
+      <div class="flex min-w-0 flex-col">
+        <!-- Topbar -->
+        <header
+          class="sticky top-0 z-40 border-b-2"
+          style="border-color: var(--nr-border); background: color-mix(in srgb, var(--nr-bg) 88%, transparent); backdrop-filter: blur(10px);"
+        >
+          <div class="flex h-14 items-center justify-between gap-3 px-4 sm:px-6">
+            <div class="flex items-center gap-2 lg:hidden">
+              <button
+                type="button"
+                id="nr-menu-btn"
+                class="grid size-9 place-items-center rounded-lg border-2"
+                style="border-color: var(--nr-border); background: var(--nr-bg-raised);"
+                aria-label="Open navigation"
+                aria-expanded="false"
+                aria-controls="nr-mobile-nav"
+              >
+                <Icon name="lucide:menu" class="size-5" aria-hidden="true" />
+              </button>
+              <a href={url("/")} class="font-display text-lg font-bold">
+                Nepal<span style="color: var(--nr-crimson);">Ranks</span>
+              </a>
+            </div>
+
+            <p class="hidden font-mono text-[10px] font-bold uppercase tracking-[0.22em] lg:block" style="color: var(--nr-text-soft);">
+              Independent buying guides · Nepal
+            </p>
+
+            <div class="flex items-center gap-2">
+              <a href={url("/articles/")} class="nr-btn nr-btn-outline !hidden !py-1.5 !text-xs sm:!inline-flex">
+                <Icon name="lucide:newspaper" class="size-4" aria-hidden="true" /> Browse guides
+              </a>
+              <button
+                type="button"
+                id="nr-theme-toggle"
+                class="grid size-9 place-items-center rounded-lg border-2"
+                style="border-color: var(--nr-border); background: var(--nr-bg-raised); box-shadow: var(--shadow-pop-sm);"
+                aria-label="Toggle dark mode"
+                title="Toggle dark mode"
+              >
+                <Icon name="lucide:sun" class="size-5 nr-theme-sun" aria-hidden="true" />
+                <Icon name="lucide:moon" class="hidden size-5 nr-theme-moon" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile nav drawer -->
+          <div
+            id="nr-mobile-nav"
+            class="hidden border-t-2 px-4 py-3 lg:hidden"
+            style="border-color: var(--nr-border); background: var(--nr-bg-raised);"
           >
-            <Icon name="lucide:menu" class="size-5" aria-hidden="true" />
-            <span class="sr-only">Open menu</span>
-          </summary>
-          <div class="absolute right-0 z-40 mt-2 w-56 rounded-xl border border-ink-200 bg-white p-2 shadow-card">
-            <nav aria-label="Mobile">
-              <a href={url("/")} class="block rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-100">Home</a>
-              {nav.map((item) => (
-                <a href={url(item.href)} class="block rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-100"
-                  >{item.label}</a
-                >
-              ))}
+            <nav aria-label="Mobile" class="grid grid-cols-2 gap-2 text-sm font-semibold">
+              <a href={url("/")} class="rounded-lg border-2 px-3 py-2" style="border-color: var(--nr-border);">Home</a>
+              <a href={url("/articles/")} class="rounded-lg border-2 px-3 py-2" style="border-color: var(--nr-border);">Articles</a>
+              <a href={url("/about/")} class="rounded-lg border-2 px-3 py-2" style="border-color: var(--nr-border);">About</a>
+              <a href={url("/contact/")} class="rounded-lg border-2 px-3 py-2" style="border-color: var(--nr-border);">Contact</a>
             </nav>
           </div>
-        </details>
-      </div>
-    </header>
+        </header>
 
-    <main id="main" class="flex-1">
-      <slot />
-    </main>
+        <main id="main" class="flex-1">
+          <slot />
+        </main>
 
-    <footer class="mt-16 border-t border-ink-200 bg-ink-950 text-ink-300">
-      <div class="nr-container grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <p class="font-display text-lg font-bold text-white">Nepal<span class="text-brand-300">Ranks</span></p>
-          <p class="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-ink-300">Expert Buyers' Guides</p>
-          <p class="mt-4 text-sm leading-6 text-ink-300">
-            Independent, in-depth buying guides and rankings for products and services in Nepal.
-          </p>
-        </div>
-        <nav aria-label="Explore">
-          <p class="nr-label text-ink-300">Explore</p>
-          <ul class="mt-3 space-y-2 text-sm">
-            <li><a class="hover:text-white" href={url("/articles/")}>All articles</a></li>
-            <li><a class="hover:text-white" href={url("/about/")}>About</a></li>
-            <li><a class="hover:text-white" href={url("/contact/")}>Contact</a></li>
-          </ul>
-        </nav>
-        <nav aria-label="Legal">
-          <p class="nr-label text-ink-300">Legal</p>
-          <ul class="mt-3 space-y-2 text-sm">
-            <li><a class="hover:text-white" href={url("/privacy/")}>Privacy Policy</a></li>
-            <li><a class="hover:text-white" href={url("/terms/")}>Terms of Service</a></li>
-          </ul>
-        </nav>
-        <div>
-          <p class="nr-label text-ink-300">Affiliate disclosure</p>
-          <p class="mt-3 text-sm leading-6 text-ink-300">
-            Some links may be affiliate links. This never affects our rankings or opinions.
-          </p>
-        </div>
+        <footer class="mt-16 border-t-2" style="border-color: var(--nr-border); background: var(--nr-bg-raised);">
+          <div class="grid gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+            <div>
+              <p class="font-display text-lg font-bold">Nepal<span style="color: var(--nr-crimson);">Ranks</span></p>
+              <p class="mt-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em]" style="color: var(--nr-text-soft);">
+                Expert Buyers' Guides
+              </p>
+              <p class="mt-4 max-w-xs text-sm leading-6" style="color: var(--nr-text-muted);">
+                Independent, in-depth buying guides and rankings for products and services in Nepal.
+              </p>
+            </div>
+            <nav aria-label="Explore">
+              <p class="nr-label">Explore</p>
+              <ul class="mt-3 space-y-2 text-sm" style="color: var(--nr-text-muted);">
+                <li><a class="hover:underline" href={url("/articles/")}>All articles</a></li>
+                <li><a class="hover:underline" href={url("/about/")}>About</a></li>
+                <li><a class="hover:underline" href={url("/contact/")}>Contact</a></li>
+              </ul>
+            </nav>
+            <nav aria-label="Legal">
+              <p class="nr-label">Legal</p>
+              <ul class="mt-3 space-y-2 text-sm" style="color: var(--nr-text-muted);">
+                <li><a class="hover:underline" href={url("/privacy/")}>Privacy Policy</a></li>
+                <li><a class="hover:underline" href={url("/terms/")}>Terms of Service</a></li>
+              </ul>
+            </nav>
+            <div>
+              <p class="nr-label">Affiliate disclosure</p>
+              <p class="mt-3 text-sm leading-6" style="color: var(--nr-text-muted);">
+                Some links may be affiliate links. This never affects our rankings or opinions.
+              </p>
+            </div>
+          </div>
+          <div class="border-t-2" style="border-color: var(--nr-border-soft);">
+            <div class="flex flex-col gap-2 px-4 py-5 font-mono text-[11px] uppercase tracking-wide sm:flex-row sm:items-center sm:justify-between sm:px-6" style="color: var(--nr-text-soft);">
+              <p>© {year} NepalRanks</p>
+              <p>Made in Nepal · Est. 2026</p>
+            </div>
+          </div>
+        </footer>
       </div>
-      <div class="border-t border-white/10">
-        <div class="nr-container flex flex-col gap-2 py-5 text-xs text-ink-300 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} NepalRanks. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
+    </div>
+
+    <script>
+      const root = document.documentElement;
+      const btn = document.getElementById("nr-theme-toggle");
+      const sun = btn?.querySelector<HTMLElement>(".nr-theme-sun");
+      const moon = btn?.querySelector<HTMLElement>(".nr-theme-moon");
+
+      const syncIcons = () => {
+        const dark = root.dataset.theme === "dark";
+        sun?.classList.toggle("hidden", dark);
+        moon?.classList.toggle("hidden", !dark);
+      };
+      syncIcons();
+
+      btn?.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem("nr-theme", next);
+        } catch (_) {}
+        syncIcons();
+      });
+
+      const menuBtn = document.getElementById("nr-menu-btn");
+      const mobileNav = document.getElementById("nr-mobile-nav");
+      menuBtn?.addEventListener("click", () => {
+        const open = mobileNav?.classList.toggle("hidden") === false;
+        menuBtn.setAttribute("aria-expanded", String(open));
+      });
+    </script>
   </body>
 </html>

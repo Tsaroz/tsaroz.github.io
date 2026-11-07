@@ -1,11 +1,16 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import ArticleCard from "@components/ArticleCard.astro";
 import { Icon } from "astro-icon/components";
-import { getArticles, formatDate, slugOf } from "@lib/articles";
+import { getArticles } from "@lib/articles";
 import { url } from "@utils/url";
 
 const articles = await getArticles();
-const [lead, ...rest] = articles;
+const featured = articles.filter((a) => a.data.featured);
+const lead = featured[0] ?? articles[0];
+const rest = articles.filter((a) => a !== lead);
+const comparisons = articles.filter((a) => a.data.articleType !== "info" && a.data.products.length > 0).length;
+const guides = articles.length - comparisons;
 const site = Astro.site ?? new URL("https://nepalranks.com");
 
 const jsonLd = {
@@ -24,87 +29,86 @@ const jsonLd = {
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
-  <section class="border-b border-ink-200 bg-gradient-to-b from-brand-50/60 to-white">
-    <div class="nr-container py-16 sm:py-20">
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b-2" style="border-color: var(--nr-border); background: var(--nr-bg-sunken);">
+    <div class="nr-stripes absolute inset-x-0 top-0 h-2 opacity-30" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
       <div class="max-w-3xl">
-        <span class="nr-badge bg-brand-100 text-brand-700">Independent · Research-backed</span>
-        <h1 class="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl">
-          Buy smarter in Nepal.
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="nr-badge" style="background: var(--nr-crimson); color: #fff;">
+            <Icon name="lucide:sparkles" class="size-3" aria-hidden="true" /> Independent · Research-backed
+          </span>
+          <span class="nr-badge" style="background: var(--nr-bg-raised); color: var(--nr-text-muted);">
+            Est. 2026
+          </span>
+        </div>
+        <h1 class="mt-5 font-display text-4xl font-bold leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl">
+          Buy smarter in
+          <span class="relative inline-block">
+            <span class="relative z-10">Nepal.</span>
+            <span class="absolute inset-x-0 bottom-1 z-0 h-3 sm:h-4" style="background: var(--nr-gold);"></span>
+          </span>
         </h1>
-        <p class="mt-5 max-w-2xl text-lg leading-8 text-ink-600">
+        <p class="mt-5 max-w-2xl text-lg leading-8" style="color: var(--nr-text-muted);">
           In-depth buying guides, honest comparisons and rankings for the products and services
           that matter in Nepal — researched, tested and written by people who live here.
         </p>
-        <p class="mt-7 flex flex-wrap gap-3">
-          <a href={url("/articles/")} class="nr-btn-primary">Browse all guides</a>
-          <a href={url("/about/")} class="nr-btn-outline">How we rank</a>
-        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={url("/articles/")} class="nr-btn nr-btn-primary">
+            Browse all guides <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
+          </a>
+          <a href={url("/about/")} class="nr-btn nr-btn-outline">How we rank</a>
+        </div>
+
+        <dl class="mt-10 flex flex-wrap gap-3">
+          <div class="nr-panel px-4 py-3">
+            <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Comparisons</dt>
+            <dd class="font-display text-2xl font-bold">{comparisons}</dd>
+          </div>
+          <div class="nr-panel px-4 py-3">
+            <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Explainers</dt>
+            <dd class="font-display text-2xl font-bold">{guides}</dd>
+          </div>
+          <div class="nr-panel px-4 py-3">
+            <dt class="font-mono text-[10px] font-bold uppercase tracking-[0.16em]" style="color: var(--nr-text-soft);">Products ranked</dt>
+            <dd class="font-display text-2xl font-bold">
+              {articles.reduce((n, a) => n + a.data.products.length, 0)}
+            </dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
 
   {lead && (
-    <section class="nr-container pt-12">
-      <a
-        href={url(`/articles/${slugOf(lead)}/`)}
-        class="nr-card group grid overflow-hidden transition-shadow hover:shadow-card-hover md:grid-cols-2"
-      >
-        <div class="relative aspect-[16/10] bg-ink-100 md:aspect-auto">
-          {lead.data.coverImage ? (
-            <img src={lead.data.coverImage} alt={lead.data.coverImageAlt ?? lead.data.title} class="h-full w-full object-cover" loading="eager" />
-          ) : (
-            <div class="grid h-full place-items-center text-ink-400"><Icon name="lucide:image" class="size-12" /></div>
-          )}
+    <section class="mx-auto max-w-7xl px-4 pt-12 sm:px-6">
+      <div class="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <p class="nr-label">Editor's pick</p>
+          <h2 class="mt-1 font-display text-2xl font-bold sm:text-3xl">Start here</h2>
         </div>
-        <div class="flex flex-col justify-center p-6 sm:p-10">
-          <span class="nr-badge bg-brand-50 text-brand-700">{lead.data.category}</span>
-          <h2 class="mt-3 font-display text-2xl font-bold leading-tight tracking-tight text-ink-900 group-hover:text-brand-700 sm:text-3xl">
-            {lead.data.title}
-          </h2>
-          <p class="mt-3 text-sm leading-6 text-ink-600">{lead.data.description}</p>
-          <p class="mt-5 text-xs font-medium uppercase tracking-wide text-ink-500">
-            {formatDate(lead.data.updatedAt ?? lead.data.publishedAt)}
-          </p>
-        </div>
-      </a>
+      </div>
+      <ArticleCard article={lead} featured />
     </section>
   )}
 
   {rest.length > 0 && (
-    <section class="nr-container pt-12" aria-labelledby="latest-h">
-      <div class="mb-6 flex items-end justify-between gap-4">
-        <h2 id="latest-h" class="font-display text-2xl font-bold tracking-tight text-ink-900">Latest guides</h2>
-        <a href={url("/articles/")} class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:underline">
-          All articles <Icon name="lucide:arrow-right" class="size-4" />
+    <section class="mx-auto max-w-7xl px-4 pt-14 sm:px-6" aria-labelledby="latest-h">
+      <div class="mb-6 flex items-end justify-between gap-4 border-b-2 pb-3" style="border-color: var(--nr-border);">
+        <h2 id="latest-h" class="font-display text-2xl font-bold sm:text-3xl">Latest guides</h2>
+        <a href={url("/articles/")} class="inline-flex items-center gap-1 text-sm font-bold hover:underline" style="color: var(--nr-accent);">
+          All articles <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
         </a>
       </div>
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {rest.map((a) => (
-          <a href={url(`/articles/${slugOf(a)}/`)} class="nr-card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">
-            <div class="aspect-[16/9] bg-ink-100">
-              {a.data.coverImage ? (
-                <img src={a.data.coverImage} alt={a.data.coverImageAlt ?? a.data.title} class="h-full w-full object-cover" loading="lazy" />
-              ) : (
-                <div class="grid h-full place-items-center text-ink-400"><Icon name="lucide:image" class="size-8" /></div>
-              )}
-            </div>
-            <div class="flex flex-1 flex-col p-5">
-              <span class="nr-label text-brand-700">{a.data.category}</span>
-              <h3 class="mt-2 font-display text-lg font-bold leading-snug text-ink-900 group-hover:text-brand-700">{a.data.title}</h3>
-              <p class="mt-2 line-clamp-3 text-sm leading-6 text-ink-600">{a.data.description}</p>
-              <p class="mt-auto pt-4 text-xs font-medium uppercase tracking-wide text-ink-500">
-                {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
-              </p>
-            </div>
-          </a>
-        ))}
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((a) => <ArticleCard article={a} />)}
       </div>
     </section>
   )}
 
   {articles.length === 0 && (
-    <section class="nr-container py-24 text-center">
-      <p class="text-ink-600">No articles yet. Add one from the admin panel.</p>
+    <section class="mx-auto max-w-7xl px-4 py-24 text-center sm:px-6">
+      <p style="color: var(--nr-text-muted);">No articles yet. Add one from the admin panel.</p>
     </section>
   )}
 </BaseLayout>
